@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Garuda — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --gold: #2bff00;
+      --gold-dim: #1aaa00;
+      --gold-bright: #6fff4d;
+      --ink: #020a02;
+      --ash: #060e06;
+      --smoke: #0d160d;
+      --mist: #111f11;
+      --white: #edfaed;
+      --white-dim: rgba(237, 250, 237, 0.55);
+      --white-faint: rgba(43, 255, 0, 0.08);
+    }
+ 
+    html, body {
+      height: 100%;
+      background: var(--ink);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+ 
+    /* ── BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(43,255,0,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 80% 90%, rgba(43,255,0,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+ 
+    /* Subtle grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+ 
+    /* ── GRID LINES ── */
+    .grid-lines {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .grid-lines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(43,255,0,0.04) 0px, rgba(43,255,0,0.04) 1px, transparent 1px, transparent 120px),
+        repeating-linear-gradient(0deg,  rgba(43,255,0,0.04) 0px, rgba(43,255,0,0.04) 1px, transparent 1px, transparent 120px);
+    }
+ 
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(24px, 5vw, 56px) clamp(24px, 8vw, 96px);
+      gap: 0;
+    }
+ 
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(43,255,0,0.2);
+      animation: fadeDown 1s ease both;
+    }
+ 
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+ 
+    .logo-wrap img {
+      height: 56px;
+      width: auto;
+      filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(43,255,0,0.5));
+    }
+ 
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-text .brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .logo-text .sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(9px, 1.2vw, 11px);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+ 
+    .header-right {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      color: var(--white-dim);
+      text-transform: uppercase;
+      text-align: right;
+    }
+ 
+    /* ── MAIN ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(48px, 10vh, 96px) 0;
+      gap: 0;
+    }
+ 
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(11px, 1.2vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      animation: fadeUp 1s 0.3s ease both;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+ 
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 14vw, 160px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      animation: fadeUp 1s 0.5s ease both;
+    }
+    h1 span {
+      color: var(--gold);
+      display: block;
+    }
+ 
+    .tagline {
+      margin-top: clamp(20px, 3vh, 32px);
+      font-size: clamp(14px, 1.8vw, 17px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white-dim);
+      letter-spacing: 0.05em;
+      max-width: 480px;
+      line-height: 1.6;
+      animation: fadeUp 1s 0.7s ease both;
+    }
+ 
+    /* ── DIVIDER ── */
+    .divider {
+      width: clamp(60px, 10vw, 120px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: clamp(28px, 5vh, 48px) 0;
+      animation: fadeUp 1s 0.8s ease both;
+    }
+ 
+    /* ── COUNTDOWN ── */
+    .countdown-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+      animation: fadeUp 1s 0.9s ease both;
+    }
+ 
+    .countdown {
+      display: flex;
+      gap: clamp(16px, 4vw, 40px);
+      align-items: flex-end;
+      animation: fadeUp 1s 1s ease both;
+    }
+ 
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+ 
+    .unit-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 9vw, 96px);
+      line-height: 1;
+      color: var(--white);
+      position: relative;
+      min-width: clamp(56px, 10vw, 110px);
+      text-align: center;
+      background: var(--smoke);
+      border: 1px solid rgba(43,255,0,0.15);
+      padding: 8px 12px 4px;
+      transition: color 0.15s;
+    }
+    .unit-value::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .unit-value.tick::after {
+      transform: scaleX(1);
+      animation: bar-flash 0.4s ease forwards;
+    }
+ 
+    .unit-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(9px, 1.1vw, 11px);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+ 
+    .sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 7vw, 80px);
+      color: var(--gold-dim);
+      line-height: 1;
+      padding-bottom: 16px;
+      opacity: 0.6;
+    }
+ 
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(43,255,0,0.12);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      animation: fadeUp 1s 1.2s ease both;
+    }
+ 
+    .footer-left {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(43,255,0,0.5);
+    }
+    .footer-right {
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(245,240,232,0.3);
+      letter-spacing: 0.05em;
+    }
+ 
+    /* ── DECORATIVE EAGLE LINE ── */
+    .deco-line {
+      position: fixed;
+      top: 0;
+      right: clamp(40px, 8vw, 120px);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent 0%, rgba(43,255,0,0.2) 20%, rgba(43,255,0,0.2) 80%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+ 
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bar-flash {
+      0%   { transform: scaleX(1); opacity: 1; }
+      100% { transform: scaleX(0); opacity: 0; }
+    }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 540px) {
+      .header-right { display: none; }
+      .sep { display: none; }
+      .countdown { gap: 12px; }
+      .unit-value { min-width: 56px; padding: 6px 8px 2px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-lines"></div>
+  <div class="deco-line"></div>
+ 
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="logo-text">
+       <div class="logo-wrap">
+        <img src="assets/GarudaLogo1.png" alt="Garuda Logo" onerror="this.style.display='none'">
+      </div>
+        <span class="brand">Project Garuda</span> 
+        <span class="sub">RV College of Engineering</span>
+        
+      </div>
+      
+    </header>
+ 
+    <!-- MAIN -->
+    <main>
+      <div class="eyebrow">India's First Super Mileage Team</div>
+      <h1>Work in<span>Progress.</span></h1>
+      
+      <p class="tagline">We're building. Check back soon.</p>
+ 
+      <div class="divider"></div>
+ 
+      <div class="countdown-label">Back in</div>
+      <div class="countdown">
+        <div class="unit">
+          <div class="unit-value" id="cd-days">00</div>
+          <div class="unit-name">Days</div>
+        </div>
+        <div class="sep">:</div>
+        <div class="unit">
+          <div class="unit-value" id="cd-hours">00</div>
+          <div class="unit-name">Hours</div>
+        </div>
+        <div class="sep">:</div>
+        <div class="unit">
+          <div class="unit-value" id="cd-mins">00</div>
+          <div class="unit-name">Minutes</div>
+        </div>
+        <div class="sep">:</div>
+        <div class="unit">
+          <div class="unit-value" id="cd-secs">00</div>
+          <div class="unit-name">Seconds</div>
+        </div>
+      </div>
+    </main>
+ 
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-left">RV College of Engineering &nbsp;·&nbsp; Bengaluru, India</div>
+      <div class="footer-right">© 2025 Project Garuda. All rights reserved.</div>
+    </footer>
+  </div>
+ 
+  <script>
+    // Fixed launch date — identical for every user, survives reloads
+    // To change: update this one date string (YYYY-MM-DDTHH:MM:SS)
+    const target = new Date('2025-04-15T23:59:59');
+ 
+    const els = {
+      days:  document.getElementById('cd-days'),
+      hours: document.getElementById('cd-hours'),
+      mins:  document.getElementById('cd-mins'),
+      secs:  document.getElementById('cd-secs'),
+    };
+ 
+    function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+ 
+    function flash(el) {
+      el.classList.remove('tick');
+      void el.offsetWidth; // reflow
+      el.classList.add('tick');
+    }
+ 
+    let prevSecs = '';
+ 
+    function tick() {
+      const now  = new Date();
+      const diff = Math.max(0, target - now);
+ 
+      const totalSecs = Math.floor(diff / 1000);
+      const s = totalSecs % 60;
+      const m = Math.floor(totalSecs / 60) % 60;
+      const h = Math.floor(totalSecs / 3600) % 24;
+      const d = Math.floor(totalSecs / 86400);
+ 
+      const sStr = pad(s);
+      if (sStr !== prevSecs) {
+        flash(els.secs);
+        prevSecs = sStr;
+      }
+ 
+      els.days.textContent  = pad(d);
+      els.hours.textContent = pad(h);
+      els.mins.textContent  = pad(m);
+      els.secs.textContent  = sStr;
+ 
+      if (diff <= 0) {
+        clearInterval(timer);
+        document.querySelector('.countdown-label').textContent = 'We are live!';
+      }
+    }
+ 
+    let timer;
+    tick();
+    timer = setInterval(tick, 1000);
+  </script>
+</body>
+</html>
