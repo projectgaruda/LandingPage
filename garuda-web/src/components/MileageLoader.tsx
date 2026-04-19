@@ -81,7 +81,7 @@ export default function MileageLoader() {
           {/* Odometer digits */}
           <div className={styles.odometer}>
             <span className={styles.odoDigits}>{String(count).padStart(3, "0")}</span>
-            <span className={styles.odoUnit}>KM/L</span>
+            <span className={styles.odoUnit}>KM/kWh</span>
           </div>
         </div>
 
