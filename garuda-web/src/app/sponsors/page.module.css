@@ -1,0 +1,110 @@
+.page { min-height: 100vh; }
+
+.pageHeader {
+  position: relative;
+  padding: 10rem 0 5rem;
+  overflow: hidden;
+}
+
+.headerBg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(0,255,65,0.06) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-surface) 0%, transparent 100%);
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: var(--text-primary);
+  margin: 0.5rem 0 1rem;
+}
+
+.accent { color: var(--accent-green); }
+
+.pageDesc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  line-height: 1.7;
+}
+
+.tierSection {
+  margin-bottom: 4rem;
+}
+
+.tierTitle {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.sponsorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.sponsorCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.sponsorCard:hover {
+  border-color: var(--accent-green-dim);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-5px);
+}
+
+.sponsorPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sponsorName {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.ctaCard {
+  margin-top: 6rem;
+  position: relative;
+  padding: 4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  overflow: hidden;
+}
+
+.ctaGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ctaDesc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 60ch;
+  margin: 0 auto 2rem;
+}

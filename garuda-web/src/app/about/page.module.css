@@ -1,0 +1,178 @@
+.page { min-height: 100vh; }
+
+.pageHeader {
+  position: relative;
+  padding: 10rem 0 5rem;
+  overflow: hidden;
+}
+
+.headerBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, transparent 100%);
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: var(--text-primary);
+  margin: 0.5rem 0 1rem;
+}
+
+.accent { color: var(--accent-green); }
+
+.pageDesc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  line-height: 1.7;
+}
+
+/* Mission */
+.missionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.missionLeft {}
+
+.missionRight {}
+
+.missionImage {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.aboutImg {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.missionImage:hover .aboutImg { transform: scale(1.04); }
+
+/* Values */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.valueCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.valueIcon { font-size: 2rem; }
+
+.valueTitle {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.valueDesc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 100%;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border-bright), transparent);
+  transform: translateX(-50%);
+}
+
+.timelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  position: relative;
+  width: 45%;
+}
+
+.timelineLeft { margin-left: 0; justify-content: flex-end; }
+.timelineRight { margin-left: 55%; }
+
+.timelineCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.timelineCard:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-green);
+}
+
+.timelineYear {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--accent-green);
+  margin-bottom: 0.5rem;
+}
+
+.timelineTitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.timelineDesc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.timelineDot {
+  position: absolute;
+  right: -3.4rem;
+  top: 1.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  border: 2px solid var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.timelineRight .timelineDot {
+  right: auto;
+  left: -3.4rem;
+}
+
+@media (max-width: 768px) {
+  .missionGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .valuesGrid { grid-template-columns: 1fr; }
+  .timelineLine { left: 1rem; }
+  .timelineItem { width: 100%; margin-left: 3rem !important; justify-content: flex-start; }
+  .timelineDot { right: auto !important; left: -3rem !important; }
+}
