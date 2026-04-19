@@ -32,8 +32,7 @@ export default function Navbar() {
       <div className={styles.inner}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <img src="/GarudaLogo1.png" alt="GARUDA Logo" className={styles.logoImg} />
-          <span className={styles.logoText}>GARUDA</span>
+          <img src="/GarudaLogo1.png" alt="PROJECT GARUDA" className={styles.logoImg} />
         </Link>
 
         {/* Desktop Links */}

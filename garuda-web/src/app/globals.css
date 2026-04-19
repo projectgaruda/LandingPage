@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-
+@import url('https://api.fontshare.com/v2/css?f[]=neue-machina@500,700,800&f[]=supreme@300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 /* ==============================
    DESIGN TOKENS
 ============================== */
@@ -19,8 +19,9 @@
   --border-bright: rgba(16, 185, 129, 0.15);
   --shadow-green: 0 4px 20px rgba(0, 0, 0, 0.4);
   --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.6);
-  --font-heading: 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+--font-heading: 'Neue Machina', 'Inter', sans-serif;
+--font-body: 'Supreme', 'Inter', sans-serif;
+--font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;

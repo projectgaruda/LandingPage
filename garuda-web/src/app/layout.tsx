@@ -5,6 +5,7 @@ import MileageLoader from "@/components/MileageLoader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://garuda-club.vercel.app"),
   title: {
     default: "GARUDA | Super Mileage Club",
     template: "%s | GARUDA",

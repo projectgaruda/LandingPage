@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stage, useProgress, Html } from "@react-three/drei";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import { useLoader } from "@react-three/fiber";
-import * as THREE from "three";
 
 function Loader() {
   const { progress } = useProgress();
