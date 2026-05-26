@@ -8,20 +8,15 @@ export const metadata: Metadata = {
 
 const sponsorTiers = [
   {
-    tier: "Platinum",
-    sponsors: ["RVCE"],
-    color: "#e5e4e2"
-  },
-  {
     tier: "Gold",
-    sponsors: ["Ansys", "SolidWorks"],
-    color: "#ffd700"
+    sponsors: [{ name: "RVCE", placeholder: false }],
+    color: "#ffd700",
   },
   {
     tier: "Silver",
-    sponsors: ["Bosch", "JK Tyre", "TotalEnergies"],
-    color: "#c0c0c0"
-  }
+    sponsors: [{ name: "Coming soon", placeholder: true }],
+    color: "#c0c0c0",
+  },
 ];
 
 export default function SponsorsPage() {
@@ -50,9 +45,16 @@ export default function SponsorsPage() {
               </h2>
               <div className={styles.sponsorGrid}>
                 {tier.sponsors.map((sponsor, sIdx) => (
-                  <div key={sIdx} className={`card ${styles.sponsorCard}`}>
+                  <div
+                    key={sIdx}
+                    className={`card ${styles.sponsorCard} ${sponsor.placeholder ? styles.sponsorCardPlaceholder : ""}`}
+                  >
                     <div className={styles.sponsorPlaceholder}>
-                      <span className={styles.sponsorName}>{sponsor}</span>
+                      <span
+                        className={`${styles.sponsorName} ${sponsor.placeholder ? styles.sponsorNameMuted : ""}`}
+                      >
+                        {sponsor.name}
+                      </span>
                     </div>
                   </div>
                 ))}

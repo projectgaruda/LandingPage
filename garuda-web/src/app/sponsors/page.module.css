@@ -78,6 +78,25 @@
   letter-spacing: 0.05em;
 }
 
+.sponsorCardPlaceholder {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.sponsorCardPlaceholder:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+.sponsorNameMuted {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 .ctaCard {
   margin-top: 6rem;
   position: relative;
