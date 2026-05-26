@@ -25,17 +25,17 @@ const stats = [
 
 const highlights = [
   {
-    icon: "⚡",
+    icon: "efficiency",
     title: "Ultra Efficiency",
     desc: "Engineering vehicles that push the boundaries of fuel efficiency beyond 200 km/L equivalents.",
   },
   {
-    icon: "🌍",
+    icon: "global",
     title: "Global Competition",
     desc: "Representing India at Shell Eco-marathon Asia and other prestigious international events.",
   },
   {
-    icon: "🔬",
+    icon: "research",
     title: "R&D Focus",
     desc: "Cutting-edge research in aerodynamics, lightweight materials, and powertrain optimization.",
   },
@@ -127,15 +127,32 @@ export default function HeroSection() {
             </div>
 
             <div className={styles.aboutRight}>
-              {highlights.map((h) => (
-                <div key={h.title} className={`card ${styles.highlightCard}`}>
-                  <span className={styles.highlightIcon}>{h.icon}</span>
-                  <div>
-                    <h3 className={styles.highlightTitle}>{h.title}</h3>
-                    <p className={styles.highlightDesc}>{h.desc}</p>
+              {highlights.map((h) => {
+                let svgIcon;
+                if (h.icon === "efficiency") {
+                  svgIcon = (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  );
+                } else if (h.icon === "global") {
+                  svgIcon = (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  );
+                } else if (h.icon === "research") {
+                  svgIcon = (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-atom"><circle cx="12" cy="12" r="1"/><path d="M16.83 17a6 6 0 1 0-9.66 0"/><path d="M12 2a10 10 0 1 0 10 10"/></svg>
+                  );
+                }
+
+                return (
+                  <div key={h.title} className={`card ${styles.highlightCard}`}>
+                    <span className={styles.highlightIcon}>{svgIcon}</span>
+                    <div>
+                      <h3 className={styles.highlightTitle}>{h.title}</h3>
+                      <p className={styles.highlightDesc}>{h.desc}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

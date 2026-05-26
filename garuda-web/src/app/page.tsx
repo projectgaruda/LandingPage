@@ -19,24 +19,24 @@ export default function HomePage() {
         <div className="container">
           <div className="section-label">Latest Build</div>
           <h2 className="section-title">
-            GARUDA <span>FALCON 2023</span>
+            GARUDA <span>2019</span>
           </h2>
 
           <div className={styles.featuredGrid}>
             <div className={styles.featuredImg}>
-              <img src="/images/1.jpg" alt="GARUDA FALCON 2023" className={styles.buildImg} />
+              <img src="/images/side_view_2019.jpg" alt="GARUDA 2019" className={styles.buildImg} />
               <div className={styles.imgOverlay} />
             </div>
 
             <div className={styles.featuredInfo}>
               <div className={styles.specGrid}>
                 {[
-                  { label: "Top Speed", val: "235 mph equivalent" },
-                  { label: "Vehicle Mass", val: "≈ 45 kg" },
-                  { label: "Engine Type", val: "Internal Combustion" },
+                  { label: "Powertrain", val: "Fully Electric" },
+                  { label: "Vehicle Mass", val: "≈ 120 kg" },
+                  { label: "Chassis", val: "Al + Carbon Fiber" },
                   { label: "Category", val: "UrbanConcept" },
                   { label: "Event", val: "Shell Eco-Marathon Asia" },
-                  { label: "Year", val: "2023" },
+                  { label: "Year", val: "2019" },
                 ].map((spec) => (
                   <div key={spec.label} className={styles.spec}>
                     <span className={styles.specLabel}>{spec.label}</span>

@@ -84,8 +84,14 @@ export default function Footer() {
             </ul>
             <div className={styles.divider} />
             <h4 className={styles.colTitle}>Get In Touch</h4>
-            <p className={styles.contactLine}>📧 garuda@rvce.edu.in</p>
-            <p className={styles.contactLine}>📍 RVCE, Bengaluru, Karnataka</p>
+            <p className={styles.contactLine}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              garuda@rvce.edu.in
+            </p>
+            <p className={styles.contactLine}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-map-pin" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              RVCE, Bengaluru, Karnataka
+            </p>
             <Link href="/contact" className="btn-outline" style={{ marginTop: "1rem", fontSize: "0.65rem" }}>
               Contact Us
             </Link>

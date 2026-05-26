@@ -14,8 +14,6 @@ const images = [
   { src: "/images/gallery/Young-achivers-1 (3).png", alt: "Team with the Young Achiever Trophy", category: "Awards" },
   { src: "/images/gallery/4.jpg", alt: "Testing Phase - Track Run", category: "Testing" },
   { src: "/images/gallery/Young-achivers-1 (2).png", alt: "Award Presentation Ceremony", category: "Awards" },
-  { src: "/images/gallery/5.jpg", alt: "Prototype Interior Layout", category: "Builds" },
-  { src: "/images/gallery/6. head light.jpeg", alt: "Custom Headlight Design", category: "Technical" },
   { src: "/images/gallery/6.jpg", alt: "Engine & Drivetrain Integration", category: "Technical" },
   { src: "/images/gallery/7.jpg", alt: "Team working on Carbon Fiber Shell", category: "Fabrication" },
   { src: "/images/gallery/8.jpg", alt: "Race Day Prep (SHELL)", category: "Events" },
