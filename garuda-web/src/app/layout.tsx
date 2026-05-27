@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import MileageLoader from "@/components/MileageLoader";
 import Footer from "@/components/Footer";
+import "katex/dist/katex.min.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://garuda-club.vercel.app"),
