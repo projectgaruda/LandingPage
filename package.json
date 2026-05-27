@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2"
+  },
+  "devDependencies": {
+    "@types/react-katex": "^3.0.4"
   }
 }
