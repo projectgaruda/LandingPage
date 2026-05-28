@@ -6,7 +6,9 @@ import { createClient } from "@/lib/supabase/client";
 import { normalizeLatex, hasLatex } from "@/lib/latex";
 import { compressImage } from "@/lib/imageCompression";
 import PostBody from "@/components/PostBody";
-import styles from "./page.module.css";
+import styles from "../../new/page.module.css";
+
+const ADMIN_EMAIL = "projectgarudarv@gmail.com";
 
 const CATEGORIES = [
   "General", "Electrical", "Mechanical", "Aerodynamics",
@@ -63,7 +65,7 @@ function wrapInSpan(ta: HTMLTextAreaElement, styleAttr: string, cb: (v: string) 
 
 type EditorMode = "write" | "raw";
 
-export default function NewPostPage() {
+export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -76,10 +78,13 @@ export default function NewPostPage() {
   const [uploadMsg, setUploadMsg] = useState<string | null>(null);
   const [error,     setError]     = useState("");
   const [editorMode, setEditorMode] = useState<EditorMode>("write");
+  const [postId,     setPostId]    = useState<string | null>(null);
+  const [notFound,   setNotFound]  = useState(false);
 
-  const [bannerFile,    setBannerFile]    = useState<File | null>(null);
-  const [bannerPreview, setBannerPreview] = useState<string | null>(null);
-  const [bannerHover,   setBannerHover]   = useState(false);
+  const [bannerFile,         setBannerFile]         = useState<File | null>(null);
+  const [bannerPreview,      setBannerPreview]      = useState<string | null>(null);
+  const [bannerHover,        setBannerHover]        = useState(false);
+  const [existingBannerUrl,  setExistingBannerUrl]  = useState<string | null>(null);
 
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -128,15 +133,25 @@ export default function NewPostPage() {
 
   useEffect(() => {
     (async () => {
+      const { id } = await params;
+      setPostId(id);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { router.push("/login"); return; }
-      const { data: profile } = await supabase
-        .from("profiles").select("profile_completed, blog_banner_url").eq("id", user.id).single();
-      if (!profile?.profile_completed) { router.push("/profile/setup"); return; }
-      if (profile.blog_banner_url) setBannerPreview(profile.blog_banner_url);
+      const { data: post } = await supabase
+        .from("posts").select("id, title, body, image_url, category, author_id").eq("id", id).single();
+      if (!post) { setNotFound(true); return; }
+      const isAdmin = user.email === ADMIN_EMAIL;
+      if (post.author_id !== user.id && !isAdmin) { router.push(`/blog/${id}`); return; }
       setUserId(user.id);
+      setTitle(post.title ?? "");
+      setCategory(post.category ?? "General");
+      if (post.image_url) { setExistingBannerUrl(post.image_url); setBannerPreview(post.image_url); }
+      // Initialise body + history
+      const b = post.body ?? "";
+      setBody(b);
+      histRef.current = { stack: [b], pos: 0 };
     })();
-  }, [router, supabase]);
+  }, [params, router, supabase]);
 
   useEffect(() => {
     if (!activeDropdown) return;
@@ -335,10 +350,10 @@ export default function NewPostPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userId) return;
+    if (!userId || !postId) return;
     setLoading(true); setError("");
     try {
-      let imageUrl: string | null = null;
+      let imageUrl: string | null = existingBannerUrl;
       if (bannerFile) {
         setUploading(true); setUploadMsg("Uploading banner...");
         try {
@@ -347,15 +362,14 @@ export default function NewPostPage() {
           if (upErr) throw upErr;
           imageUrl = supabase.storage.from("post-images").getPublicUrl(path).data.publicUrl;
         } finally { setUploading(false); setUploadMsg(null); }
-      } else if (bannerPreview?.startsWith("http")) {
-        imageUrl = bannerPreview;
+      } else if (!bannerPreview) {
+        imageUrl = null;
       }
-      const { error: ie } = await supabase.from("posts").insert({
-        author_id: userId, title: title.trim(),
-        body: normalizeLatex(body), image_url: imageUrl, category,
-      });
-      if (ie) throw ie;
-      router.push("/blog"); router.refresh();
+      const { error: ue } = await supabase.from("posts").update({
+        title: title.trim(), body: normalizeLatex(body), image_url: imageUrl, category,
+      }).eq("id", postId);
+      if (ue) throw ue;
+      router.push(`/blog/${postId}`); router.refresh();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
@@ -364,6 +378,8 @@ export default function NewPostPage() {
 
   const normalizedBody = normalizeLatex(body);
   const mathDetected   = hasLatex(normalizedBody) && normalizedBody !== body;
+
+  if (notFound) return <div className={styles.notFound}>Post not found.</div>;
 
   return (
     <div className={styles.page}>
@@ -487,7 +503,7 @@ export default function NewPostPage() {
               {bannerHover && (
                 <div className={styles.docBannerOverlay}>
                   <button type="button" className={styles.bannerBtn} onClick={() => bannerInputRef.current?.click()}>Change</button>
-                  <button type="button" className={styles.bannerBtnRed} onClick={() => { setBannerPreview(null); setBannerFile(null); }}>Remove</button>
+                  <button type="button" className={styles.bannerBtnRed} onClick={() => { setBannerPreview(null); setBannerFile(null); setExistingBannerUrl(null); }}>Remove</button>
                 </div>
               )}
             </div>
@@ -528,8 +544,11 @@ export default function NewPostPage() {
 
           {/* Actions */}
           <div className={styles.actions}>
+            <button type="button" className="btn-outline" onClick={() => postId && router.push(`/blog/${postId}`)}>
+              Cancel
+            </button>
             <button type="submit" className="btn-primary" disabled={loading || uploading || !title.trim() || !body.trim()}>
-              {loading ? "Publishing..." : "Publish"}
+              {loading ? "Saving..." : "Save Changes"}
             </button>
           </div>
 

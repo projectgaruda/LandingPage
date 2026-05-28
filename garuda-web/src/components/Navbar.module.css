@@ -37,6 +37,11 @@
   height: 32px;
   width: auto;
   object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+:global([data-theme="light"]) .logoImg {
+  filter: none;
 }
 
 

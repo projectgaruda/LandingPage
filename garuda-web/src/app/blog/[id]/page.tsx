@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { deletePost } from "@/app/actions/blog";
 import PostBody from "@/components/PostBody";
+import ClickableCover from "@/components/ClickableCover";
 import styles from "./page.module.css";
 
 const ADMIN_EMAIL = "projectgarudarv@gmail.com";
@@ -47,6 +48,7 @@ export default async function PostPage({
   } | null;
 
   const canDelete = user.email === ADMIN_EMAIL || author?.id === user.id;
+  const canEdit   = user.email === ADMIN_EMAIL || author?.id === user.id;
   const coverImg = post.image_url ?? author?.blog_banner_url ?? null;
 
   const dateStr = new Date(post.created_at).toLocaleDateString("en-IN", {
@@ -60,17 +62,22 @@ export default async function PostPage({
       <div className={styles.container}>
         <div className={styles.topBar}>
           <Link href="/blog" className={styles.back}>← Back to Blog</Link>
-          {canDelete && (
-            <form action={deletePost.bind(null, post.id)}>
-              <button type="submit" className={styles.deleteBtn}>Delete post</button>
-            </form>
-          )}
+          <div className={styles.topBarActions}>
+            {canEdit && (
+              <Link href={`/blog/${post.id}/edit`} className={styles.editBtn}>Edit</Link>
+            )}
+            {canDelete && (
+              <form action={deletePost.bind(null, post.id)}>
+                <button type="submit" className={styles.deleteBtn}>Delete</button>
+              </form>
+            )}
+          </div>
         </div>
 
         <article className={styles.article}>
           {coverImg && (
             <div className={styles.coverWrap}>
-              <img src={coverImg} alt="" className={styles.cover} />
+              <ClickableCover src={coverImg} className={styles.cover} />
             </div>
           )}
 
@@ -86,11 +93,7 @@ export default async function PostPage({
               )}
               <div className={styles.metaText}>
                 <span className={styles.authorName}>{author?.full_name ?? "Anonymous"}</span>
-                <span className={styles.metaSub}>
-                  {author?.usn && <>{author.usn} · </>}
-                  {author?.branch && <>{author.branch} · </>}
-                  {dateStr}
-                </span>
+                <span className={styles.metaSub}>{dateStr}</span>
               </div>
             </div>
           </div>

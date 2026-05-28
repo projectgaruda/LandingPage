@@ -3,9 +3,13 @@
   gap: 0.35rem;
   flex-wrap: wrap;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+
+.tabs::-webkit-scrollbar { display: none; }
 
 .tab {
   font-family: var(--font-heading);

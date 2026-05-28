@@ -23,6 +23,9 @@ export function normalizeLatex(text: string): string {
     const trimmed = inner.trim();
     // Skip if it looks like a URL path: only ASCII letters, common path chars
     if (/^[a-zA-Z0-9_-]+$/.test(trimmed)) return match;
+    // Skip if it looks like a domain name or filename (contains a dot)
+    // This prevents corrupting Supabase URLs like /xxx.supabase.co/ or /file.jpg/
+    if (/\./.test(trimmed)) return match;
     // Skip if too short and just regular letters
     if (trimmed.length <= 2 && /^[a-zA-Z]+$/.test(trimmed)) return match;
     // Looks like math — wrap it

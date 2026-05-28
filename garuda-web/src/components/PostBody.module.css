@@ -1,7 +1,7 @@
 /* Rendered post body — markdown + KaTeX */
 .body {
-  color: var(--text-secondary);
-  line-height: 1.75;
+  color: var(--text-primary);
+  line-height: 1.8;
   font-size: 1rem;
   max-width: none;
 }
@@ -20,18 +20,18 @@
 }
 
 .body h1 { font-size: 1.8rem; }
-.body h2 { font-size: 1.4rem; }
+.body h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
 .body h3 { font-size: 1.15rem; }
 .body h4 { font-size: 1rem; font-weight: 700; }
 .body h5, .body h6 { font-size: 0.9rem; font-weight: 700; }
 
 .body p {
-  margin: 0.9rem 0;
+  margin: 1rem 0;
   max-width: none;
 }
 
 .body strong { color: var(--text-primary); font-weight: 700; }
-.body em { color: var(--text-secondary); font-style: italic; }
+.body em { color: inherit; font-style: italic; }
 
 .body a {
   color: var(--accent-green);
@@ -47,11 +47,11 @@
   gap: 0.3rem;
 }
 
-.body li { color: var(--text-secondary); }
+.body li { color: var(--text-primary); }
 
 .body blockquote {
   border-left: 3px solid var(--accent-green);
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   padding: 0.5rem 0 0.5rem 1.25rem;
   color: var(--text-muted);
   font-style: italic;
@@ -73,7 +73,7 @@
   border-radius: var(--radius-md);
   padding: 1.25rem;
   overflow-x: auto;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
 }
 
 .body pre code {
@@ -93,7 +93,7 @@
 .body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   font-size: 0.9rem;
 }
 
@@ -108,17 +108,73 @@
   background: var(--bg-surface);
   color: var(--text-primary);
   font-weight: 600;
+  font-family: var(--font-heading);
 }
 
 .img {
   max-width: 100%;
   border-radius: var(--radius-md);
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   display: block;
+  border: 1px solid var(--border);
 }
 
-/* KaTeX display math centering */
+.imgClickable {
+  cursor: zoom-in;
+  transition: opacity 0.15s ease;
+}
+
+.imgClickable:hover { opacity: 0.88; }
+
+/* KaTeX display math */
 .body .katex-display {
-  margin: 1.25rem 0;
+  margin: 1.5rem 0;
   overflow-x: auto;
+}
+
+/* Light theme overrides */
+:global([data-theme="light"]) .body {
+  color: #374151;
+}
+
+:global([data-theme="light"]) .body h1,
+:global([data-theme="light"]) .body h2,
+:global([data-theme="light"]) .body h3,
+:global([data-theme="light"]) .body h4 {
+  color: #111827;
+}
+
+:global([data-theme="light"]) .body strong {
+  color: #111827;
+}
+
+:global([data-theme="light"]) .body code {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #059669;
+}
+
+:global([data-theme="light"]) .body pre {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+:global([data-theme="light"]) .body pre code {
+  color: #1f2937;
+}
+
+:global([data-theme="light"]) .img {
+  border-color: #e5e7eb;
+}
+
+.imgError {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  margin: 1rem 0;
 }

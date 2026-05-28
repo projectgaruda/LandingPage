@@ -12,11 +12,24 @@ const BUILD_STAGES = [
 ];
 
 const RESOURCES = [
-  { label: "CAD Repository", href: "#", icon: "📐" },
-  { label: "Component Specs Sheet", href: "#", icon: "📋" },
-  { label: "Budget Tracker", href: "#", icon: "💰" },
-  { label: "Competition Rulebook", href: "#", icon: "📖" },
-  { label: "Meeting Notes Archive", href: "#", icon: "🗒️" },
+  { label: "CAD Repository", href: "#" },
+  { label: "Component Specs Sheet", href: "#" },
+  { label: "Budget Tracker", href: "#" },
+  { label: "Competition Rulebook", href: "#" },
+  { label: "Meeting Notes Archive", href: "#" },
+];
+
+const EVENTS = [
+  { date: new Date("2026-06-07"), display: "Jun 7", label: "Suspension review session", tag: "Internal" },
+  { date: new Date("2026-06-14"), display: "Jun 14", label: "Battery pack stress test", tag: "Testing" },
+  { date: new Date("2026-07-01"), display: "Jul 1", label: "Documentation submission deadline", tag: "Deadline" },
+  { date: new Date("2026-10-12"), display: "Oct 12", label: "Shell Eco-Marathon Asia 2026", tag: "Competition" },
+];
+
+const ANNOUNCEMENTS = [
+  { text: "Next full-team meeting: Saturday 10 AM, Workshop Bay 3", time: "Today" },
+  { text: "Motor controller datasheets uploaded to CAD repo — review before Friday", time: "Yesterday" },
+  { text: "Shell Eco-Marathon registration deadline: confirm attendance ASAP", time: "2 days ago" },
 ];
 
 export default async function DashboardPage() {
@@ -45,14 +58,21 @@ export default async function DashboardPage() {
         .limit(4),
     ]);
 
+  // Compute countdown to next event
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const nextEvent = EVENTS.find(e => e.date >= today) ?? EVENTS[EVENTS.length - 1];
+  const msUntil = nextEvent.date.getTime() - today.getTime();
+  const daysUntil = Math.max(0, Math.ceil(msUntil / (1000 * 60 * 60 * 24)));
+
   return (
     <div className={styles.page}>
       <div className="container">
 
-        {/* ── Welcome bar ── */}
+        {/* Welcome bar */}
         <div className={styles.welcomeBar}>
-          <div>
-            <p className={styles.welcomeLabel}>Welcome back</p>
+          <div className={styles.welcomeLeft}>
+            <span className={styles.welcomeLabel}>Welcome back</span>
             <h1 className={styles.welcomeName}>{profile.full_name ?? "Member"}</h1>
             <p className={styles.welcomeSub}>
               {profile.branch} · Sem {profile.semester} ·{" "}
@@ -64,7 +84,7 @@ export default async function DashboardPage() {
           </Link>
         </div>
 
-        {/* ── Quick stats ── */}
+        {/* Stats row */}
         <div className={styles.statsRow}>
           {[
             { value: memberCount ?? 0, label: "Team Members" },
@@ -72,31 +92,40 @@ export default async function DashboardPage() {
             { value: "SEM 25", label: "Target Event" },
             { value: "EV Mk.3", label: "Current Build" },
           ].map((s) => (
-            <div key={s.label} className={`card ${styles.statCard}`}>
+            <div key={s.label} className={styles.statCard}>
               <div className={styles.statValue}>{s.value}</div>
               <div className={styles.statLabel}>{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* ── Main grid ── */}
+        {/* Countdown banner */}
+        <div className={`${styles.countdown} ${nextEvent.tag === "Competition" ? styles.countdownCompetition : nextEvent.tag === "Deadline" ? styles.countdownDeadline : ""}`}>
+          <div className={styles.countdownLeft}>
+            <span className={styles.countdownTag}>{nextEvent.tag}</span>
+            <span className={styles.countdownLabel}>{nextEvent.label}</span>
+            <span className={styles.countdownDate}>{nextEvent.display}</span>
+          </div>
+          <div className={styles.countdownRight}>
+            <span className={styles.countdownDays}>{daysUntil}</span>
+            <span className={styles.countdownUnit}>days away</span>
+          </div>
+        </div>
+
+        {/* Main grid */}
         <div className={styles.mainGrid}>
 
           {/* Left column */}
           <div className={styles.col}>
 
             {/* Announcements */}
-            <div className={`card ${styles.section}`}>
+            <div className={styles.section}>
               <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>📢 Announcements</h2>
-                <span className={styles.comingSoon}>Pinned by leads</span>
+                <h2 className={styles.sectionTitle}>Announcements</h2>
+                <span className={styles.sectionBadge}>Pinned by leads</span>
               </div>
               <div className={styles.announcements}>
-                {[
-                  { text: "Next full-team meeting: Saturday 10 AM, Workshop Bay 3", time: "Today" },
-                  { text: "Motor controller datasheets uploaded to CAD repo — review before Friday", time: "Yesterday" },
-                  { text: "Shell Eco-Marathon registration deadline: confirm attendance ASAP", time: "2 days ago" },
-                ].map((a) => (
+                {ANNOUNCEMENTS.map((a) => (
                   <div key={a.text} className={styles.announcementItem}>
                     <span className={styles.announceDot} />
                     <div>
@@ -108,61 +137,48 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            {/* Build progress */}
-            <div className={`card ${styles.section}`}>
+            {/* Upcoming events */}
+            <div className={styles.section}>
               <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>🔧 Build Progress — EV Mk.3</h2>
-                <span className={styles.comingSoon}>2 / 5 complete</span>
+                <h2 className={styles.sectionTitle}>Upcoming Events</h2>
               </div>
-              <div className={styles.buildTrack}>
-                {BUILD_STAGES.map((stage, i) => (
-                  <div key={stage.label} className={styles.buildStep}>
-                    <div className={`${styles.stepDot} ${stage.done ? styles.stepDone : i === 2 ? styles.stepActive : ""}`}>
-                      {stage.done ? "✓" : i + 1}
+              <div className={styles.events}>
+                {EVENTS.map((ev) => {
+                  const isPast = ev.date < today;
+                  const isNext = ev === nextEvent;
+                  return (
+                    <div key={ev.label} className={`${styles.eventItem} ${isPast ? styles.eventPast : ""} ${isNext ? styles.eventNext : ""}`}>
+                      <div className={styles.eventDate}>{ev.display}</div>
+                      <div className={styles.eventBody}>
+                        <span className={styles.eventLabel}>{ev.label}</span>
+                        <span className={`${styles.eventTag} ${styles[`tag${ev.tag}`]}`}>{ev.tag}</span>
+                      </div>
                     </div>
-                    {i < BUILD_STAGES.length - 1 && (
-                      <div className={`${styles.stepLine} ${stage.done ? styles.stepLineDone : ""}`} />
-                    )}
-                    <span className={`${styles.stepLabel} ${stage.done ? styles.stepLabelDone : i === 2 ? styles.stepLabelActive : ""}`}>
-                      {stage.label}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
-            {/* Upcoming events */}
-            <div className={`card ${styles.section}`}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>📅 Upcoming Events</h2>
-              </div>
-              <div className={styles.events}>
-                {[
-                  { date: "Jun 7", label: "Suspension review session", tag: "Internal" },
-                  { date: "Jun 14", label: "Battery pack stress test", tag: "Testing" },
-                  { date: "Jul 1", label: "Documentation submission deadline", tag: "Deadline" },
-                  { date: "Aug 12", label: "Shell Eco-Marathon Asia 2025", tag: "Competition" },
-                ].map((ev) => (
-                  <div key={ev.label} className={styles.eventItem}>
-                    <div className={styles.eventDate}>{ev.date}</div>
-                    <div className={styles.eventBody}>
-                      <span className={styles.eventLabel}>{ev.label}</span>
-                      <span className={`${styles.eventTag} ${styles[`tag${ev.tag}`]}`}>{ev.tag}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Right column */}
           <div className={styles.col}>
 
+            {/* Quick actions */}
+            <div className={styles.section}>
+              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleSpaced}`}>Quick Actions</h2>
+              <div className={styles.quickActions}>
+                <Link href="/blog/new" className="btn-primary">Write Post</Link>
+                <Link href="/blog" className="btn-outline">Read Blog</Link>
+                <Link href="/profile/settings" className="btn-outline">Edit Profile</Link>
+              </div>
+            </div>
+
             {/* Recent blog posts */}
-            <div className={`card ${styles.section}`}>
+            <div className={styles.section}>
               <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>✍️ Recent Posts</h2>
-                <Link href="/blog" className={styles.seeAll}>See all →</Link>
+                <h2 className={styles.sectionTitle}>Recent Posts</h2>
+                <Link href="/blog" className={styles.seeAll}>See all</Link>
               </div>
               {!recentPosts || recentPosts.length === 0 ? (
                 <p className={styles.empty}>No posts yet.</p>
@@ -196,15 +212,14 @@ export default async function DashboardPage() {
             </div>
 
             {/* Resources */}
-            <div className={`card ${styles.section}`}>
+            <div className={styles.section}>
               <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>🔗 Resources</h2>
-                <span className={styles.comingSoon}>Links managed by leads</span>
+                <h2 className={styles.sectionTitle}>Resources</h2>
+                <span className={styles.sectionBadge}>Managed by leads</span>
               </div>
               <div className={styles.resourceList}>
                 {RESOURCES.map((r) => (
                   <a key={r.label} href={r.href} className={styles.resourceItem}>
-                    <span className={styles.resourceIcon}>{r.icon}</span>
                     <span className={styles.resourceLabel}>{r.label}</span>
                     <span className={styles.resourceArrow}>→</span>
                   </a>
@@ -212,15 +227,29 @@ export default async function DashboardPage() {
               </div>
             </div>
 
-            {/* Quick actions */}
-            <div className={`card ${styles.section}`}>
-              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleSpaced}`}>⚡ Quick Actions</h2>
-              <div className={styles.quickActions}>
-                <Link href="/blog/new" className="btn-primary">Write Post</Link>
-                <Link href="/blog" className="btn-outline">Read Blog</Link>
-                <Link href="/profile/settings" className="btn-outline">Edit Profile</Link>
+            {/* Build progress */}
+            <div className={styles.section}>
+              <div className={styles.sectionHead}>
+                <h2 className={styles.sectionTitle}>Build Progress — EV Mk.3</h2>
+                <span className={styles.sectionBadge}>2 / 5 complete</span>
+              </div>
+              <div className={styles.buildTrack}>
+                {BUILD_STAGES.map((stage, i) => (
+                  <div key={stage.label} className={styles.buildStep}>
+                    <div className={`${styles.stepDot} ${stage.done ? styles.stepDone : i === 2 ? styles.stepActive : ""}`}>
+                      {stage.done ? "✓" : i + 1}
+                    </div>
+                    {i < BUILD_STAGES.length - 1 && (
+                      <div className={`${styles.stepLine} ${stage.done ? styles.stepLineDone : ""}`} />
+                    )}
+                    <span className={`${styles.stepLabel} ${stage.done ? styles.stepLabelDone : i === 2 ? styles.stepLabelActive : ""}`}>
+                      {stage.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
+
           </div>
         </div>
       </div>
