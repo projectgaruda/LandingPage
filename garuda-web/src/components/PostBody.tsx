@@ -1,30 +1,28 @@
 "use client";
 
-import { InlineMath, BlockMath } from "react-katex";
-import { parseMath } from "@/lib/latex";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { normalizeLatex } from "@/lib/latex";
+import styles from "./PostBody.module.css";
 
 export default function PostBody({ text }: { text: string }) {
-  const chunks = parseMath(text);
-
   return (
-    <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.7 }}>
-      {chunks.map((chunk, i) => {
-        if (chunk.type === "text") {
-          return <span key={i}>{chunk.value}</span>;
-        }
-        if (chunk.type === "inline-math") {
-          try {
-            return <InlineMath key={i} math={chunk.value} />;
-          } catch {
-            return <code key={i}>{chunk.value}</code>;
-          }
-        }
-        try {
-          return <BlockMath key={i} math={chunk.value} />;
-        } catch {
-          return <pre key={i}>{chunk.value}</pre>;
-        }
-      })}
+    <div className={styles.body}>
+      <ReactMarkdown
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          a: ({ href, children }) => (
+            <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+          ),
+          img: ({ src, alt }) => (
+            <img src={src} alt={alt ?? ""} className={styles.img} />
+          ),
+        }}
+      >
+        {normalizeLatex(text ?? "")}
+      </ReactMarkdown>
     </div>
   );
 }

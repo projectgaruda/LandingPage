@@ -1,0 +1,124 @@
+/* Rendered post body — markdown + KaTeX */
+.body {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-size: 1rem;
+  max-width: none;
+}
+
+.body h1,
+.body h2,
+.body h3,
+.body h4,
+.body h5,
+.body h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  margin: 1.75rem 0 0.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.body h1 { font-size: 1.8rem; }
+.body h2 { font-size: 1.4rem; }
+.body h3 { font-size: 1.15rem; }
+.body h4 { font-size: 1rem; font-weight: 700; }
+.body h5, .body h6 { font-size: 0.9rem; font-weight: 700; }
+
+.body p {
+  margin: 0.9rem 0;
+  max-width: none;
+}
+
+.body strong { color: var(--text-primary); font-weight: 700; }
+.body em { color: var(--text-secondary); font-style: italic; }
+
+.body a {
+  color: var(--accent-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.body ul,
+.body ol {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.body li { color: var(--text-secondary); }
+
+.body blockquote {
+  border-left: 3px solid var(--accent-green);
+  margin: 1rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.body code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  color: var(--accent-green);
+}
+
+.body pre {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+.body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.body th,
+.body td {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.body th {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+  display: block;
+}
+
+/* KaTeX display math centering */
+.body .katex-display {
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
