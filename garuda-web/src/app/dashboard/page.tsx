@@ -72,12 +72,21 @@ export default async function DashboardPage() {
         {/* Welcome bar */}
         <div className={styles.welcomeBar}>
           <div className={styles.welcomeLeft}>
-            <span className={styles.welcomeLabel}>Welcome back</span>
-            <h1 className={styles.welcomeName}>{profile.full_name ?? "Member"}</h1>
-            <p className={styles.welcomeSub}>
-              {profile.branch} · Sem {profile.semester} ·{" "}
-              <span className={styles.roleTag}>{profile.role ?? profile.user_type}</span>
-            </p>
+            {profile.avatar_url ? (
+              <img src={profile.avatar_url} alt="" className={styles.welcomeAvatar} />
+            ) : (
+              <div className={styles.welcomeAvatarInitials}>
+                {(profile.full_name ?? "M")[0].toUpperCase()}
+              </div>
+            )}
+            <div className={styles.welcomeText}>
+              <span className={styles.welcomeLabel}>Welcome back</span>
+              <h1 className={styles.welcomeName}>{profile.full_name ?? "Member"}</h1>
+              <p className={styles.welcomeSub}>
+                {profile.branch} · Sem {profile.semester} ·{" "}
+                <span className={styles.roleTag}>{profile.role ?? profile.user_type}</span>
+              </p>
+            </div>
           </div>
           <Link href="/profile/settings" className={styles.editProfileBtn}>
             Edit Profile
