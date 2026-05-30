@@ -15,20 +15,23 @@ in `src/app/team/page.tsx`.
 
 Captain:
 
-- `abhinandhan.jpg`
+- `abhinandhan.jpg` — Abhinandan Nandagave
 
-Mechanical (add/remove as needed, matching slugs in `page.tsx`):
+Mechanical (head first, then members; matches slugs in `page.tsx`):
 
+- `mech-head.jpg` — Ahammad Arfan K (Mechanical Head)
 - `mech-1.jpg`, `mech-2.jpg`, `mech-3.jpg`, `mech-4.jpg`
 
 Electrical:
 
-- `ee-1.jpg`, `ee-2.jpg`, `ee-3.jpg`, `ee-4.jpg`
+- `ee-head.jpg` — Pranav Kamath (Electrical Head)
+- `sethu.jpg` — Sethu S (Controls Engineer · POC)
+- `ee-1.jpg` — Potta Siddarth
 
 Management:
 
-- `club-manager.jpg`
-- `fund-manager.jpg`
+- `club-manager.jpg` — Charoo Ranjan
+- `fund-manager.jpg` — Chethan
 - `social-media.jpg`
 
 ## How fallbacks work

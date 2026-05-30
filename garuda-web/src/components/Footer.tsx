@@ -1,111 +1,158 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
-const quickLinks = [
-  { href: "/about", label: "About Us" },
+const exploreLinks = [
+  { href: "/", label: "Home" },
+  { href: "/team", label: "Team" },
   { href: "/builds", label: "Previous Builds" },
-  { href: "/team", label: "Our Team" },
   { href: "/gallery", label: "Gallery" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/contact", label: "Contact" },
 ];
 
-const services = [
-  "Vehicle Design",
-  "Aerodynamics",
-  "Powertrain Engineering",
-  "Data Analysis",
-  "Race Strategy",
-  "R&D Innovation",
+const socials = [
+  {
+    label: "Instagram",
+    handle: "@projectgaruda",
+    href: "https://www.instagram.com/projectgaruda",
+  },
+  {
+    label: "LinkedIn",
+    handle: "Project Garuda",
+    href: "https://www.linkedin.com/company/project-garuda/?originalSubdomain=in",
+  },
+  {
+    label: "YouTube",
+    handle: "@GarudaRVCE",
+    href: "https://www.youtube.com/@GarudaRVCE",
+  },
 ];
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.glow} />
+      <div className={styles.glow} aria-hidden="true" />
+
       <div className="container">
+        {/* ===== Wordmark masthead ===== */}
+        <div className={styles.masthead}>
+          <Link href="/" className={styles.wordmarkLink}>
+            <span className={styles.wordmark}>GARUDA</span>
+          </Link>
+          <div className={styles.mastheadRight}>
+            <span className={styles.tagKicker}>
+              <span className={styles.tagKickerDot} />
+              Est. 2004 · RVCE · Bengaluru
+            </span>
+            <p className={styles.tagline}>
+              A student engineering team building ultra-efficient vehicles for
+              international competition.
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.divider} />
+
+        {/* ===== Columns ===== */}
         <div className={styles.grid}>
           {/* Brand */}
           <div className={styles.brand}>
-            <div className={styles.logo}>
-              <span className={styles.logoIcon}>⬡</span>
-              <span className={styles.logoText}>GARUDA</span>
-            </div>
-            <p className={styles.tagline}>
-              Engineering Excellence.<br />
-              Uncompromising Performance.
-            </p>
+            <Link href="/" className={styles.logoWrap}>
+              <img
+                src="/GarudaLogo1.png"
+                alt="Project Garuda"
+                className={styles.logoImg}
+              />
+            </Link>
             <p className={styles.desc}>
-              A professional engineering club dedicated to designing and racing 
-              ultra-efficient super mileage vehicles at international competitions 
-              including Shell Eco-marathon.
+              GARUDA — Super-Mileage Vehicle Team. Designing, building, and
+              racing battery-electric Urban Concept cars with the engineering
+              departments at RV College of Engineering.
             </p>
-            <div className={styles.socials}>
-              <a href="https://www.instagram.com/projectgaruda" className={styles.socialBtn} aria-label="Instagram">Instagram</a>
-              <a href="https://www.linkedin.com/company/project-garuda/?originalSubdomain=in" className={styles.socialBtn} aria-label="LinkedIn">LinkedIn</a>
-              <a href="https://www.youtube.com/@GarudaRVCE" className={styles.socialBtn} aria-label="YouTube">YouTube</a>
-            </div>
           </div>
 
-          {/* Quick Links */}
-          <div className={styles.col}>
-            <h4 className={styles.colTitle}>Quick Links</h4>
+          {/* Explore */}
+          <nav className={styles.col} aria-label="Footer navigation">
+            <h4 className={styles.colTitle}>Explore</h4>
             <ul className={styles.list}>
-              {quickLinks.map((l) => (
+              {exploreLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={styles.listLink}>
-                    <span className={styles.arrow}>→</span> {l.label}
+                    {l.label}
+                    <span className={styles.linkArrow} aria-hidden="true">
+                      →
+                    </span>
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Services */}
+          {/* Social */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Our Focus</h4>
+            <h4 className={styles.colTitle}>Follow</h4>
             <ul className={styles.list}>
-              {services.map((s) => (
-                <li key={s} className={styles.listItem}>
-                  <span className={styles.dot} />
-                  {s}
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialLink}
+                  >
+                    <span className={styles.socialPlatform}>{s.label}</span>
+                    <span className={styles.socialHandle}>{s.handle}</span>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact / Hours */}
+          {/* Contact */}
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Business Hours</h4>
-            <ul className={styles.hours}>
-              <li><span>Mon – Fri</span><span>9:00 AM – 6:00 PM</span></li>
-              <li><span>Saturday</span><span>10:00 AM – 4:00 PM</span></li>
-              <li><span>Sunday</span><span className={styles.closed}>Closed</span></li>
+            <h4 className={styles.colTitle}>Contact</h4>
+            <ul className={styles.list}>
+              <li className={styles.contactLine}>
+                <span className={styles.contactLabel}>Email</span>
+                <a
+                  href="mailto:garuda@rvce.edu.in"
+                  className={styles.contactValue}
+                >
+                  garuda@rvce.edu.in
+                </a>
+              </li>
+              <li className={styles.contactLine}>
+                <span className={styles.contactLabel}>Workshop</span>
+                <a
+                  href="https://www.google.com/maps?q=12.923242,77.497903"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.contactValue}
+                >
+                  Beside Design Thinking Huddle
+                  <br />
+                  RVCE · Bengaluru
+                </a>
+              </li>
             </ul>
-            <div className={styles.divider} />
-            <h4 className={styles.colTitle}>Get In Touch</h4>
-            <p className={styles.contactLine}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              garuda@rvce.edu.in
-            </p>
-            <p className={styles.contactLine}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-map-pin" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '8px' }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              RVCE, Bengaluru, Karnataka
-            </p>
-            <Link href="/contact" className="btn-outline" style={{ marginTop: "1rem", fontSize: "0.65rem" }}>
-              Contact Us
+            <Link href="/join" className={styles.contactCta}>
+              Join the Team
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
 
+        {/* ===== Bottom strip ===== */}
         <div className={styles.bottom}>
-          <p className={styles.copy}>
-            © {new Date().getFullYear()} GARUDA Engineering Club. All rights reserved.
-          </p>
-          <div className={styles.badge}>
+          <span className={styles.copy}>
+            © {year} Project Garuda · RV College of Engineering
+          </span>
+          <span className={styles.badge}>
             <span className={styles.badgeDot} />
-            Shell Eco-Marathon Participant
-          </div>
+            Shell Eco-marathon · International Participant
+          </span>
         </div>
       </div>
     </footer>

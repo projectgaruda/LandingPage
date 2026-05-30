@@ -1,106 +1,189 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import styles from "./page.module.css";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with the GARUDA Super Mileage Club for partnerships, recruitment, or general inquiries.",
+  description:
+    "Reach Project Garuda — sponsorship, recruitment, press, or anything in between.",
 };
+
+const GARUDA_EMAIL = "garuda@rvce.edu.in";
+const MAP_URL = "https://www.google.com/maps?q=12.923242,77.497903";
 
 export default function ContactPage() {
   return (
     <div className={styles.page}>
+      {/* ====== HEADER ====== */}
       <section className={styles.pageHeader}>
-        <div className={styles.headerBg} />
-        <div className="container">
-          <div className="section-label">Connect With Us</div>
-          <h1 className={styles.pageTitle}>
-            Get in <span className={styles.accent}>Touch</span>
-          </h1>
-          <p className={styles.pageDesc}>
-            Whether you're looking for sponsorship opportunities, media inquiries, 
-            or interested in joining the team, we'd love to hear from you.
-          </p>
+        <div className={styles.headerMedia} aria-hidden="true">
+          <img
+            src="/images/banner_pic.jpg"
+            alt=""
+            className={styles.headerPhoto}
+          />
+          <div className={styles.headerOverlay} />
+          <div className={styles.headerGrain} />
+        </div>
+
+        <div className={`container ${styles.headerContainer}`}>
+          <Reveal as="div" className={styles.headerBody}>
+            <span className={styles.headerKicker}>
+              <span className={styles.headerKickerNum}>N° 01</span>
+              <span className={styles.headerKickerDivider} />
+              Contact
+            </span>
+            <h1 className={styles.pageTitle}>
+              Where do you <span className={styles.accent}>start</span>?
+            </h1>
+            <p className={styles.pageDesc}>
+              Different reasons, different routes. Pick the one that fits — or
+              write to us directly.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section">
+      {/* ====== ROUTING CARDS ====== */}
+      <section className={`section ${styles.routesSection}`}>
         <div className="container">
-          <div className={styles.contactGrid}>
-            <div className={styles.contactInfo}>
-              <div className={`card ${styles.infoCard}`}>
-                <h3 className={styles.infoTitle}>Contact Details</h3>
-                <div className={styles.infoList}>
-                  <div className={styles.infoItem}>
-                    <span className={styles.icon}>📍</span>
-                    <div>
-                      <p className={styles.label}>Location</p>
-                      <p className={styles.value}>
-                        <a 
-                          href="https://maps.google.com/?q=RV+College+of+Engineering+Bangalore" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          RV College of Engineering, Mysore Road, Bengaluru, KA - 560059
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <span className={styles.icon}>📧</span>
-                    <div>
-                      <p className={styles.label}>Email</p>
-                      <p className={styles.value}>
-                        <a href="mailto:garuda@rvce.edu.in">garuda@rvce.edu.in</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          <div className={styles.routesGrid}>
+            <Reveal as="div" className={`${styles.routeCard} ${styles.routeCardPrimary}`}>
+              <span className={styles.routeKicker}>
+                <span className={styles.routeKickerNum}>01</span>
+                <span className={styles.routeKickerDivider} />
+                Sponsors &amp; Partners
+              </span>
+              <h2 className={styles.routeTitle}>
+                Back the build.
+              </h2>
+              <p className={styles.routeDesc}>
+                A premium sponsorship deck, tier breakdown, and a dedicated
+                inquiry form lives on the sponsors page. Most efficient route
+                for organizations.
+              </p>
+              <Link href="/sponsors#inquire" className="btn-primary">
+                Go to Sponsor Enquiry
+              </Link>
+            </Reveal>
 
-                <div className={styles.divider} />
+            <Reveal as="div" className={styles.routeCard} delay={120}>
+              <span className={styles.routeKicker}>
+                <span className={styles.routeKickerNum}>02</span>
+                <span className={styles.routeKickerDivider} />
+                Recruitment
+              </span>
+              <h2 className={styles.routeTitle}>
+                Join the team.
+              </h2>
+              <p className={styles.routeDesc}>
+                Recruitment opens each academic year for RVCE undergraduates
+                from any branch. The application form lives on its own page.
+              </p>
+              <Link href="/join" className={styles.routeGhost}>
+                Go to Application
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Reveal>
 
-                <h3 className={styles.infoTitle}>Operation Hours</h3>
-                <ul className={styles.hoursList}>
-                  <li><span>Mon - Fri</span> <span>9:00 AM - 6:00 PM</span></li>
-                  <li><span>Sat</span> <span>10:00 AM - 4:00 PM</span></li>
-                  <li><span>Sun</span> <span className={styles.closed}>Closed</span></li>
-                </ul>
+            <Reveal as="div" className={styles.routeCard} delay={240}>
+              <span className={styles.routeKicker}>
+                <span className={styles.routeKickerNum}>03</span>
+                <span className={styles.routeKickerDivider} />
+                Press &amp; Other
+              </span>
+              <h2 className={styles.routeTitle}>
+                Everything else.
+              </h2>
+              <p className={styles.routeDesc}>
+                Media inquiries, collaboration ideas, visiting the workshop,
+                anything else — write to us directly and we'll route it.
+              </p>
+              <a
+                href={`mailto:${GARUDA_EMAIL}`}
+                className={styles.routeGhost}
+              >
+                {GARUDA_EMAIL}
+                <span aria-hidden="true">→</span>
+              </a>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ====== FOOTPRINT ====== */}
+      <section className={`section ${styles.footprintSection}`}>
+        <div className="container">
+          <Reveal as="div">
+            <span className={styles.sectionKicker}>
+              <span className={styles.sectionKickerNum}>N° 02</span>
+              <span className={styles.sectionKickerDivider} />
+              Find Us
+            </span>
+            <h2 className={styles.footprintTitle}>Location</h2>
+          </Reveal>
+
+          <div className={styles.footprintGrid}>
+            <Reveal as="div" className={styles.footprintInfo}>
+              <div className={styles.footprintRow}>
+                <span className={styles.footprintLabel}>Address</span>
+                <span className={styles.footprintVal}>
+                  Beside Design Thinking Huddle building,Club Area,
+                  <br />
+                  RV College of Engineering
+                  <br />
+                  Mysore Road, Bengaluru-560059
+                </span>
               </div>
-            </div>
+              <div className={styles.footprintRow}>
+                <span className={styles.footprintLabel}>Coordinates</span>
+                <span className={styles.footprintVal}>
+                  12°55′23.7″N · 77°29′52.5″E
+                </span>
+              </div>
+              <div className={styles.footprintRow}>
+                <span className={styles.footprintLabel}>Email</span>
+                <a
+                  href={`mailto:${GARUDA_EMAIL}`}
+                  className={styles.footprintLink}
+                >
+                  {GARUDA_EMAIL}
+                </a>
+              </div>
+              <div className={styles.footprintRow}>
+                <span className={styles.footprintLabel}>Map</span>
+                <a
+                  href={MAP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.footprintLink}
+                >
+                  Open in Google Maps
+                  <span aria-hidden="true"> →</span>
+                </a>
+              </div>
+            </Reveal>
 
-            <div className={styles.contactFormWrap}>
-              <form className={`card ${styles.form}`}>
-                <div className={styles.formRow}>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">Full Name</label>
-                    <input type="text" className="form-input" placeholder="Enter your name" required />
-                  </div>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">Email Address</label>
-                    <input type="email" className="form-input" placeholder="email@example.com" required />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Subject</label>
-                  <select className="form-input" required>
-                    <option value="">Select inquiry type</option>
-                    <option value="sponsorship">Sponsorship</option>
-                    <option value="recruitment">Recruitment</option>
-                    <option value="media">Media / Press</option>
-                    <option value="general">General Inquiry</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Message</label>
-                  <textarea className="form-input" rows={6} placeholder="How can we help you?" required></textarea>
-                </div>
-
-                <button type="submit" className="btn-primary" style={{ width: "100%", justifyContent: "center" }}>
-                  Send Message →
-                </button>
-              </form>
-            </div>
+            <Reveal as="a"
+              href={MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mapTile}
+              delay={120}
+            >
+              <span className={styles.mapTileLabel}>
+                <span className={styles.mapTileDot} />
+                12.92° N · 77.50° E
+              </span>
+              <span className={styles.mapTileTitle}>The Workshop</span>
+              <span className={styles.mapTileSub}>
+                Beside Design Thinking Huddle · RVCE
+              </span>
+              <span className={styles.mapTileLink}>
+                View on map <span aria-hidden="true">→</span>
+              </span>
+            </Reveal>
           </div>
         </div>
       </section>

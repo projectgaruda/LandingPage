@@ -20,96 +20,120 @@ export const metadata: Metadata = {
 ============================================================ */
 
 const captain: TeamMember = {
-  slug: "abhinandhan",
-  name: "Abhinandhan",
+  slug: "Abhinandan Nandagave",
+  name: "Abhinandan Nandagave",
   role: "Club Captain · Mechanical",
-  contribution:
-    "Leads the team across every discipline — from build planning to race day.",
+  contribution: "",
   photo: "/images/team/abhinandhan.jpg",
 };
 
 const mechMembers: TeamMember[] = [
   {
-    slug: "mech-1",
+    slug: "mech-head",
+    name: "Ahammad Arfan K",
+    role: "Mechanical Head",
+    contribution: "",
+    photo: "/images/team/mech-head.jpg",
+    head: true,
+  },
+  {
+    slug: "Praneeth",
     name: null,
     role: "Chassis & Structure",
-    contribution: "Contribution details to follow.",
+    contribution: "",
     photo: null,
   },
-  {
-    slug: "mech-2",
-    name: null,
-    role: "Aerodynamics",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
-  {
-    slug: "mech-3",
-    name: null,
-    role: "Powertrain & Drivetrain",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
-  {
-    slug: "mech-4",
-    name: null,
-    role: "Manufacturing & Composites",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
+  // Empty member slots — uncomment + fill in when you have names.
+  // {
+  //   slug: "mech-2",
+  //   name: null,
+  //   role: "Aerodynamics",
+  //   contribution: "",
+  //   photo: null,
+  // },
+  // {
+  //   slug: "mech-3",
+  //   name: null,
+  //   role: "Powertrain & Drivetrain",
+  //   contribution: "",
+  //   photo: null,
+  // },
+  // {
+  //   slug: "mech-4",
+  //   name: null,
+  //   role: "Manufacturing & Composites",
+  //   contribution: "",
+  //   photo: null,
+  // },
 ];
 
 const eeMembers: TeamMember[] = [
   {
+    slug: "ee-head",
+    name: "Pranav Kamath",
+    role: "Electrical Head",
+    contribution: "",
+    photo: "/images/team/ee-head.jpg",
+    head: true,
+  },
+  {
+    slug: "sethu",
+    name: "Sethu S",
+    role: "Controls Engineer · POC",
+    contribution: "",
+    photo: "/images/team/sethu.jpg",
+  },
+  {
     slug: "ee-1",
-    name: null,
-    role: "Battery & BMS",
-    contribution: "Contribution details to follow.",
-    photo: null,
+    name: "Potta Siddarth",
+    role: "Member",
+    contribution: "",
+    photo: "/images/team/ee-1.jpg",
   },
-  {
-    slug: "ee-2",
-    name: null,
-    role: "Motor & Drives",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
-  {
-    slug: "ee-3",
-    name: null,
-    role: "Embedded Systems",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
-  {
-    slug: "ee-4",
-    name: null,
-    role: "Data Acquisition",
-    contribution: "Contribution details to follow.",
-    photo: null,
-  },
+  // Empty member slots — uncomment + fill in when you have names.
+  // {
+  //   slug: "ee-2",
+  //   name: null,
+  //   role: "Motor & Drives",
+  //   contribution: "",
+  //   photo: null,
+  // },
+  // {
+  //   slug: "ee-3",
+  //   name: null,
+  //   role: "Embedded Systems",
+  //   contribution: "",
+  //   photo: null,
+  // },
+  // {
+  //   slug: "ee-4",
+  //   name: null,
+  //   role: "Data Acquisition",
+  //   contribution: "",
+  //   photo: null,
+  // },
 ];
 
 const management: TeamMember[] = [
   {
     slug: "club-manager",
-    name: null,
+    name: "Charoo Ranjan",
     role: "Club Manager",
-    contribution: "Contribution details to follow.",
-    photo: null,
+    contribution: "",
+    photo: "/images/team/club-manager.jpg",
   },
   {
     slug: "fund-manager",
-    name: null,
+    name: "Chethan",
     role: "Fund Manager",
-    contribution: "Contribution details to follow.",
-    photo: null,
+    contribution: "",
+    photo: "/images/team/fund-manager.jpg",
   },
   {
     slug: "social-media",
     name: null,
     role: "Social Media",
-    contribution: "Contribution details to follow.",
+    contribution: "",
     photo: null,
   },
 ];
@@ -190,39 +214,37 @@ export default function TeamPage() {
             <Reveal as="div" className={styles.rivalColumn} delay={100}>
               <header className={styles.rivalHeader}>
                 <span className={styles.rivalLetter}>M</span>
-                <div className={styles.rivalLabel}>
-                  <span className={styles.rivalName}>Mechanical</span>
-                  <span className={styles.rivalCount}>
-                    {String(mechMembers.length).padStart(2, "0")} Members
-                  </span>
-                </div>
+                <span className={styles.rivalName}>Mechanical</span>
               </header>
               <div className={styles.rivalMembers}>
                 {mechMembers.map((m) => (
-                  <TeamMemberCard key={m.slug} member={m} />
+                  <TeamMemberCard
+                    key={m.slug}
+                    member={m}
+                    highlight={!!m.head}
+                  />
                 ))}
               </div>
             </Reveal>
 
             <div className={styles.rivalDivider} aria-hidden="true">
               <span className={styles.rivalDividerLine} />
-              <span className={styles.rivalDividerMark}>vs.</span>
+              <span className={styles.rivalDividerMark}>&</span>
               <span className={styles.rivalDividerLine} />
             </div>
 
             <Reveal as="div" className={styles.rivalColumn} delay={200}>
               <header className={styles.rivalHeader}>
                 <span className={styles.rivalLetter}>E</span>
-                <div className={styles.rivalLabel}>
-                  <span className={styles.rivalName}>Electrical</span>
-                  <span className={styles.rivalCount}>
-                    {String(eeMembers.length).padStart(2, "0")} Members
-                  </span>
-                </div>
+                <span className={styles.rivalName}>Electrical</span>
               </header>
               <div className={styles.rivalMembers}>
                 {eeMembers.map((m) => (
-                  <TeamMemberCard key={m.slug} member={m} />
+                  <TeamMemberCard
+                    key={m.slug}
+                    member={m}
+                    highlight={!!m.head}
+                  />
                 ))}
               </div>
             </Reveal>

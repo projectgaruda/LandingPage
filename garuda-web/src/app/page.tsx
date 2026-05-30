@@ -6,60 +6,73 @@ import BigTypeSection from "@/components/BigTypeSection";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "GARUDA  Super Mileage Engineering Club",
+  title: "GARUDA | Super Mileage Engineering Club",
   description:
-    "GARUDA  Engineering Excellence. Uncompromising Performance. We build ultra-efficient super mileage vehicles and compete at international events like Shell Eco-marathon.",
+    "GARUDA — Engineering Excellence. Uncompromising Performance. We build ultra-efficient super mileage vehicles and compete at international events like Shell Eco-marathon.",
 };
-
-const featuredSpecs = [
-  { label: "Powertrain", val: "Fully Electric" },
-  { label: "Vehicle Mass", val: "≈ 120 kg" },
-  { label: "Chassis", val: "Al + Carbon Fiber" },
-  { label: "Category", val: "UrbanConcept" },
-  { label: "Event", val: "Shell Eco-Marathon Asia" },
-  { label: "Year", val: "2019" },
-];
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
 
-      {/* ====== FEATURED BUILD ====== */}
+      {/* ====== LATEST BUILD ====== */}
       <section className={`section ${styles.featuredSection}`}>
         <div className="container">
           <Reveal as="div">
             <div className="section-label">Latest Build</div>
             <h2 className={styles.featuredTitle}>
-              Garuda <span>2019</span>
+              Garuda <span>2025</span>
             </h2>
           </Reveal>
 
           <div className={styles.featuredGrid}>
-            <Reveal as="div" className={`${styles.featuredImg} ${styles.clipReveal}`}>
+            <Reveal as="div" className={styles.featuredImg}>
               <img
-                src="/images/side_view_2019.jpg"
-                alt="GARUDA 2019"
+                src="/images/builds/garuda_2025.jpeg"
+                alt="GAJA"
                 className={styles.buildImg}
               />
               <div className={styles.imgOverlay} />
+              <span className={styles.featuredStatus}>
+                <span className={styles.featuredStatusDot} />
+                In Development
+              </span>
             </Reveal>
 
             <Reveal as="div" className={styles.featuredInfo} delay={150}>
-              <div className={styles.specGrid}>
-                {featuredSpecs.map((spec) => (
-                  <div key={spec.label} className={styles.spec}>
-                    <span className={styles.specLabel}>{spec.label}</span>
-                    <span className={styles.specVal}>{spec.val}</span>
-                  </div>
-                ))}
+              <div className={styles.featuredMeta}>
+                <div className={styles.featuredMetaRow}>
+                  <span className={styles.featuredMetaLabel}>Programme</span>
+                  <span className={styles.featuredMetaVal}>
+                    Super-Mileage Vehicle · Battery Electric
+                  </span>
+                </div>
+                <div className={styles.featuredMetaRow}>
+                  <span className={styles.featuredMetaLabel}>Year</span>
+                  <span className={styles.featuredMetaVal}>2025 — 2026</span>
+                </div>
+                <div className={styles.featuredMetaRow}>
+                  <span className={styles.featuredMetaLabel}>Status</span>
+                  <span className={styles.featuredMetaVal}>
+                    Active Development
+                  </span>
+                </div>
               </div>
+
+              <p className={styles.featuredCopy}>
+                The current car is in active development across mechanical and
+                electrical departments. Full specifications, race classification
+                and competition details will be announced ahead of the next
+                international event.
+              </p>
+
               <Link
                 href="/builds"
                 className="btn-primary"
-                style={{ marginTop: "2rem" }}
+                style={{ marginTop: "0.5rem" }}
               >
-                View All Builds →
+                See All Builds →
               </Link>
             </Reveal>
           </div>
@@ -81,8 +94,8 @@ export default function HomePage() {
               </p>
             </div>
             <div className={styles.ctaBtns}>
-              <Link href="/contact" className="btn-primary">
-                Get in Touch →
+              <Link href="/join" className="btn-primary">
+                Join the Team →
               </Link>
               <Link href="/team" className="btn-outline">
                 Meet the Team

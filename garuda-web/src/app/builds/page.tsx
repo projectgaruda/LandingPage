@@ -2,31 +2,39 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
 import BuildsTimeline from "./timeline";
+import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Previous Builds",
   description:
-    "Explore all GARUDA super mileage vehicle builds — Black Coffin, Garuda X1, and more. Each representing the pinnacle of student engineering.",
+    "Every car GARUDA has built — from the first super-mileage prototype in 2008 to the electric era and beyond.",
 };
 
+/* ============================================================
+   BUILD DATA
+   Years and image paths are confirmed. Everything else is
+   placeholder until verified — drop in real specs, events,
+   and descriptions as they're confirmed.
+============================================================ */
+
 const PLACEHOLDER_STATS = [
-  { label: "Mileage", val: "—" },
+  { label: "Powertrain", val: "—" },
   { label: "Vehicle Mass", val: "—" },
   { label: "Top Speed", val: "—" },
-  { label: "Powertrain", val: "—" },
+  { label: "Category", val: "—" },
 ];
 
 const builds = [
   {
     id: "garuda-2025",
-    name: "GARUDA 2025",
+    name: "GAJA",
     year: "2025",
-    tag: null,
+    tag: "In Development",
     images: ["/images/builds/garuda_2025.jpeg"],
     category: "—",
     event: "—",
     stats: PLACEHOLDER_STATS,
-    desc: "Details coming soon.",
+    desc: "The current build is in active development. Specifications and competition details to be announced.",
     placeholder: true,
   },
   {
@@ -38,7 +46,7 @@ const builds = [
     category: "—",
     event: "—",
     stats: PLACEHOLDER_STATS,
-    desc: "Details coming soon.",
+    desc: "Build details to be added.",
     placeholder: true,
   },
   {
@@ -53,38 +61,28 @@ const builds = [
       "/images/core_team_with_car.jpg",
       "/images/car_on_track.jpg",
     ],
-    category: "UrbanConcept — Battery Electric Vehicle",
-    event: "Shell Eco-Marathon Asia 2019",
-    stats: [
-      { label: "Efficiency", val: "Improved km/kWh" },
-      { label: "Vehicle Mass", val: "≈ 120 kg" },
-      { label: "Powertrain", val: "Electric" },
-      { label: "Category", val: "UrbanConcept" },
-    ],
-    desc: "Building on the electric foundation laid by Vajra, Mjolnir refined powertrain efficiency and reduced overall vehicle mass. The team competed at Shell Eco-Marathon Asia, continuing to represent India among the top engineering teams in the region.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
   },
   {
     id: "vajra-2018",
     name: "VAJRA",
     year: "2018",
-    tag: null,
+    tag: "Electric Era Begins",
     images: [
       "/images/gallery/8.jpg",
       "/images/vajra_2018.jpg",
       "/images/vajra_2018_team.jpg",
       "/images/vajra_collage.jpg",
     ],
-    category: "UrbanConcept — Battery Electric Vehicle",
-    event: "Shell Eco-Marathon Asia 2018",
-    stats: [
-      { label: "Efficiency", val: "High km/kWh" },
-      { label: "Vehicle Mass", val: "≈ 130 kg" },
-      { label: "Powertrain", val: "Electric" },
-      { label: "Chassis", val: "Al + Carbon Fiber" },
-    ],
-    desc: "Vajra marked a historic pivot for Project Garuda — the transition from Internal Combustion to fully electric vehicles. Built as an Urban Concept battery-electric vehicle, it featured an aluminum base with a carbon fiber superstructure to stay lightweight yet sturdy at approximately 130 kg. This was the beginning of the team's clean energy era.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "The pivot from internal combustion to battery electric. Full specifications to be added.",
+    placeholder: true,
   },
   {
     id: "agni-2016",
@@ -96,38 +94,40 @@ const builds = [
       "/images/agni_2016.jpg",
       "/images/agni_2016_weighing.jpg",
     ],
-    category: "Prototype — Gasoline (IC Engine)",
-    event: "Shell Eco-Marathon Asia 2016",
-    stats: [
-      { label: "Mileage", val: "350+ km/L" },
-      { label: "Vehicle Mass", val: "≈ 42 kg" },
-      { label: "Top Speed", val: "30 km/h" },
-      { label: "Engine", val: "50cc IC" },
-    ],
-    desc: "Named after the Sanskrit word for 'fire', Agni was a testament to relentless weight optimization. Every gram was scrutinized and eliminated. The vehicle achieved the team's best-ever mileage figures at that time, showcasing the power of iterative engineering.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
   },
   {
     id: "phoenix-2015",
     name: "PHOENIX",
     year: "2015",
-    tag: "First Urban Concept",
+    tag: null,
     images: [
       "/images/gallery/6.jpg",
       "/images/pheniox_2015.jpg",
       "/images/SEM_2015.jpg",
       "/images/2015_competition_pics.jpg",
     ],
-    category: "UrbanConcept — Gasoline (IC Engine)",
-    event: "Shell Eco-Marathon Asia 2015",
-    stats: [
-      { label: "Mileage", val: "300+ km/L" },
-      { label: "Vehicle Mass", val: "≈ 48 kg" },
-      { label: "Top Speed", val: "30 km/h" },
-      { label: "Engine", val: "50cc IC" },
-    ],
-    desc: "Rising from years of iterative design, Phoenix marked Project Garuda's first Urban Concept vehicle. With a significantly refined aerodynamic profile and a lighter chassis, it pushed the team's mileage records to new heights at the Shell Eco-Marathon Asia.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
+  },
+  {
+    id: "garuda-2013",
+    name: "GARUDA 2013",
+    year: "2013",
+    tag: null,
+    images: ["/images/gallery/5.jpg"],
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
   },
   {
     id: "garuda-x1-2011",
@@ -139,39 +139,10 @@ const builds = [
       "/images/2011_garuda_car.jpg",
       "/images/2011_prototype_Car.jpg",
     ],
-    category: "Prototype — Gasoline (IC Engine)",
-    event: "Shell Eco-Marathon Asia 2011 (Sepang International Circuit, Malaysia)",
-    stats: [
-      { label: "Mileage", val: "270 km/L" },
-      { label: "Vehicle Mass", val: "≈ 50 kg" },
-      { label: "Top Speed", val: "28 km/h" },
-      { label: "Engine", val: "Optimized 50cc" },
-    ],
-    desc: "A monumental milestone in the team's history. Garuda X1 was developed to test torque and horsepower limits and optimize the drivetrain. It raced at the prestigious Sepang International Circuit in Malaysia, firmly establishing the team as a seasoned international competitor.",
-    placeholder: false,
-  },
-  {
-    id: "garuda-2013",
-    name: "GARUDA 2013",
-    year: "2013",
-    tag: null,
-    images: ["/images/gallery/5.jpg"],
     category: "—",
     event: "—",
     stats: PLACEHOLDER_STATS,
-    desc: "Details coming soon.",
-    placeholder: true,
-  },
-  {
-    id: "garuda-2009",
-    name: "GARUDA 2009",
-    year: "2009",
-    tag: null,
-    images: ["/images/2009_car_without_driver.jpg"],
-    category: "—",
-    event: "—",
-    stats: PLACEHOLDER_STATS,
-    desc: "Details coming soon.",
+    desc: "Build details to be added.",
     placeholder: true,
   },
   {
@@ -183,16 +154,23 @@ const builds = [
       "/images/2010_car.jpg",
       "/images/sem_2010_sepang_international_circuit_malaysia.jpg",
     ],
-    category: "Prototype — Gasoline (IC Engine)",
-    event: "Shell Eco-Marathon Asia 2010",
-    stats: [
-      { label: "Mileage", val: "220 km/L" },
-      { label: "Vehicle Mass", val: "≈ 55 kg" },
-      { label: "Top Speed", val: "25 km/h" },
-      { label: "Engine", val: "50cc Gasoline" },
-    ],
-    desc: "The second-generation vehicle focused heavily on structural weight reduction and aerodynamic refinement. By optimizing the frame geometry and fuel delivery system, the team improved efficiency by over 20% compared to the Black Coffin.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
+  },
+  {
+    id: "garuda-2009",
+    name: "GARUDA 2009",
+    year: "2009",
+    tag: null,
+    images: ["/images/2009_car_without_driver.jpg"],
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "Build details to be added.",
+    placeholder: true,
   },
   {
     id: "black-coffin",
@@ -206,16 +184,11 @@ const builds = [
       "/images/Since then Project Garuda has built 7 prototypes,4 urban concept cars and has a total of 11 cars in its name..jpg",
       "/images/History_image.jpg",
     ],
-    category: "Prototype — Gasoline (IC Engine)",
-    event: "Shell Eco-Marathon UK 2009 — 'Most Persevering Team' Award",
-    stats: [
-      { label: "Mileage", val: "180 km/L" },
-      { label: "Vehicle Mass", val: "≈ 65 kg" },
-      { label: "Top Speed", val: "22 km/h" },
-      { label: "Engine", val: "50cc Gasoline" },
-    ],
-    desc: "The legendary first build of Project Garuda. Unveiled on August 2, 2008, the 'Black Coffin' was India's first-ever student-built super-mileage prototype. It featured a lightweight Lexan shell and electronically controlled fuel-injection. The team won the prestigious 'Most Persevering Team' award at their debut Shell Eco-Marathon in the UK.",
-    placeholder: false,
+    category: "—",
+    event: "—",
+    stats: PLACEHOLDER_STATS,
+    desc: "The first build. Full specifications and history to be added.",
+    placeholder: true,
   },
 ];
 
@@ -226,40 +199,85 @@ export default function BuildsPage() {
 
   return (
     <div className={styles.page}>
+      {/* ====== PAGE HEADER ====== */}
       <section className={styles.pageHeader}>
-        <div className={styles.headerBg} />
-        <div className="container">
-          <div className="section-label">Our Engineering</div>
-          <h1 className={styles.pageTitle}>
-            Previous <span className={styles.accent}>Builds</span>
-          </h1>
-          <p className={styles.pageDesc}>
-            Every vehicle represents thousands of hours of design, iteration, and
-            relentless pursuit of efficiency. A legacy built one revolution at a time.
-          </p>
+        <div className={styles.headerMedia} aria-hidden="true">
+          <img
+            src="/images/car_on_track.jpg"
+            alt=""
+            className={styles.headerPhoto}
+          />
+          <div className={styles.headerOverlay} />
+          <div className={styles.headerGrain} />
+        </div>
+
+        <div className={`container ${styles.headerContainer}`}>
+          <Reveal as="div" className={styles.headerBody}>
+            <span className={styles.headerKicker}>
+              <span className={styles.headerKickerNum}>N° 01</span>
+              <span className={styles.headerKickerDivider} />
+              The Cars
+            </span>
+            <h1 className={styles.pageTitle}>
+              Every build, <span className={styles.accent}>every</span> year.
+            </h1>
+            <p className={styles.pageDesc}>
+              Eleven cars across two decades. Prototypes that started on petrol
+              and grew into battery-electric Urban Concepts. The catalogue
+              below is the full lineage — from the first build in 2008 to the
+              current one in the workshop.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section">
+      {/* ====== TIMELINE ====== */}
+      <section className={`section ${styles.timelineSection}`}>
         <div className="container">
+          <Reveal as="div">
+            <span className={styles.sectionKicker}>
+              <span className={styles.sectionKickerNum}>N° 02</span>
+              <span className={styles.sectionKickerDivider} />
+              Memory Lane
+            </span>
+            <h2 className={styles.sectionTitle}>Our Journey</h2>
+            <p className={styles.sectionLead}>
+              In chronological order, from the first build in 2008 to the
+              current one in the workshop. Build details are being verified
+              and will be filled in as records are confirmed.
+            </p>
+          </Reveal>
+
           <BuildsTimeline builds={sortedBuilds} />
         </div>
       </section>
 
-      <section className={styles.cta}>
+      {/* ====== CTA ====== */}
+      <section className={styles.ctaSection}>
         <div className="container">
-          <h3 className={styles.ctaTitle}>Interested in our next build?</h3>
-          <h4 className={styles.ctaDesc}>
-            Follow our journey as we push the limits even further.
-          </h4>
-          <div className={styles.ctaBtns}>
-            <Link href="/contact" className="btn-primary">
-              Get in Touch →
-            </Link>
-            <Link href="/gallery" className="btn-outline">
-              View Gallery
-            </Link>
-          </div>
+          <Reveal as="div" className={styles.ctaInner}>
+            <div>
+              <span className={styles.sectionKicker}>
+                <span className={styles.sectionKickerNum}>N° 03</span>
+                <span className={styles.sectionKickerDivider} />
+                Next
+              </span>
+              <h2 className={styles.ctaTitle}>
+                Build the next one with us.
+              </h2>
+              <p className={styles.ctaDesc}>
+                Follow the workshop, or apply to help build the next car.
+              </p>
+            </div>
+            <div className={styles.ctaBtns}>
+              <Link href="/join" className="btn-primary">
+                Join the Team
+              </Link>
+              <Link href="/gallery" className={styles.ctaGhost}>
+                View Gallery <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

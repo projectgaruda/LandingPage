@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./TeamMemberCard.module.css";
 
 export type TeamMember = {
@@ -6,6 +9,7 @@ export type TeamMember = {
   role: string;
   contribution: string;
   photo: string | null;
+  head?: boolean;
 };
 
 type Props = {
@@ -26,8 +30,11 @@ export default function TeamMemberCard({
   highlight = false,
   variant = "default",
 }: Props) {
+  const [imgError, setImgError] = useState(false);
   const initials = getInitials(member.name, member.slug.slice(0, 2).toUpperCase());
   const isCaptain = variant === "captain";
+  const showPhoto = !!member.photo && !imgError;
+
   const cls = [
     styles.card,
     isCaptain ? styles.captainCard : "",
@@ -39,12 +46,13 @@ export default function TeamMemberCard({
   return (
     <article className={cls}>
       <div className={styles.photoFrame}>
-        {member.photo ? (
+        {showPhoto ? (
           <img
-            src={member.photo}
+            src={member.photo as string}
             alt={member.name ?? member.role}
             className={styles.photo}
             loading="lazy"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className={styles.placeholder} aria-hidden="true">
@@ -63,7 +71,9 @@ export default function TeamMemberCard({
           )}
         </h3>
         <span className={styles.role}>{member.role}</span>
-        <p className={styles.contribution}>{member.contribution}</p>
+        {member.contribution && (
+          <p className={styles.contribution}>{member.contribution}</p>
+        )}
       </div>
     </article>
   );

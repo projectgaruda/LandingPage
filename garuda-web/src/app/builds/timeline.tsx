@@ -208,7 +208,7 @@ function BuildRow({
         ) : (
           <div className={styles.imagePlaceholder}>
             <span className={styles.placeholderYear}>{build.year}</span>
-            <span className={styles.placeholderLabel}>Coming soon</span>
+            <span className={styles.placeholderLabel}>Photos coming soon</span>
           </div>
         )}
         {build.tag && <div className={styles.buildTag}>{build.tag}</div>}
@@ -226,17 +226,19 @@ function BuildRow({
           {build.year}
         </div>
         <h2 className={styles.buildName}>{build.name}</h2>
-        {!build.placeholder && (
+        {!build.placeholder && build.category !== "—" && (
           <div className={styles.buildCategory}>{build.category}</div>
         )}
         <p className={styles.buildDesc}>{build.desc}</p>
 
         {!build.placeholder && (
           <>
-            <div className={styles.buildEvent}>
-              <span className={styles.eventDot} aria-hidden="true" />
-              {build.event}
-            </div>
+            {build.event && build.event !== "—" && (
+              <div className={styles.buildEvent}>
+                <span className={styles.eventDot} aria-hidden="true" />
+                {build.event}
+              </div>
+            )}
 
             <div className={styles.buildStats}>
               {build.stats.map((s) => (

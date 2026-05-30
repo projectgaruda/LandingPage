@@ -9,6 +9,12 @@ export const metadata: Metadata = {
     "Apply to Project Garuda — RVCE's super-mileage vehicle team. Open to undergraduates across mechanical, electrical, software, and management disciplines.",
 };
 
+const GARUDA_EMAIL = "garuda@rvce.edu.in";
+const STUDENT_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfcLz2fS3wVs3ZpbUiVJ2JRbj6_uh1EjeKTUzH3-a-rhuJOHQ/viewform?embedded=true";
+const STUDENT_FORM_FALLBACK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfcLz2fS3wVs3ZpbUiVJ2JRbj6_uh1EjeKTUzH3-a-rhuJOHQ/viewform";
+
 const disciplines = [
   {
     num: "01",
@@ -145,7 +151,7 @@ export default function JoinPage() {
               <span className={styles.sectionKickerDivider} />
               The Process
             </span>
-            <h2 className={styles.sectionTitle}>From application to garage.</h2>
+            <h2 className={styles.sectionTitle}>From application to workshop.</h2>
           </Reveal>
 
           <ol className={styles.processList}>
@@ -196,103 +202,52 @@ export default function JoinPage() {
             </Reveal>
 
             <Reveal as="div" className={styles.applyFormWrap} delay={120}>
-              <form className={`card ${styles.form}`}>
-                <div className={styles.formRow}>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">Full Name</label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="Enter your name"
-                      required
-                    />
-                  </div>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">RVCE Email</label>
-                    <input
-                      type="email"
-                      className="form-input"
-                      placeholder="name.branchYY@rvce.edu.in"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.formRow}>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">Branch</label>
-                    <select className="form-input" required defaultValue="">
-                      <option value="" disabled>Select your branch</option>
-                      <option value="ME">Mechanical (ME)</option>
-                      <option value="EEE">Electrical & Electronics (EEE)</option>
-                      <option value="ECE">Electronics & Communication (ECE)</option>
-                      <option value="CSE">Computer Science (CSE)</option>
-                      <option value="ISE">Information Science (ISE)</option>
-                      <option value="AS">Aerospace (AS)</option>
-                      <option value="IEM">Industrial Engineering (IEM)</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label className="form-label">Year of Study</label>
-                    <select className="form-input" required defaultValue="">
-                      <option value="" disabled>Select year</option>
-                      <option value="1">1st Year</option>
-                      <option value="2">2nd Year</option>
-                      <option value="3">3rd Year</option>
-                      <option value="4">4th Year</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Discipline of Interest</label>
-                  <select className="form-input" required defaultValue="">
-                    <option value="" disabled>What do you want to work on?</option>
-                    <option value="mechanical">Mechanical</option>
-                    <option value="electrical">Electrical</option>
-                    <option value="software">Software & Telemetry</option>
-                    <option value="management">Management & Operations</option>
-                    <option value="unsure">Unsure — open to suggestions</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Why do you want to join?</label>
-                  <textarea
-                    className="form-input"
-                    rows={5}
-                    placeholder="Tell us briefly — projects you've worked on, what excites you about super-mileage vehicles, what you'd like to contribute."
-                    required
-                  ></textarea>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    Portfolio / GitHub / LinkedIn{" "}
-                    <span className={styles.optional}>(optional)</span>
-                  </label>
-                  <input
-                    type="url"
-                    className="form-input"
-                    placeholder="https://"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="btn-primary"
-                  style={{ width: "100%", justifyContent: "center" }}
+              <div className={styles.embedHeader}>
+                <span className={styles.embedHeaderLabel}>
+                  <span className={styles.embedHeaderDot} />
+                  Application Form
+                </span>
+                <a
+                  href={STUDENT_FORM_FALLBACK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.embedHeaderLink}
                 >
-                  Submit Application →
-                </button>
+                  Open in new tab <span aria-hidden="true">↗</span>
+                </a>
+              </div>
 
-                <p className={styles.formFootnote}>
-                  We'll be in touch within two to three weeks during the
-                  recruitment window. Outside the window, we keep applications
-                  on file for the next intake.
-                </p>
-              </form>
+              <div className={styles.embedFrame}>
+                <iframe
+                  src={STUDENT_FORM_URL}
+                  title="GARUDA Student Application"
+                  className={styles.embedIframe}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                >
+                  Loading the application form…
+                </iframe>
+              </div>
+
+              <p className={styles.formFootnote}>
+                Form hosted on Google Forms. If it doesn't load, you can{" "}
+                <a
+                  href={STUDENT_FORM_FALLBACK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.inlineLink}
+                >
+                  open it directly
+                </a>{" "}
+                or write to{" "}
+                <a
+                  href={`mailto:${GARUDA_EMAIL}`}
+                  className={styles.inlineLink}
+                >
+                  {GARUDA_EMAIL}
+                </a>
+                .
+              </p>
             </Reveal>
           </div>
         </div>

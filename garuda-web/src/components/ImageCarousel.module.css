@@ -6,13 +6,16 @@
   overflow: hidden;
   border-radius: var(--radius-md);
   background: #080808;
+  isolation: isolate;
 }
 
+/* ---------- Slides ---------- */
 .slidesWrapper {
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
 }
 
 .slide {
@@ -22,6 +25,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .carouselImage {
@@ -29,84 +33,144 @@
   height: 100%;
   min-height: 350px;
   max-height: 450px;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   display: block;
   background: #080808;
+  transform: scale(1);
+  transition: transform 9s ease-out;
+  filter: grayscale(0.1) contrast(1.04);
 }
 
+/* Slow Ken-Burns drift on each slide while it's visible */
+.slide:hover .carouselImage,
+.carouselContainer:not(:hover) .carouselImage {
+  transform: scale(1.04);
+}
+
+/* Soft vignette at edges so nav buttons and dots remain legible */
+.carouselContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 9, 0.45) 0%, transparent 12%, transparent 88%, rgba(10, 10, 9, 0.45) 100%),
+    linear-gradient(180deg, transparent 0%, transparent 70%, rgba(10, 10, 9, 0.55) 100%);
+}
+
+/* ---------- Nav buttons ---------- */
 .navButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(14, 15, 17, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 9, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-bright);
   color: var(--text-primary);
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
   z-index: 5;
   outline: none;
+  opacity: 0;
+}
+
+.navButton svg {
+  transition: transform var(--transition);
+}
+
+.carouselContainer:hover .navButton {
+  opacity: 1;
 }
 
 .navButton:hover {
-  background: var(--accent-green);
-  color: #030d06;
+  background: rgba(10, 10, 9, 0.85);
   border-color: var(--accent-green);
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+  color: var(--accent-green);
 }
 
-.prevButton {
-  left: 1rem;
+.navButton:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--accent-green);
+  outline-offset: 3px;
 }
 
-.nextButton {
-  right: 1rem;
-}
+.prevButton { left: 1.25rem; }
+.nextButton { right: 1.25rem; }
 
+.prevButton:hover svg { transform: translateX(-3px); }
+.nextButton:hover svg { transform: translateX(3px); }
+
+/* ---------- Dots ---------- */
 .dots {
   position: absolute;
-  bottom: 1rem;
+  bottom: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.4rem;
   z-index: 5;
+  padding: 0.45rem 0.7rem;
+  background: rgba(10, 10, 9, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 100px;
+  border: 1px solid var(--border-bright);
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(244, 244, 241, 0.32);
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    width var(--transition),
+    background var(--transition);
 }
 
-.dot:hover {
-  background: rgba(255, 255, 255, 0.6);
-}
+.dot:hover { background: rgba(244, 244, 241, 0.65); }
 
 .activeDot {
+  width: 32px;
   background: var(--accent-green);
-  width: 18px;
-  border-radius: 4px;
+  box-shadow: 0 0 8px var(--accent-green-glow);
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .carouselContainer, .carouselImage {
     min-height: 250px;
-    max-height: 300px;
+    max-height: 320px;
   }
   .navButton {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
+    opacity: 1; /* show by default on touch */
+  }
+  .prevButton { left: 0.75rem; }
+  .nextButton { right: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slidesWrapper { transition: none !important; }
+  .carouselImage {
+    transform: none !important;
+    transition: none !important;
   }
 }
