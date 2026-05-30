@@ -10,8 +10,8 @@
 
 .scrolled {
   background: var(--nav-bg-scrolled);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   padding: 0.8rem 0;
 }
@@ -34,14 +34,10 @@
 }
 
 .logoImg {
-  height: 32px;
+  height: var(--logo-height, 28px);
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-:global([data-theme="light"]) .logoImg {
-  filter: none;
+  filter: var(--logo-filter, brightness(0) invert(1));
 }
 
 
@@ -65,43 +61,37 @@
 
 .link {
   display: block;
-  padding: 0.5rem 0.85rem;
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--text-secondary);
   text-decoration: none;
   border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
   position: relative;
+  white-space: nowrap;
 }
 
 .link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 1px;
   background: var(--accent-green);
-  transition: width 0.25s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.link:hover {
-  color: var(--accent-green);
-  background: var(--accent-green-subtle);
-}
+.link:hover { color: var(--text-primary); }
+.link:hover::after { width: 50%; }
 
-.link:hover::after { width: 60%; }
-
-.active {
-  color: var(--accent-green) !important;
-}
-
-.active::after {
-  width: 60% !important;
-}
+.active { color: var(--text-primary) !important; }
+.active::after { width: 50% !important; }
 
 .cta {
   display: flex;
@@ -172,20 +162,20 @@
 }
 
 .mobileLink {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-secondary);
   text-decoration: none;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .mobileLink:hover, .activeMobile {
-  color: var(--accent-green);
-  background: var(--accent-green-subtle);
+  color: var(--text-primary);
 }
 
 .mobileLoginBtn {
@@ -248,20 +238,27 @@
 }
 
 .userInitials {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: var(--accent-green);
-  color: #000;
+  background: transparent;
+  color: var(--accent-green);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
   cursor: pointer;
   flex-shrink: 0;
   border: 1px solid var(--border-bright);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.userInitials:hover {
+  border-color: var(--accent-green);
+  background: var(--accent-green-subtle);
 }
 
 .signOutBtn {
@@ -345,8 +342,8 @@
 }
 
 @keyframes dropIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .dropHeader {
@@ -368,13 +365,14 @@
 .dropAvatar { object-fit: cover; border: 1px solid var(--border-bright); }
 
 .dropInitials {
-  background: var(--accent-green);
-  color: #000;
+  background: transparent;
+  color: var(--accent-green);
+  border: 1px solid var(--border-bright);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 0.85rem;
 }
 

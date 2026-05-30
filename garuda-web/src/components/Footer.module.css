@@ -79,7 +79,7 @@
   color: var(--accent-green);
   border-color: var(--border-bright);
   background: var(--accent-green-subtle);
-  box-shadow: 0 0 12px rgba(0,255,65,0.15);
+  box-shadow: 0 0 12px var(--accent-green-glow);
 }
 
 .col {}

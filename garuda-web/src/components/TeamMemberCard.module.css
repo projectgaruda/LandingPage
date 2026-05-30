@@ -1,0 +1,202 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+  height: 100%;
+}
+
+.card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-3px);
+}
+
+/* ---------- Photo frame ---------- */
+.photoFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.1) contrast(1.04);
+  transition: transform 0.5s ease, filter var(--transition);
+}
+
+.card:hover .photo {
+  transform: scale(1.04);
+  filter: grayscale(0) contrast(1.06);
+}
+
+/* ---------- Placeholder ---------- */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background:
+    radial-gradient(circle at 50% 30%, var(--accent-green-subtle) 0%, transparent 65%),
+    var(--bg-surface);
+}
+
+.placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 1.5rem;
+  border: 1px dashed var(--border-bright);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+
+.initials {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent-green);
+  line-height: 1;
+}
+
+.placeholderHint {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Info ---------- */
+.info {
+  padding: 1.4rem 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.namePlaceholder {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.role {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+}
+
+.contribution {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0.4rem 0 0;
+  flex: 1;
+}
+
+/* ==========================================================
+   CAPTAIN VARIANT — bigger, asymmetric, more prominent
+========================================================== */
+.captainCard {
+  flex-direction: row;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.captainCard .photoFrame {
+  width: 42%;
+  aspect-ratio: auto;
+  min-height: 100%;
+  border-bottom: none;
+  border-right: 1px solid var(--border);
+}
+
+.captainCard .info {
+  padding: 3rem 3rem 3rem 3rem;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.captainCard .name {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: 0.005em;
+  line-height: 1;
+}
+
+.captainCard .role {
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+}
+
+.captainCard .contribution {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  max-width: 52ch;
+}
+
+.captainCard .placeholder::before { inset: 2.5rem; }
+.captainCard .initials { font-size: clamp(4rem, 7vw, 6rem); }
+
+/* ==========================================================
+   HIGHLIGHT VARIANT — green hairline accent
+========================================================== */
+.highlight {
+  border-color: var(--border-bright);
+}
+
+.highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+@media (max-width: 768px) {
+  .captainCard { flex-direction: column; }
+  .captainCard .photoFrame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .captainCard .info { padding: 1.75rem 1.5rem 2rem; }
+}

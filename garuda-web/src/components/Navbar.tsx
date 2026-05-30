@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import { signOut } from "@/app/actions/auth";
-import ThemeToggle from "./ThemeToggle";
+// import ThemeToggle from "./ThemeToggle";
 import styles from "./Navbar.module.css";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/builds", label: "Previous Builds" },
+  { href: "/team", label: "Team" },
+  { href: "/builds", label: "Builds" },
   { href: "/gallery", label: "Gallery" },
   { href: "/sponsors", label: "Sponsors" },
   { href: "/contact", label: "Contact" },
@@ -99,24 +99,11 @@ export default function Navbar({ user, profile }: Props) {
         </ul>
 
         <div className={styles.cta}>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
 
           {user ? (
             <>
-              <Link
-                href="/dashboard"
-                className={`${styles.link} ${pathname === "/dashboard" ? styles.active : ""}`}
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/blog"
-                className={`${styles.link} ${pathname.startsWith("/blog") ? styles.active : ""}`}
-              >
-                Blog
-              </Link>
-
-              {/* Avatar → dropdown */}
+              {/* Avatar → dropdown (only navigation for logged-in users) */}
               <div className={styles.dropdownWrap} ref={dropRef}>
                 <button
                   type="button"
@@ -174,10 +161,7 @@ export default function Navbar({ user, profile }: Props) {
               </div>
             </>
           ) : (
-            <>
-              <Link href="/login" className={styles.loginBtn}>Student Login</Link>
-              <Link href="/contact" className="btn-primary">Get in Touch</Link>
-            </>
+            <Link href="/join" className="btn-outline">Join Us</Link>
           )}
         </div>
 
@@ -202,7 +186,7 @@ export default function Navbar({ user, profile }: Props) {
             {link.label}
           </Link>
         ))}
-        <div className={styles.mobileDivider} />
+        {user && <div className={styles.mobileDivider} />}
         {user ? (
           <>
             <Link href="/dashboard" className={`${styles.mobileLink} ${pathname === "/dashboard" ? styles.activeMobile : ""}`}>Dashboard</Link>
@@ -211,12 +195,9 @@ export default function Navbar({ user, profile }: Props) {
             <button type="button" className={styles.mobileSignOut} onClick={handleSignOut}>Sign Out</button>
           </>
         ) : (
-          <>
-            <Link href="/login" className={styles.mobileLoginBtn}>Student Login</Link>
-            <Link href="/contact" className={`btn-primary ${styles.mobileCta}`}>Get in Touch</Link>
-          </>
+          <Link href="/join" className={`btn-primary ${styles.mobileCta}`}>Join Us</Link>
         )}
-        <div className={styles.mobileThemeRow}><ThemeToggle /></div>
+        {/* <div className={styles.mobileThemeRow}><ThemeToggle /></div> */}
       </div>
     </nav>
   );

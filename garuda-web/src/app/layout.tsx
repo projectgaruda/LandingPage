@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavbarWrapper from "@/components/NavbarWrapper";
-import MileageLoader from "@/components/MileageLoader";
+import BrandSplash from "@/components/BrandSplash";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "katex/dist/katex.min.css";
@@ -70,7 +70,7 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <MileageLoader />
+          <BrandSplash />
           <NavbarWrapper />
           <main>{children}</main>
           <Footer />

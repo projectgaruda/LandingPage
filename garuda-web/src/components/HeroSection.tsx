@@ -1,43 +1,30 @@
-"use client";
-
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import styles from "@/app/page.module.css";
-
-const CarModel3D = dynamic(() => import("@/components/CarModel3D"), {
-  ssr: false,
-  loading: () => (
-    <div className={styles.modelFallback}>
-      <div className={styles.modelLoader}>
-        <span>⬡</span>
-        <p>Loading 3D Model...</p>
-      </div>
-    </div>
-  ),
-});
+import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
 
 const stats = [
-  { value: "200+", label: "km/L Record" },
-  { value: "6+", label: "International Events" },
-  { value: "3", label: "Championship Builds" },
-  { value: "50+", label: "Team Members" },
+  { value: 200, suffix: "+", label: "km/L Record" },
+  { value: 6, suffix: "+", label: "International Events", pad: 2 },
+  { value: 11, suffix: "+", label: "Cars Built" },
+  { value: 20, suffix: "", label: "Years on Track" },
 ];
 
-const highlights = [
+const principles = [
   {
-    icon: "efficiency",
+    num: "01",
     title: "Ultra Efficiency",
-    desc: "Engineering vehicles that push the boundaries of fuel efficiency beyond 200 km/L equivalents.",
+    desc: "Vehicles tuned to extract every Watt-hour ",
   },
   {
-    icon: "global",
-    title: "Global Competition",
-    desc: "Representing India at Shell Eco-marathon Asia and other prestigious international events.",
+    num: "02",
+    title: "Global Competition (SEM)",
+    desc: "Representing INDIA & RVCE  at Shell Eco-marathon ",
   },
   {
-    icon: "research",
-    title: "R&D Focus",
-    desc: "Cutting-edge research in aerodynamics, lightweight materials, and powertrain optimization.",
+    num: "03",
+    title: "Research First",
+    desc: "Aerodynamics, lightweight composites, and powertrain work as a discipline",
   },
 ];
 
@@ -45,115 +32,109 @@ export default function HeroSection() {
   return (
     <>
       <section className={styles.hero}>
-
-        <div className="container">
-          <div className={styles.heroInner}>
-            {/* Left — Text */}
-            <div className={styles.heroContent}>
-              <div className={`badge ${styles.heroBadge}`}>
-                <span className="badge-dot" />
-                Shell Eco-Marathon Participant
-              </div>
-
-              <h1 className={styles.heroTitle}>
-                <span className={styles.titleLine1}>GARUDA</span>
-                <span className={styles.titleLine2}>
-                  Engineering<br />
-                  <span className={styles.accentText}>Excellence.</span>
-                </span>
-              </h1>
-
-              <p className={styles.heroSub}>
-                Uncompromising Performance. We design, build, and race 
-                ultra-efficient super mileage vehicles on the world stage.
-              </p>
-
-              <div className={styles.heroBtns}>
-                <Link href="/about" className="btn-primary">
-                  Discover →
-                </Link>
-                <Link href="/builds" className="btn-outline">
-                  Our Builds
-                </Link>
-              </div>
-
-              {/* Mini stats */}
-              <div className={styles.miniStats}>
-                {stats.map((s) => (
-                  <div key={s.label} className={styles.miniStat}>
-                    <span className={styles.miniStatVal}>{s.value}</span>
-                    <span className={styles.miniStatLabel}>{s.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — 3D Model */}
-            <div className={styles.modelWrap}>
-              <CarModel3D />
-            </div>
-          </div>
+        <div className={styles.heroMedia} aria-hidden="true">
+          <img
+            src="/images/car_on_track.jpg"
+            alt=""
+            className={styles.heroPhoto}
+          />
+          <div className={styles.heroOverlay} />
+          <div className={styles.heroVignette} />
+          <div className={styles.heroGrain} />
         </div>
 
-        {/* Scroll indicator */}
-        <div className={styles.scrollIndicator}>
-          <span className={styles.scrollLine} />
-          <span className={styles.scrollText}>SCROLL</span>
+        <aside className={styles.heroRail} aria-hidden="true">
+          <span className={styles.heroRailLine}>Est. 2006</span>
+          <span className={styles.heroRailDot} />
+          <span className={styles.heroRailLine}>RVCE · Bengaluru</span>
+        </aside>
+
+        <div className={`container ${styles.heroContainer}`}>
+          <Reveal as="div" className={styles.heroBody} delay={300}>
+            <span className={styles.heroKicker}>
+              <span className={styles.heroKickerDot} />
+              Project Garuda &nbsp;·&nbsp;Super Mileage Vehicle Team
+            </span>
+
+            <h1 className={styles.heroTitle}>
+              Engineered
+              <br />
+              for <span className={styles.heroAccent}>distance</span>.
+            </h1>
+
+            <p className={styles.heroLead}>
+              A student engineering team at RV College of Engineering,
+              building ultra-efficient vehicles for international competition.
+              Twenty years of super-mileage prototypes. Pivot to battery-electric since
+              2018.
+            </p>
+
+            <div className={styles.heroBtns}>
+              <Link href="/builds" className="btn-primary">
+                See the Builds
+              </Link>
+              <Link href="/about" className={styles.heroGhostLink}>
+                About the Team
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </Reveal>
+
+          <Reveal as="div" className={styles.heroMeta} delay={500}>
+            {stats.map((s) => (
+              <div key={s.label} className={styles.heroStat}>
+                <span className={styles.heroStatVal}>
+                  <CountUp end={s.value} pad={s.pad} />
+                  {s.suffix}
+                </span>
+                <span className={styles.heroStatLabel}>{s.label}</span>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
       {/* ====== ABOUT PREVIEW ====== */}
       <section className={`section ${styles.aboutSection}`}>
-        <div className={styles.aboutBg} />
         <div className="container">
           <div className={styles.aboutGrid}>
-            <div className={styles.aboutLeft}>
-              <div className="section-label">Who We Are</div>
-              <h2 className="section-title">
-                Redefining <span>Fuel Efficiency</span>
+            <Reveal as="div" className={styles.aboutLeft}>
+              <span className={styles.aboutKicker}>
+                <span className={styles.aboutKickerNum}>N° 02</span>
+                <span className={styles.aboutKickerDivider} />
+                The Team
+              </span>
+              <h2 className={styles.aboutTitle}>
+                More distance per drop.
               </h2>
               <p className={styles.aboutText}>
-                GARUDA is a professional student engineering club that specializes in designing 
-                and building super mileage vehicles. From concept to competition, our multidisciplinary 
-                team pushes the limits of automotive engineering.
+                GARUDA is a multidisciplinary student engineering club at RV
+                College of Engineering. From concept sketches to competition
+                grids, we design and build super-mileage vehicles that question
+                the limits of automotive efficiency.
               </p>
               <p className={styles.aboutText}>
-                We have competed at Shell Eco-marathon Asia and other international events, 
-                consistently ranking among top teams and bringing pride to our institution.
+                Two decades of prototypes, eleven cars, and a long run at Shell
+                Eco-marathon Asia — IC-engined through 2016, fully electric
+                since 2018. Built by undergraduates, one batch at a time.
               </p>
-              <Link href="/about" className="btn-outline" style={{ marginTop: "1.5rem" }}>
-                Learn More About Us →
+              <Link href="/about" className={styles.aboutLink}>
+                Read our story
+                <span aria-hidden="true">→</span>
               </Link>
-            </div>
+            </Reveal>
 
-            <div className={styles.aboutRight}>
-              {highlights.map((h) => {
-                let svgIcon;
-                if (h.icon === "efficiency") {
-                  svgIcon = (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  );
-                } else if (h.icon === "global") {
-                  svgIcon = (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                  );
-                } else if (h.icon === "research") {
-                  svgIcon = (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-atom"><circle cx="12" cy="12" r="1"/><path d="M16.83 17a6 6 0 1 0-9.66 0"/><path d="M12 2a10 10 0 1 0 10 10"/></svg>
-                  );
-                }
-
-                return (
-                  <div key={h.title} className={`card ${styles.highlightCard}`}>
-                    <span className={styles.highlightIcon}>{svgIcon}</span>
-                    <div>
-                      <h3 className={styles.highlightTitle}>{h.title}</h3>
-                      <p className={styles.highlightDesc}>{h.desc}</p>
-                    </div>
+            <Reveal as="ol" className={styles.principlesList} delay={150}>
+              {principles.map((p) => (
+                <li key={p.title} className={styles.principle}>
+                  <span className={styles.principleNum}>{p.num}</span>
+                  <div className={styles.principleBody}>
+                    <h3 className={styles.principleTitle}>{p.title}</h3>
+                    <p className={styles.principleDesc}>{p.desc}</p>
                   </div>
-                );
-              })}
-            </div>
+                </li>
+              ))}
+            </Reveal>
           </div>
         </div>
       </section>

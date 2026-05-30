@@ -1,0 +1,133 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050505;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.kicker,
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 241, 0.55);
+  opacity: 0;
+  animation: splashFadeIn 0.7s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.tag {
+  animation-delay: 1s;
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.25rem, 1.5vw, 0.7rem);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 12vw, 8rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em);
+  animation: splashLetter 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.rule {
+  width: 0;
+  height: 1px;
+  background: var(--accent-green);
+  box-shadow: 0 0 14px var(--accent-green-glow);
+  animation: splashRule 0.9s 0.65s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Page-reveal wipe */
+.wipe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--bg-primary);
+  transform: translateY(101%);
+  pointer-events: none;
+}
+
+.splash.leaving .wipe {
+  animation: splashWipe 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.splash.leaving .inner {
+  animation: splashContentOut 0.45s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.splash.leaving {
+  animation: splashFadeOut 0.7s 0.55s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@keyframes splashLetter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes splashRule {
+  to { width: clamp(140px, 22vw, 280px); }
+}
+
+@keyframes splashContentOut {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes splashWipe {
+  to { transform: translateY(0); }
+}
+
+@keyframes splashFadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter,
+  .rule,
+  .kicker,
+  .tag {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    width: clamp(140px, 22vw, 280px);
+  }
+  .splash.leaving { animation: splashFadeOut 0.3s forwards; }
+  .splash.leaving .wipe,
+  .splash.leaving .inner { animation: none !important; }
+}
