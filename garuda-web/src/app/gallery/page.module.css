@@ -29,70 +29,156 @@
   line-height: 1.7;
 }
 
+/* ── Filter tabs ── */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filterTab {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterTab:hover {
+  color: var(--text-secondary);
+  border-color: var(--border-bright);
+  background: var(--bg-card);
+}
+
+.filterTabActive {
+  color: var(--accent-green);
+  border-color: var(--border-bright);
+  background: var(--accent-green-subtle);
+}
+
+/* ── Count line ── */
+.filterCount {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+}
+
+/* ── Masonry grid ── */
 .galleryGrid {
   columns: 3;
-  column-gap: 1.5rem;
+  column-gap: 1.25rem;
 }
 
 .galleryItem {
   break-inside: avoid;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
+/* ── Image card ── */
 .imageWrap {
   position: relative;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border);
   cursor: pointer;
+  background: var(--bg-card);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imageWrap:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
 .image {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(3, 8, 10, 0.9) 0%, transparent 70%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.category {
-  font-family: var(--font-heading);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: var(--accent-green);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.label {
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  line-height: 1.4;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .imageWrap:hover .image {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+/* ── Overlay — always slight, strong on hover ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(3, 8, 10, 0.88) 0%, rgba(3, 8, 10, 0.1) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 1.1rem;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="light"] .overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.05) 55%, transparent 100%);
 }
 
 .imageWrap:hover .overlay {
   opacity: 1;
 }
 
-@media (max-width: 1024px) {
-  .galleryGrid { columns: 2; }
+.overlayContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-self: flex-end;
 }
 
-@media (max-width: 640px) {
-  .galleryGrid { columns: 1; }
+.category {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 100px;
+  border: 1px solid;
+  align-self: flex-start;
+  /* default fallback — overridden by inline style */
+  color: var(--accent-green);
+  background: var(--accent-green-subtle);
+  border-color: var(--border-bright);
 }
+
+.label {
+  font-size: 0.82rem;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 100%;
+}
+
+.zoomHint {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  align-self: flex-end;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  transform: translateY(4px);
+}
+
+.imageWrap:hover .zoomHint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) { .galleryGrid { columns: 2; } }
+@media (max-width: 640px)  { .galleryGrid { columns: 1; } }
