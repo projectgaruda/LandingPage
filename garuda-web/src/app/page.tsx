@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
 import HeroSection from "@/components/HeroSection";
+import CompetitionsSection from "@/components/CompetitionsSection";
 
 export const metadata: Metadata = {
-  title: "GARUDA | Super Mileage Engineering Club",
+  title: "GARUDA — Super Mileage Club | RV College of Engineering",
   description:
-    "GARUDA — Engineering Excellence. Uncompromising Performance. We build ultra-efficient super mileage vehicles and compete at international events like Shell Eco-marathon.",
+    "GARUDA is the Super Mileage Club of RV College of Engineering (RVCE), Bengaluru. We design, build, and race ultra-efficient vehicles at Shell Eco-Marathon Asia. RVCE students — apply now and join India's top student engineering team.",
 };
 
 export default function HomePage() {
@@ -51,6 +52,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ====== COMPETITIONS ====== */}
+      <CompetitionsSection />
 
       {/* ====== CTA BANNER (Server Side) ====== */}
       <section className={styles.ctaSection}>

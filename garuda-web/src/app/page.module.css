@@ -354,6 +354,226 @@
   flex-shrink: 0;
 }
 
+/* ======== COMPETITIONS ======== */
+.competitionsSection {
+  position: relative;
+  padding: 7rem 0 6rem;
+  overflow: hidden;
+}
+
+/* Full-bleed banner image */
+.competitionsBannerBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  /* fallback gradient if image missing */
+  background-color: #0a1a0f;
+}
+
+/* Overlay — dark theme: heavy dark; light theme: semi-light */
+.competitionsOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(3, 8, 10, 0.88) 0%,
+    rgba(3, 8, 10, 0.78) 50%,
+    rgba(3, 8, 10, 0.85) 100%
+  );
+}
+
+[data-theme="light"] .competitionsOverlay {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(245, 245, 240, 0.75) 50%,
+    rgba(255, 255, 255, 0.82) 100%
+  );
+}
+
+/* "Designed. Built. Raced. By students." */
+.taglineRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.1em;
+  margin-bottom: 3.5rem;
+}
+
+.taglineWord {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+[data-theme="light"] .taglineWord {
+  color: var(--text-primary);
+}
+
+.taglineWord:last-child {
+  color: var(--accent-green);
+}
+
+.competitionsLabel {
+  margin-bottom: 2.5rem;
+  color: var(--accent-green) !important;
+}
+
+/* Competition card */
+.semCard {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 3rem 3.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 900px;
+}
+
+[data-theme="light"] .semCard {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon column */
+.semIconWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  height: 200px;
+}
+
+.semIcon {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 24px rgba(43, 255, 0, 0.2));
+}
+
+.semIconGlow {
+  position: absolute;
+  bottom: 10px;
+  width: 120px;
+  height: 30px;
+  background: radial-gradient(ellipse, var(--accent-green-glow), transparent 70%);
+  filter: blur(8px);
+  border-radius: 50%;
+}
+
+/* Info column */
+.semInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.semEyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+  margin: 0;
+}
+
+.semName {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.05;
+}
+
+[data-theme="light"] .semName {
+  color: var(--text-primary);
+}
+
+.semRegion {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+[data-theme="light"] .semRegion {
+  color: var(--text-muted);
+}
+
+.semDesc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  max-width: 52ch;
+  margin: 0.25rem 0 0;
+}
+
+[data-theme="light"] .semDesc {
+  color: var(--text-secondary);
+}
+
+.semStats {
+  display: flex;
+  gap: 2rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0.25rem 0;
+}
+
+[data-theme="light"] .semStats {
+  border-color: var(--border);
+}
+
+.semStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.semStatVal {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.semStatLabel {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="light"] .semStatLabel {
+  color: var(--text-muted);
+}
+
+.semCta {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
 /* ======== RESPONSIVE ======== */
 @media (max-width: 1024px) {
   .heroInner { grid-template-columns: 1fr; gap: 2rem; }
@@ -361,12 +581,15 @@
   .aboutGrid { grid-template-columns: 1fr; gap: 3rem; }
   .featuredGrid { grid-template-columns: 1fr; }
   .miniStats { grid-template-columns: repeat(2, 1fr); }
+  .semCard { grid-template-columns: 1fr; gap: 2rem; }
+  .semIconWrap { height: 140px; }
+  .semIcon { width: 120px; height: 120px; }
 }
 
 @media (max-width: 640px) {
   .hero { padding-top: 4rem; }
-  
-  .ctaInner { 
+
+  .ctaInner {
     padding: 2rem;
     flex-direction: column;
     align-items: flex-start;
@@ -384,4 +607,9 @@
   }
 
   .specGrid { grid-template-columns: 1fr; }
+
+  .competitionsSection { padding: 5rem 0 4rem; }
+  .taglineRow { gap: 0.2em 0.8em; margin-bottom: 2.5rem; }
+  .semCard { padding: 2rem 1.5rem; }
+  .semStats { gap: 1.25rem; }
 }
