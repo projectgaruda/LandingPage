@@ -1,0 +1,157 @@
+.card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-card);
+  cursor: default;
+}
+
+/* Animated glow orb */
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 55% at 60% 30%,
+    var(--accent-green-glow),
+    transparent 70%
+  );
+  animation: glowShift 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes glowShift {
+  0%   { opacity: 0.6; transform: scale(1)   translate(0, 0); }
+  50%  { opacity: 1;   transform: scale(1.08) translate(-4%, 3%); }
+  100% { opacity: 0.7; transform: scale(0.96) translate(4%, -2%); }
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-green);
+  position: relative;
+}
+
+/* Email row */
+.emailRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.email {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  position: relative;
+  background: linear-gradient(90deg, var(--text-primary) 0%, var(--accent-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+  transition: background-position 0.5s ease;
+}
+
+.email:hover {
+  background-position: 60% 0%;
+}
+
+/* Copy button */
+.copyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  border-color: var(--border-bright);
+  color: var(--accent-green);
+  background: var(--accent-green-subtle);
+}
+
+.copyBtnDone {
+  border-color: var(--border-bright);
+  color: var(--accent-green);
+  background: var(--accent-green-subtle);
+}
+
+/* Subtext */
+.subtext {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 42ch;
+  position: relative;
+}
+
+/* Mail button */
+.mailBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.85rem 1.75rem;
+  background: var(--accent-green);
+  color: #030d06;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition), background var(--transition);
+}
+
+.mailBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.mailBtn:hover {
+  color: #030d06;
+  box-shadow: 0 6px 24px var(--accent-green-glow), 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.mailBtn:hover::before { opacity: 1; }
+
+.arrow {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+  .card { padding: 2rem 1.5rem; }
+  .email { font-size: 1.15rem; }
+}
