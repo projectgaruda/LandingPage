@@ -3,16 +3,19 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import styles from "./ContactMailto.module.css";
 
-const EMAIL = "garuda@rvce.edu.in";
+const EMAILS = [
+  { address: "garuda@rvce.edu.in",        label: "Official" },
+  { address: "projectgarudarv@gmail.com", label: "General" },
+];
 
 export default function ContactMailto() {
-  const [copied, setCopied] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   const reduced = useReducedMotion();
 
-  function copy() {
-    navigator.clipboard.writeText(EMAIL).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+  function copy(address: string, idx: number) {
+    navigator.clipboard.writeText(address).then(() => {
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
     });
   }
 
@@ -44,43 +47,54 @@ export default function ContactMailto() {
         Drop us a line
       </motion.span>
 
-      <motion.div className={styles.emailRow} variants={childVariants} custom={1} initial="hidden" animate="visible">
-        <a href={`mailto:${EMAIL}`} className={styles.email}>
-          {EMAIL}
-        </a>
-        <motion.button
-          className={`${styles.copyBtn} ${copied ? styles.copyBtnDone : ""}`}
-          onClick={copy}
-          aria-label={copied ? "Copied!" : "Copy email"}
-          whileTap={reduced ? {} : { scale: 0.88 }}
-          title={copied ? "Copied!" : "Copy to clipboard"}
+      {/* Both email addresses */}
+      {EMAILS.map(({ address, label }, idx) => (
+        <motion.div
+          key={address}
+          className={styles.emailRow}
+          variants={childVariants}
+          custom={idx + 1}
+          initial="hidden"
+          animate="visible"
         >
-          {copied ? (
-            <motion.span
-              key="check"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 18 }}
-            >
-              ✓
-            </motion.span>
-          ) : (
-            <motion.span key="copy" initial={{ opacity: 1 }}>
-              ⧉
-            </motion.span>
-          )}
-        </motion.button>
-      </motion.div>
+          <div className={styles.emailBlock}>
+            <span className={styles.emailLabel}>{label}</span>
+            <a href={`mailto:${address}`} className={styles.email}>
+              {address}
+            </a>
+          </div>
+          <motion.button
+            className={`${styles.copyBtn} ${copiedIdx === idx ? styles.copyBtnDone : ""}`}
+            onClick={() => copy(address, idx)}
+            aria-label={copiedIdx === idx ? "Copied!" : `Copy ${address}`}
+            whileTap={reduced ? {} : { scale: 0.88 }}
+            title={copiedIdx === idx ? "Copied!" : "Copy to clipboard"}
+          >
+            {copiedIdx === idx ? (
+              <motion.span
+                key="check"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 18 }}
+              >
+                ✓
+              </motion.span>
+            ) : (
+              <motion.span key="copy" initial={{ opacity: 1 }}>⧉</motion.span>
+            )}
+          </motion.button>
+        </motion.div>
+      ))}
 
-      <motion.p className={styles.subtext} variants={childVariants} custom={2} initial="hidden" animate="visible">
+      <motion.p className={styles.subtext} variants={childVariants} custom={3} initial="hidden" animate="visible">
         For sponsorships, media, or general inquiries — we read every message.
       </motion.p>
 
       <motion.a
-        href={`mailto:${EMAIL}`}
+        href={`mailto:${EMAILS[0].address}`}
         className={styles.mailBtn}
         variants={childVariants}
-        custom={3}
+        custom={4}
         initial="hidden"
         animate="visible"
         whileHover={reduced ? {} : "hover"}

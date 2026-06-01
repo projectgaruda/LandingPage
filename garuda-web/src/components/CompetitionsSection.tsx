@@ -7,10 +7,13 @@ export default function CompetitionsSection() {
 
   return (
     <section className={styles.competitionsSection}>
-      {/* Banner image background */}
+      {/* Banner image background — falls back to team photo until sem_banner.jpg is uploaded */}
       <div
         className={styles.competitionsBannerBg}
-        style={{ backgroundImage: "url('/images/sem_banner.jpg')" }}
+        style={{
+          backgroundImage:
+            "url('/images/sem_banner.jpg'), url('/images/2019_Shell_ecoMarathon_team_with_car.jpg')",
+        }}
         aria-hidden
       />
       <div className={styles.competitionsOverlay} aria-hidden />
@@ -23,10 +26,10 @@ export default function CompetitionsSection() {
             <motion.span
               key={word}
               className={styles.taglineWord}
-              initial={reduced ? {} : { opacity: 0, y: 22 }}
+              initial={reduced ? {} : { opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               {word}
             </motion.span>
@@ -38,8 +41,8 @@ export default function CompetitionsSection() {
           className={`section-label ${styles.competitionsLabel}`}
           initial={reduced ? {} : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.55, duration: 0.4 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ delay: 0.45, duration: 0.4 }}
         >
           Where We Compete
         </motion.div>
@@ -47,10 +50,10 @@ export default function CompetitionsSection() {
         {/* Competition card */}
         <motion.div
           className={styles.semCard}
-          initial={reduced ? {} : { opacity: 0, y: 28 }}
+          initial={reduced ? {} : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.65, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ delay: 0.55, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* Animated icon */}
           <div className={styles.semIconWrap}>

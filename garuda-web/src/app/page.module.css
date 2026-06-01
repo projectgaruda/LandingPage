@@ -368,8 +368,8 @@
   background-size: cover;
   background-position: center 40%;
   background-repeat: no-repeat;
-  /* fallback gradient if image missing */
-  background-color: #0a1a0f;
+  background-color: #0d1f10;
+  background-image: radial-gradient(ellipse at 60% 40%, rgba(43,255,0,0.08) 0%, transparent 65%);
 }
 
 /* Overlay — dark theme: heavy dark; light theme: semi-light */
