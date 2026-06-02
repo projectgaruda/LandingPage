@@ -44,7 +44,7 @@ export default function Footer() {
           <div className={styles.mastheadRight}>
             <span className={styles.tagKicker}>
               <span className={styles.tagKickerDot} />
-              Est. 2004 · RVCE · Bengaluru
+              Est. 2006 · RVCE · Bengaluru
             </span>
             <p className={styles.tagline}>
               A student engineering team building ultra-efficient vehicles for

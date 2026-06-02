@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://garuda-club.vercel.app",
-    siteName: "GARUDA Super Mileage Club",
+    siteName: "Project GARUDA RVCE",
     title: "GARUDA | Super Mileage Club",
     description:
-      "Engineering excellence. Uncompromising performance. Building the world's most efficient vehicles.",
+      "Engineering excellence. Uncompromising performance. Building the super mileage vehicles.",
     images: [
       {
         url: "/og-image.jpg",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GARUDA | Super Mileage Club",
+    title: "GARUDA  RVCE",
     description: "Engineering excellence. Uncompromising performance.",
   },
   robots: {

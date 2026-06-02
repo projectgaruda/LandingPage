@@ -362,15 +362,62 @@
 }
 
 @media (max-width: 768px) {
-  .rivalMembers { grid-template-columns: 1fr; }
-  .mgmtGrid { grid-template-columns: 1fr; }
+  .pageHeader { padding: 7rem 0 3.5rem; min-height: 50vh; }
+  .captainSection,
+  .disciplinesSection,
+  .mgmtSection,
+  .joinSection { padding: 3.5rem 0; }
+
+  .rivalMembers { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .mgmtGrid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* Tighter discipline header on phones */
+  .rivalHeader { gap: 0.85rem; padding-bottom: 1rem; }
+  .rivalLetter { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .rivalName { font-size: 1.1rem; }
+
+  .rivalGrid { gap: 1.5rem; }
+  .rivalDividerMark { font-size: 1rem; padding: 0; }
+
+  .captainWrap { margin-top: 1.5rem; }
+  .sectionLead { margin-bottom: 2rem; }
 }
 
 @media (max-width: 640px) {
-  .pageHeader { padding: 8rem 0 4rem; }
+  .pageHeader { padding: 6.5rem 0 3rem; min-height: 44vh; }
+  .pageTitle { margin-bottom: 1.25rem; }
+  .pageDesc { font-size: 0.96rem; }
+
+  .captainSection,
+  .disciplinesSection,
+  .mgmtSection,
+  .joinSection { padding: 3rem 0; }
+
   .headerKicker,
-  .sectionKicker { gap: 0.55rem; font-size: 0.62rem; letter-spacing: 0.18em; }
-  .joinBtns { flex-direction: column; align-items: stretch; }
+  .sectionKicker {
+    gap: 0.55rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 1.1rem;
+  }
+
+  .sectionTitle { margin-bottom: 0.6rem; font-size: clamp(1.7rem, 8vw, 2.2rem); }
+  .sectionLead { margin-bottom: 1.5rem; font-size: 0.94rem; }
+
+  /* On the narrowest phones, member cards become single column again
+     since two-column squares get tiny */
+  .rivalMembers { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .mgmtGrid { grid-template-columns: 1fr; }
+
+  .joinTitle { margin-bottom: 1rem; }
+  .joinDesc { font-size: 0.94rem; }
+  .joinBtns { flex-direction: column; align-items: stretch; gap: 0.85rem; }
+  .joinBtns > * { width: 100%; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 420px) {
+  /* True one-column on tiny phones */
+  .rivalMembers { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

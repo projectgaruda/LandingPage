@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 ============================================================ */
 
 const captain: TeamMember = {
-  slug: "Abhinandan Nandagave",
-  name: "Abhinandan Nandagave",
-  role: "Club Captain · Mechanical",
+  slug: "Captain",
+  name: "Abhinandan Appasaheb Nandagave",
+  role: "Club Captain",
   contribution: "",
   photo: "/images/team/abhinandhan.jpg",
 };
@@ -73,22 +73,22 @@ const eeMembers: TeamMember[] = [
     name: "Pranav Kamath",
     role: "Electrical Head",
     contribution: "",
-    photo: "/images/team/ee-head.jpg",
+    photo: "/images/team/ee-head1.jpg",
     head: true,
   },
   {
-    slug: "sethu",
+    slug: "second-in-command",
     name: "Sethu S",
     role: "Controls Engineer · POC",
     contribution: "",
     photo: "/images/team/sethu.jpg",
   },
   {
-    slug: "ee-1",
+    slug: "Senior-engineer-ee3",
     name: "Potta Siddarth",
-    role: "Member",
+    role: "Senior Engineer · Sponsorship Liaison",
     contribution: "",
-    photo: "/images/team/ee-1.jpg",
+    photo: "/images/team/siddharth-ee3.jpeg",
   },
   // Empty member slots — uncomment + fill in when you have names.
   // {
@@ -124,11 +124,19 @@ const management: TeamMember[] = [
   },
   {
     slug: "fund-manager",
-    name: "Chethan",
+    name: "Chetan Chanaveeragoudra",
     role: "Fund Manager",
     contribution: "",
-    photo: "/images/team/fund-manager.jpg",
+    photo: "/images/team/chetan_funding.jpeg",
+    head: true,
   },
+  /*{
+    slug: "",
+    name: "Rishi Khare",
+    role: "Associate Fund Manager",
+    contribution: "2nd year",
+    photo: "/images/team/associate_fund_manager.jpeg",
+  },*/
   {
     slug: "social-media",
     name: null,

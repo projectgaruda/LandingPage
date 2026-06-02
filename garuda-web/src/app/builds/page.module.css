@@ -374,6 +374,34 @@
   max-width: 48ch;
 }
 
+/* Archive marker — quiet editorial substitute for missing copy */
+.buildArchive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 1rem;
+  margin: 0 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: transparent;
+  width: fit-content;
+}
+
+.buildArchiveDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  opacity: 0.85;
+  box-shadow: 0 0 6px var(--accent-green-glow);
+}
+
 .buildEvent {
   display: inline-flex;
   align-items: center;

@@ -229,7 +229,10 @@ function BuildRow({
         {!build.placeholder && build.category !== "—" && (
           <div className={styles.buildCategory}>{build.category}</div>
         )}
-        <p className={styles.buildDesc}>{build.desc}</p>
+
+        {build.desc && (
+          <p className={styles.buildDesc}>{build.desc}</p>
+        )}
 
         {!build.placeholder && (
           <>

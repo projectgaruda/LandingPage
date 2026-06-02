@@ -53,7 +53,7 @@ export default function BrandSplash() {
       aria-hidden="true"
     >
       <div className={styles.inner}>
-        <span className={styles.kicker}>Project Garuda · Est. 2004</span>
+        <span className={styles.kicker}>Project Garuda · Est. 2006</span>
 
         <div className={styles.wordmark}>
           {LETTERS.map((letter, i) => (

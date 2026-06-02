@@ -1,38 +1,78 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { deleteAnnouncement } from "@/app/actions/announcements";
+import AnnouncementComposer from "./AnnouncementComposer";
+import GroupSwitcher from "./GroupSwitcher";
+import TodoColumn from "./TodoColumn";
+import TodoComposer from "./TodoComposer";
+import TodoItem, { type Todo } from "./TodoItem";
+import BuildProgressComposer from "./BuildProgressComposer";
+import BuildProgressItem, {
+  type BuildProgress,
+} from "./BuildProgressItem";
+import EventEditor, { type EventRow } from "./EventEditor";
+import Toaster from "./Toaster";
 import styles from "./page.module.css";
 
-const BUILD_STAGES = [
-  { label: "Concept Design", done: true },
-  { label: "Detailed Design", done: true },
-  { label: "Fabrication", done: false },
-  { label: "Testing & Tuning", done: false },
-  { label: "Competition", done: false },
-];
+const ADMIN_EMAIL = "projectgarudarv@gmail.com";
 
-const RESOURCES = [
-  { label: "CAD Repository", href: "#" },
-  { label: "Component Specs Sheet", href: "#" },
-  { label: "Budget Tracker", href: "#" },
-  { label: "Competition Rulebook", href: "#" },
-  { label: "Meeting Notes Archive", href: "#" },
-];
+// Edit these to rename / add / remove groups.
+const GROUPS = ["Mechanical", "Electrical", "Operations"] as const;
+type Group = (typeof GROUPS)[number];
 
-const EVENTS = [
-  { date: new Date("2026-06-07"), display: "Jun 7", label: "Suspension review session", tag: "Internal" },
-  { date: new Date("2026-06-14"), display: "Jun 14", label: "Battery pack stress test", tag: "Testing" },
-  { date: new Date("2026-07-01"), display: "Jul 1", label: "Documentation submission deadline", tag: "Deadline" },
-  { date: new Date("2026-10-12"), display: "Oct 12", label: "Shell Eco-Marathon Asia 2026", tag: "Competition" },
-];
+const TARGET_EVENT = {
+  name: "Shell Eco-marathon ",
+  date: new Date("2027-00-00"),//in YYYY/MM/DD format
+};
 
-const ANNOUNCEMENTS = [
-  { text: "Next full-team meeting: Saturday 10 AM, Workshop Bay 3", time: "Today" },
-  { text: "Motor controller datasheets uploaded to CAD repo — review before Friday", time: "Yesterday" },
-  { text: "Shell Eco-Marathon registration deadline: confirm attendance ASAP", time: "2 days ago" },
-];
+type AnnouncementRow = {
+  id: string;
+  body: string;
+  author_id: string;
+  created_at: string;
+  author: { full_name: string | null; avatar_url: string | null } | null;
+};
 
-export default async function DashboardPage() {
+function formatRelative(iso: string): string {
+  const now = Date.now();
+  const t = new Date(iso).getTime();
+  const sec = Math.max(0, Math.round((now - t) / 1000));
+  if (sec < 60) return "just now";
+  const min = Math.round(sec / 60);
+  if (min < 60) return `${min}m ago`;
+  const hr = Math.round(min / 60);
+  if (hr < 24) return `${hr}h ago`;
+  const day = Math.round(hr / 24);
+  if (day < 30) return `${day}d ago`;
+  return new Date(iso).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+  });
+}
+
+function daysUntil(target: Date): number {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+  const t = new Date(target);
+  t.setHours(0, 0, 0, 0);
+  return Math.max(0, Math.round((t.getTime() - now.getTime()) / 86400000));
+}
+
+type SearchParams = Promise<{ group?: string }>;
+
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const { group: groupParam } = await searchParams;
+  const activeGroup: Group = (GROUPS as readonly string[]).includes(
+    groupParam ?? "",
+  )
+    ? (groupParam as Group)
+    : GROUPS[0];
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -41,226 +81,235 @@ export default async function DashboardPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*")
+    .select("full_name, avatar_url, profile_completed")
     .eq("id", user.id)
     .single();
-
   if (!profile?.profile_completed) redirect("/profile/setup");
 
-  const [{ count: memberCount }, { count: postCount }, { data: recentPosts }] =
-    await Promise.all([
-      supabase.from("profiles").select("id", { count: "exact", head: true }).eq("profile_completed", true),
-      supabase.from("posts").select("id", { count: "exact", head: true }),
-      supabase
-        .from("posts")
-        .select(`id, title, created_at, author:profiles!posts_author_id_fkey(full_name, avatar_url)`)
-        .order("created_at", { ascending: false })
-        .limit(4),
-    ]);
+  const isAdmin = user.email === ADMIN_EMAIL;
 
-  // Compute countdown to next event
+  const { data: announcements } = await supabase
+    .from("announcements")
+    .select(
+      `id, body, author_id, created_at, author:profiles!announcements_author_id_fkey(full_name, avatar_url)`,
+    )
+    .order("created_at", { ascending: false })
+    .limit(5);
+
+  const annList = (announcements ?? []) as unknown as AnnouncementRow[];
+
+  // Todos for this group
+  const { data: allTodos } = await supabase
+    .from("todos")
+    .select("id, title, description, done, deadline, group_name")
+    .eq("group_name", activeGroup)
+    .order("done", { ascending: true })
+    .order("position", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  const todos = (allTodos ?? []) as Todo[];
+  const pending = todos.filter((t) => !t.done);
+  const done = todos.filter((t) => t.done);
+
+  // Build progress for this group
+  const { data: bpData } = await supabase
+    .from("build_progress")
+    .select("id, title, description, group_name, todo_ids")
+    .eq("group_name", activeGroup)
+    .order("position", { ascending: false });
+  const buildProgress = (bpData ?? []) as BuildProgress[];
+
+  // Open-task counts across all groups for the switcher dropdown
+  const { data: countsRaw } = await supabase
+    .from("todos")
+    .select("group_name")
+    .eq("done", false);
+
+  const counts: Record<string, number> = {};
+  for (const g of GROUPS) counts[g] = 0;
+  if (countsRaw) {
+    for (const row of countsRaw as { group_name: string | null }[]) {
+      if (row.group_name && row.group_name in counts) {
+        counts[row.group_name] += 1;
+      }
+    }
+  }
+
+  // Events
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const nextEvent = EVENTS.find(e => e.date >= today) ?? EVENTS[EVENTS.length - 1];
-  const msUntil = nextEvent.date.getTime() - today.getTime();
-  const daysUntil = Math.max(0, Math.ceil(msUntil / (1000 * 60 * 60 * 24)));
+  const todayISO = today.toISOString().slice(0, 10);
+  const { data: eventRows } = await supabase
+    .from("events")
+    .select("id, label, event_date, tag")
+    .gte("event_date", todayISO)
+    .order("event_date", { ascending: true });
+  const events = (eventRows ?? []) as EventRow[];
+
+  const eventDays = daysUntil(TARGET_EVENT.date);
+  const targetDateStr = TARGET_EVENT.date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const firstName = (profile.full_name ?? "Member").split(/\s+/)[0];
 
   return (
     <div className={styles.page}>
       <div className="container">
-
-        {/* Welcome bar */}
-        <div className={styles.welcomeBar}>
-          <div className={styles.welcomeLeft}>
-            {profile.avatar_url ? (
-              <img src={profile.avatar_url} alt="" className={styles.welcomeAvatar} />
-            ) : (
-              <div className={styles.welcomeAvatarInitials}>
-                {(profile.full_name ?? "M")[0].toUpperCase()}
-              </div>
-            )}
-            <div className={styles.welcomeText}>
-              <span className={styles.welcomeLabel}>Welcome back</span>
-              <h1 className={styles.welcomeName}>{profile.full_name ?? "Member"}</h1>
-              <p className={styles.welcomeSub}>
-                {profile.branch} · Sem {profile.semester} ·{" "}
-                <span className={styles.roleTag}>{profile.role ?? profile.user_type}</span>
-              </p>
-            </div>
-          </div>
-          <Link href="/profile/settings" className={styles.editProfileBtn}>
-            Edit Profile
-          </Link>
-        </div>
-
-        {/* Stats row */}
-        <div className={styles.statsRow}>
-          {[
-            { value: memberCount ?? 0, label: "Team Members" },
-            { value: postCount ?? 0, label: "Blog Posts" },
-            { value: "SEM 25", label: "Target Event" },
-            { value: "EV Mk.3", label: "Current Build" },
-          ].map((s) => (
-            <div key={s.label} className={styles.statCard}>
-              <div className={styles.statValue}>{s.value}</div>
-              <div className={styles.statLabel}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Countdown banner */}
-        <div className={`${styles.countdown} ${nextEvent.tag === "Competition" ? styles.countdownCompetition : nextEvent.tag === "Deadline" ? styles.countdownDeadline : ""}`}>
-          <div className={styles.countdownLeft}>
-            <span className={styles.countdownTag}>{nextEvent.tag}</span>
-            <span className={styles.countdownLabel}>{nextEvent.label}</span>
-            <span className={styles.countdownDate}>{nextEvent.display}</span>
-          </div>
-          <div className={styles.countdownRight}>
-            <span className={styles.countdownDays}>{daysUntil}</span>
-            <span className={styles.countdownUnit}>days away</span>
-          </div>
-        </div>
-
-        {/* Main grid */}
-        <div className={styles.mainGrid}>
-
-          {/* Left column */}
-          <div className={styles.col}>
-
-            {/* Announcements */}
-            <div className={styles.section}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>Announcements</h2>
-                <span className={styles.sectionBadge}>Pinned by leads</span>
-              </div>
-              <div className={styles.announcements}>
-                {ANNOUNCEMENTS.map((a) => (
-                  <div key={a.text} className={styles.announcementItem}>
-                    <span className={styles.announceDot} />
-                    <div>
-                      <p className={styles.announceText}>{a.text}</p>
-                      <span className={styles.announceTime}>{a.time}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Upcoming events */}
-            <div className={styles.section}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>Upcoming Events</h2>
-              </div>
-              <div className={styles.events}>
-                {EVENTS.map((ev) => {
-                  const isPast = ev.date < today;
-                  const isNext = ev === nextEvent;
-                  return (
-                    <div key={ev.label} className={`${styles.eventItem} ${isPast ? styles.eventPast : ""} ${isNext ? styles.eventNext : ""}`}>
-                      <div className={styles.eventDate}>{ev.display}</div>
-                      <div className={styles.eventBody}>
-                        <span className={styles.eventLabel}>{ev.label}</span>
-                        <span className={`${styles.eventTag} ${styles[`tag${ev.tag}`]}`}>{ev.tag}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
+        {/* ===== Top strip ===== */}
+        <header className={styles.top}>
+          <div className={styles.greeting}>
+            <h1 className={styles.hello}>
+              Hello, <span className={styles.helloName}>{firstName}</span>.
+            </h1>
+            <p className={styles.helloSub}>
+              {pending.length === 0
+                ? "nothing on the list"
+                : `${pending.length} open in ${activeGroup}`}
+            </p>
           </div>
 
-          {/* Right column */}
-          <div className={styles.col}>
+          <aside className={styles.targetBox} aria-label="Target event">
+            <span className={styles.targetLabel}>Target Event</span>
+            <span className={styles.targetName}>{TARGET_EVENT.name}</span>
+            <span className={styles.targetMeta}>
+              <span>{targetDateStr}</span>
+              <span className={styles.targetMetaSep}>·</span>
+              <span className={styles.targetDays}>{eventDays} days</span>
+            </span>
+          </aside>
+        </header>
 
-            {/* Quick actions */}
-            <div className={styles.section}>
-              <h2 className={`${styles.sectionTitle} ${styles.sectionTitleSpaced}`}>Quick Actions</h2>
-              <div className={styles.quickActions}>
-                <Link href="/blog/new" className="btn-primary">Write Post</Link>
-                <Link href="/blog" className="btn-outline">Read Blog</Link>
-                <Link href="/profile/settings" className="btn-outline">Edit Profile</Link>
-              </div>
-            </div>
-
-            {/* Recent blog posts */}
-            <div className={styles.section}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>Recent Posts</h2>
-                <Link href="/blog" className={styles.seeAll}>See all</Link>
-              </div>
-              {!recentPosts || recentPosts.length === 0 ? (
-                <p className={styles.empty}>No posts yet.</p>
-              ) : (
-                <div className={styles.postList}>
-                  {recentPosts.map((p: any) => (
-                    <Link key={p.id} href={`/blog/${p.id}`} className={styles.postItem}>
-                      <div className={styles.postItemInner}>
-                        {p.author?.avatar_url ? (
-                          <img src={p.author.avatar_url} alt="" className={styles.postAvatar} />
-                        ) : (
-                          <div className={styles.postAvatarInitials}>
-                            {(p.author?.full_name ?? "?")[0].toUpperCase()}
-                          </div>
-                        )}
-                        <div>
-                          <p className={styles.postItemTitle}>{p.title}</p>
-                          <p className={styles.postItemMeta}>
-                            {p.author?.full_name} ·{" "}
-                            {new Date(p.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <Link href="/blog/new" className={`btn-primary ${styles.newPostBtn}`}>
-                + Write a Post
-              </Link>
-            </div>
-
-            {/* Resources */}
-            <div className={styles.section}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>Resources</h2>
-                <span className={styles.sectionBadge}>Managed by leads</span>
-              </div>
-              <div className={styles.resourceList}>
-                {RESOURCES.map((r) => (
-                  <a key={r.label} href={r.href} className={styles.resourceItem}>
-                    <span className={styles.resourceLabel}>{r.label}</span>
-                    <span className={styles.resourceArrow}>→</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Build progress */}
-            <div className={styles.section}>
-              <div className={styles.sectionHead}>
-                <h2 className={styles.sectionTitle}>Build Progress — EV Mk.3</h2>
-                <span className={styles.sectionBadge}>2 / 5 complete</span>
-              </div>
-              <div className={styles.buildTrack}>
-                {BUILD_STAGES.map((stage, i) => (
-                  <div key={stage.label} className={styles.buildStep}>
-                    <div className={`${styles.stepDot} ${stage.done ? styles.stepDone : i === 2 ? styles.stepActive : ""}`}>
-                      {stage.done ? "✓" : i + 1}
-                    </div>
-                    {i < BUILD_STAGES.length - 1 && (
-                      <div className={`${styles.stepLine} ${stage.done ? styles.stepLineDone : ""}`} />
-                    )}
-                    <span className={`${styles.stepLabel} ${stage.done ? styles.stepLabelDone : i === 2 ? styles.stepLabelActive : ""}`}>
-                      {stage.label}
+        {/* ===== Announcement banner ===== */}
+        <section className={styles.announceBanner} aria-label="Announcements">
+          {annList.length > 0 && (
+            <div className={styles.announceList}>
+              {annList.map((a) => {
+                const isAuthor = a.author_id === user.id;
+                const canDelete = isAdmin || isAuthor;
+                return (
+                  <div key={a.id} className={styles.announce}>
+                    <span className={styles.announceDot} aria-hidden="true" />
+                    <p className={styles.announceText}>{a.body}</p>
+                    <span className={styles.announceMeta}>
+                      <span>{a.author?.full_name ?? "Member"}</span>
+                      <span className={styles.announceMetaSep}>·</span>
+                      <span>{formatRelative(a.created_at)}</span>
                     </span>
+                    {canDelete && (
+                      <form
+                        action={deleteAnnouncement}
+                        className={styles.announceDeleteForm}
+                      >
+                        <input type="hidden" name="id" value={a.id} />
+                        <button
+                          type="submit"
+                          className={styles.announceDelete}
+                          aria-label="Remove announcement"
+                        >
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M18 6L6 18" />
+                            <path d="M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </form>
+                    )}
                   </div>
+                );
+              })}
+            </div>
+          )}
+          <AnnouncementComposer />
+        </section>
+
+        {/* ===== Group switcher (hidden by default) ===== */}
+        <div className={styles.switcherRow}>
+          <Suspense fallback={<div className={styles.switcherFallback} />}>
+            <GroupSwitcher
+              groups={GROUPS}
+              active={activeGroup}
+              counts={counts}
+            />
+          </Suspense>
+          <p className={styles.switcherHint}>
+            Drag tasks between Todo and Done.
+          </p>
+        </div>
+
+        {/* ===== Three columns: Todo | Done | Build Progress ===== */}
+        <section className={styles.board} aria-label="Task board">
+          <TodoColumn state="todo" title="Todo" count={pending.length}>
+            <TodoComposer groups={GROUPS} defaultGroup={activeGroup} />
+
+            {pending.length === 0 ? (
+              <p className={styles.empty}>Empty. Add a task above.</p>
+            ) : (
+              <ul className={styles.todoList}>
+                {pending.map((t) => (
+                  <TodoItem key={t.id} todo={t} groups={GROUPS} />
                 ))}
-              </div>
+              </ul>
+            )}
+          </TodoColumn>
+
+          <TodoColumn state="done" title="Done" count={done.length}>
+            {done.length === 0 ? (
+              <p className={styles.empty}>
+                Drag a task here when complete.
+              </p>
+            ) : (
+              <ul className={styles.todoList}>
+                {done.map((t) => (
+                  <TodoItem key={t.id} todo={t} groups={GROUPS} />
+                ))}
+              </ul>
+            )}
+          </TodoColumn>
+
+          <div className={styles.column}>
+            <div className={styles.columnHead}>
+              <h2 className={styles.columnTitle}>Build Progress</h2>
+              <span className={styles.columnCount}>{buildProgress.length}</span>
             </div>
 
+            <BuildProgressComposer
+              groups={GROUPS}
+              defaultGroup={activeGroup}
+            />
+
+            {buildProgress.length === 0 ? (
+              <p className={styles.empty}>
+                Add a milestone, then link the tasks that finish it.
+              </p>
+            ) : (
+              <ul className={styles.bpList}>
+                {buildProgress.map((bp) => (
+                  <BuildProgressItem
+                    key={bp.id}
+                    item={bp}
+                    groups={GROUPS}
+                    groupTodos={todos}
+                  />
+                ))}
+              </ul>
+            )}
           </div>
-        </div>
+        </section>
+
+        {/* ===== Upcoming events (editable) ===== */}
+        <EventEditor events={events} />
+
+        <Toaster />
       </div>
     </div>
   );
