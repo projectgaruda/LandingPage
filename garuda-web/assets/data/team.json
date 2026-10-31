@@ -1,0 +1,68 @@
+{
+  "faculty": {
+    "name": "Dr Mahantesh M. Math",
+    "role": "Assistant Professor at RVCE",
+    "photo": "assets/images/team/faculty-incharge.jpg",
+    "initials": "MM"
+  },
+  "captain": {
+    "name": "Abhinandan Appasaheb Nandagave",
+    "role": "Club Captain",
+    "photo": "assets/images/team/abhinandhan.png"
+  },
+  "mechanical": [
+    {
+      "name": "Ahammad Arfan K",
+      "role": "Mechanical Head",
+      "photo": "assets/images/team/mech-head.jpg",
+      "head": true
+    },
+    {
+      "name": "Dhanush N",
+      "role": "Chief Mechanical Engineer",
+      "photo": "assets/images/team/dhanush-n.png"
+    },
+    {
+      "name": null,
+      "role": "Chassis & Structure",
+      "photo": null
+    }
+  ],
+  "electrical": [
+    {
+      "name": "Pranav Kamath",
+      "role": "Electrical Head",
+      "photo": "assets/images/team/pranav-kamath.png",
+      "head": true,
+      "fallback": "assets/images/team/ee-head.jpg"
+    },
+    {
+      "name": "Sethu S",
+      "role": "Controls Engineer, POC",
+      "photo": "assets/images/team/sethu.jpg"
+    },
+    {
+      "name": "Potta Siddarth",
+      "role": "Senior Engineer, Sponsorship Liaison",
+      "photo": "assets/images/team/siddharth-ee3.jpeg"
+    }
+  ],
+  "management": [
+    {
+      "name": "Chetan Chanaveeragoudra",
+      "role": "Club Manager and Fund Manager",
+      "photo": "assets/images/team/chetan_funding.jpeg",
+      "head": true
+    },
+    {
+      "name": "Charoo Ranjan",
+      "role": "Management",
+      "photo": "assets/images/team/club-manager.jpg"
+    },
+    {
+      "name": null,
+      "role": "Social Media",
+      "photo": null
+    }
+  ]
+}

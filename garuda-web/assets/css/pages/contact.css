@@ -1,0 +1,16 @@
+/* Hallmark · page: /contact · shape: Index-First, three routes · hero: Corridor · sections: routes as rows, location as facts */
+
+.routes { border-top: 1px solid var(--color-rule); }
+.routes > li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) minmax(0, 2fr); gap: var(--gap-columns); align-items: center; padding-block: var(--space-xl); border-bottom: 1px solid var(--color-rule); }
+.routes h2 { font-size: var(--text-2xl); text-wrap: balance; }
+.routes p { color: var(--color-ink-2); }
+.routes .btn { justify-self: end; }
+
+.location { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--gap-columns); align-items: start; }
+.location a { text-decoration-color: var(--color-muted); }
+.location a:hover { text-decoration-color: var(--color-accent); }
+
+@media (max-width: 60rem) {
+  .routes > li, .location { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .routes .btn { justify-self: start; }
+}

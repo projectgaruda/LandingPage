@@ -1,0 +1,35 @@
+/* Hallmark · page: /builds · shape: Index, the catalogue of cars · hero: Banner · signature: every car under its own year, the year held in the margin as the car scrolls past · sections: entries, close band */
+
+.builds { border-top: 1px solid var(--color-rule); }
+
+.build { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--gap-columns); padding-block: var(--space-2xl); border-bottom: 1px solid var(--color-rule); }
+.build-year { position: sticky; top: calc(var(--nav-height) + var(--space-lg)); align-self: start; font: var(--display-weight) var(--text-year)/0.9 var(--font-display); color: var(--color-muted); transition: color var(--dur-long) var(--ease-out);  font-style: italic; font-stretch: var(--display-stretch); }
+.build.is-current .build-year { color: var(--color-accent);  font-style: italic; font-stretch: var(--display-stretch); }
+
+.build-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-xs) var(--space-lg); margin-bottom: var(--space-lg); }
+.build-name { font-size: var(--text-section); line-height: 1.04; }
+.build-tag { color: var(--color-accent); font-size: var(--text-sm); font-weight: 700; }
+
+.build-info { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr); gap: var(--gap-columns); margin-top: var(--space-xl); }
+.build-desc { color: var(--color-ink-2); }
+.build-info > .build-facts:only-child { grid-column: 1 / -1; }
+
+/* Brief entries: name and photos only, a little less room */
+.build--brief { padding-block: var(--space-xl); }
+.build--brief .build-name { font-size: var(--text-2xl); }
+
+/* Photo carousel: arrows step through, no autoplay */
+.carousel { aspect-ratio: 16 / 10; max-width: 860px; }
+.carousel-track { display: flex; height: 100%; transition: transform var(--dur-long) var(--ease-in-out); }
+.carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+.carousel-controls { position: absolute; right: var(--space-md); bottom: var(--space-md); z-index: var(--z-raised); display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-2xs); border-radius: var(--radius-card); background: var(--color-scrim); }
+.carousel-btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--radius-card); background: transparent; color: var(--color-ink); cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
+.carousel-btn:hover { background: var(--color-paper-3); }
+.carousel-btn:active { transform: translateY(1px); }
+.carousel-count { min-width: 4.5em; text-align: center; color: var(--color-ink-2); font-size: var(--text-sm); }
+
+@media (max-width: 60rem) {
+  .build { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+  .build-year { position: static;  font-style: italic; font-stretch: var(--display-stretch); }
+  .build-info { grid-template-columns: minmax(0, 1fr); }
+}

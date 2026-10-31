@@ -1,0 +1,156 @@
+[
+  {
+    "name": "BLACK COFFIN",
+    "year": "2008",
+    "tag": "First Prototype",
+    "images": [
+      "assets/images/gallery/1.jpg",
+      "assets/images/black_coffin_event_photo.jpg",
+      "assets/images/gallery/Young-achivers-1 (2).png",
+      "assets/images/Since then Project Garuda has built 7 prototypes,4 urban concept cars and has a total of 11 cars in its name..jpg",
+      "assets/images/History_image.jpg"
+    ],
+    "category": "Prototype, Gasoline (97cc IC)",
+    "event": "Shell Eco-marathon UK 2009, ‘Most Persevering Team’ Award",
+    "stats": [
+      {
+        "label": "Powertrain",
+        "val": "97cc IC, 2 HP"
+      },
+      {
+        "label": "Vehicle Mass",
+        "val": "55 kg"
+      },
+      {
+        "label": "Mileage",
+        "val": "180 km/L"
+      },
+      {
+        "label": "Category",
+        "val": "Prototype"
+      }
+    ],
+    "desc": "India’s first student-built super-mileage prototype: a 55 kg shell wrapped around a 97cc, 2 HP generator engine. Clocked 180 km/L and brought home the ‘Most Persevering Team’ award at the team’s international debut at Shell Eco-marathon UK 2009."
+  },
+  {
+    "name": "GARUDA 2009",
+    "year": "2009",
+    "images": [
+      "assets/images/2009_car_without_driver.jpg"
+    ]
+  },
+  {
+    "name": "GARUDA 2010",
+    "year": "2010",
+    "images": [
+      "assets/images/2010_car.jpg",
+      "assets/images/sem_2010_sepang_international_circuit_malaysia.jpg"
+    ]
+  },
+  {
+    "name": "GARUDA X1",
+    "year": "2011",
+    "images": [
+      "assets/images/2011_Car.jpg",
+      "assets/images/2011_garuda_car.jpg",
+      "assets/images/2011_prototype_Car.jpg"
+    ]
+  },
+  {
+    "name": "GARUDA 2013",
+    "year": "2013",
+    "images": [
+      "assets/images/gallery/5.jpg"
+    ]
+  },
+  {
+    "name": "PHOENIX",
+    "year": "2015",
+    "images": [
+      "assets/images/gallery/6.jpg",
+      "assets/images/pheniox_2015.jpg",
+      "assets/images/SEM_2015.jpg",
+      "assets/images/2015_competition_pics.jpg"
+    ]
+  },
+  {
+    "name": "AGNI",
+    "year": "2016",
+    "images": [
+      "assets/images/gallery/7.jpg",
+      "assets/images/agni_2016.jpg",
+      "assets/images/agni_2016_weighing.jpg"
+    ]
+  },
+  {
+    "name": "VAJRA",
+    "year": "2018",
+    "tag": "Electric Era Begins",
+    "images": [
+      "assets/images/gallery/8.jpg",
+      "assets/images/vajra_2018.jpg",
+      "assets/images/vajra_2018_team.jpg",
+      "assets/images/vajra_collage.jpg"
+    ],
+    "category": "UrbanConcept, Battery Electric",
+    "event": "Shell Eco-marathon Asia 2018",
+    "stats": [
+      {
+        "label": "Powertrain",
+        "val": "Battery Electric"
+      },
+      {
+        "label": "Vehicle Mass",
+        "val": "120 kg"
+      },
+      {
+        "label": "Chassis",
+        "val": "Al + Carbon Fibre"
+      },
+      {
+        "label": "Category",
+        "val": "UrbanConcept"
+      }
+    ],
+    "desc": "The pivot from internal combustion to battery electric. 120 kg overall, with an aluminium base and a carbon-fibre superstructure. A bi-free wheel differential saves energy while cruising. Project Garuda became the only Indian team to enter the Battery Electric UrbanConcept category at Shell Eco-marathon 2017, and Vajra carried that forward."
+  },
+  {
+    "name": "MJOLNIR",
+    "year": "2019",
+    "tag": "400+ km/L eq.",
+    "images": [
+      "assets/images/gallery/9.jpg",
+      "assets/images/side_view_2019.jpg",
+      "assets/images/2019_Shell_ecoMarathon_team_with_car.jpg",
+      "assets/images/core_team_with_car.jpg",
+      "assets/images/car_on_track.jpg"
+    ],
+    "category": "UrbanConcept, Battery Electric",
+    "event": "Shell Eco-marathon Asia 2019, Sepang International Circuit",
+    "stats": [
+      {
+        "label": "Powertrain",
+        "val": "Battery Electric"
+      },
+      {
+        "label": "Mileage",
+        "val": "400+ km/L eq."
+      },
+      {
+        "label": "Category",
+        "val": "UrbanConcept"
+      }
+    ],
+    "desc": "Built on Vajra’s electric foundation. Refined powertrain and aerodynamics push the team’s mileage to over 400 km/L equivalent at Shell Eco-marathon Asia."
+  },
+  
+  {
+    "name": "GAJA",
+    "year": "2025",
+    "tag": "In Development",
+    "images": [
+      "assets/images/builds/garuda_2025.jpeg"
+    ],
+    "desc": "The current build is in active development. Specifications and competition details to be announced."
+  }
+]

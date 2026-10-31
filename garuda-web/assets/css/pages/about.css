@@ -1,0 +1,23 @@
+/* Hallmark · page: /about · shape: Long Document · hero: Banner · sections: principles as rows, mission split, the record as a year index, close band */
+
+.mission-photo { aspect-ratio: 1; }
+.mission { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
+.mission-text { margin-top: var(--space-lg); color: var(--color-ink-2); }
+
+/* The record: the year large on the left, what happened on the right */
+.record { border-top: 1px solid var(--color-rule); }
+.record > li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) minmax(0, 2fr); gap: var(--gap-columns); align-items: start; padding-block: var(--space-xl); border-bottom: 1px solid var(--color-rule); }
+.record-year { font: var(--display-weight) var(--text-display-s)/1 var(--font-display); color: var(--color-ink);  font-style: italic; font-stretch: var(--display-stretch); }
+.record h3 { margin-bottom: var(--space-xs); }
+.record p { color: var(--color-ink-2); }
+.record-pivot .record-year { color: var(--color-accent);  font-style: italic; font-stretch: var(--display-stretch); }
+.record .record-tag { margin-top: var(--space-sm); color: var(--color-accent); font-size: var(--text-sm); font-weight: 700; }
+.record-photo { grid-column: 3; aspect-ratio: 480 / 250; }
+
+@media (prefers-reduced-motion: reduce) { .record > li { transition: none; } }
+
+@media (max-width: 60rem) {
+  .mission { grid-template-columns: minmax(0, 1fr); }
+  .record > li { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .record-photo { grid-column: auto; max-width: 480px; }
+}

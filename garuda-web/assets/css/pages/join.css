@@ -1,0 +1,43 @@
+/* Hallmark · page: /join · shape: Narrative Workflow, from application to workshop · hero: Stage, reversed, the team at Shell Eco-marathon Asia · sections: disciplines as rows, steps on the second paper, the application form */
+
+.join-stage { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.join-photo { aspect-ratio: 960 / 638; }
+
+/* Why join: four wells, the title over its line */
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-columns); }
+.why > li { padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-2); }
+.why h3 { margin-bottom: var(--space-sm); }
+.why p { color: var(--color-ink-2); }
+
+/* Steps: a real ordered list, numbered by the counter */
+.steps { counter-reset: step; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); }
+.steps > li { counter-increment: step; padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+.steps > li::before { content: counter(step); display: block; margin-bottom: var(--space-lg); color: var(--color-accent); font: var(--display-weight) var(--text-display-s)/1 var(--font-display); font-variant-numeric: tabular-nums;  font-style: italic; font-stretch: var(--display-stretch); }
+.steps h3 { margin-bottom: var(--space-xs); }
+.steps p { color: var(--color-ink-2); }
+
+.apply { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: start; }
+.apply-text { margin-top: var(--space-lg); color: var(--color-ink-2); }
+.embed { overflow: hidden; border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-2); }
+.embed iframe { width: 100%; height: 80svh; min-height: 560px; border: 0; }
+.embed-note { margin-top: var(--space-sm); color: var(--color-muted); font-size: var(--text-sm); }
+
+@media (max-width: 60rem) {
+  .join-stage { grid-template-columns: minmax(0, 1fr); }
+  .join-stage > div { order: -1; }
+  .steps, .why { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-xl); }
+  .apply { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 40rem) { .steps, .why { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* ---------- Hover effects ---------- */
+.why > li { transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out); }
+.why > li:hover { transform: translateY(-6px); box-shadow: inset 0 4px 0 var(--color-accent); }
+.why h3 { transition: color var(--dur-short) var(--ease-out); }
+.why > li:hover h3 { color: var(--color-accent); }
+.steps > li::before { transition: transform var(--dur-short) var(--ease-out); }
+.steps > li:hover::before { transform: translateX(8px) scale(1.1); }
+.steps > li { transition: border-color var(--dur-short) var(--ease-out); }
+.steps > li:hover { border-top-color: var(--color-accent); }
+@media (prefers-reduced-motion: reduce) { .why > li:hover, .steps > li:hover::before { transform: none; } }

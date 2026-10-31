@@ -1,0 +1,79 @@
+/* Home: full-screen hero, ticker, figures, two doors, timing board, the current car, statement, green close */
+
+
+/* Ticker: the record scrolling on the club green */
+.ticker { overflow: hidden; background: var(--color-accent); color: var(--color-accent-ink); }
+.ticker-track { display: flex; width: max-content; animation: ticker 40s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker ul { display: flex; flex-shrink: 0; }
+.ticker li { display: flex; align-items: center; padding-block: var(--space-md); font: italic 800 var(--text-xl)/1 var(--font-display); font-stretch: 72%; text-transform: uppercase; white-space: nowrap; }
+.ticker li::after { content: ""; width: 28px; height: 8px; margin-inline: var(--space-xl); background: var(--color-accent-ink); transform: skewX(-28deg); }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* The figures open the timing board */
+.results-figures { margin-bottom: var(--space-2xl); }
+
+/* Two doors: photo cards, one per audience */
+.doors { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-columns); }
+.door { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: 640px; overflow: hidden; border-radius: var(--radius-card); background: var(--color-paper-2); }
+.door > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, center); transition: transform 900ms var(--ease-out); }
+.door::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, var(--color-paper) 30%, oklch(12% 0.006 145 / 0.55) 65%, oklch(12% 0.006 145 / 0.15)); }
+.door:hover > img { transform: scale(1.04); }
+.door-body { padding: var(--space-2xl) var(--space-xl) var(--space-xl); }
+.door .label { margin-bottom: var(--space-md); color: var(--color-accent); }
+.door h2 { font-size: var(--text-display-s); }
+.door-list { margin-top: var(--space-lg); }
+.door-list li { display: flex; gap: var(--space-sm); padding-block: var(--space-2xs); color: var(--color-ink); }
+.door-list li::before { content: ""; flex-shrink: 0; width: 14px; height: 4px; margin-top: 0.7em; background: var(--color-accent); transform: skewX(-28deg); }
+
+/* The current car */
+.latest-photo { aspect-ratio: 1; }
+.latest .label { margin-bottom: var(--space-md); color: var(--color-accent); }
+.latest-facts { margin-block: var(--space-xl) var(--space-lg); }
+.latest-copy { color: var(--color-ink-2); margin-bottom: var(--space-lg); }
+
+/* Statement over a dimmed team photo */
+.statement { position: relative; isolation: isolate; padding-block: var(--section-gap-l); overflow: hidden; }
+.statement-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: 0.22; filter: grayscale(1); }
+.statement::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--color-paper) 15%, transparent 70%, var(--color-paper)); }
+.statement h2 { max-width: none; font-size: clamp(3.5rem, 10vw, 9.5rem); line-height: 0.88; }
+.statement h2 span, .statement h2 em { display: block; }
+.statement .outline { color: transparent; -webkit-text-stroke: 2px var(--color-ink); }
+.statement-foot { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: end; margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+.statement-foot p { color: var(--color-ink-2); font-size: var(--text-lead); line-height: 1.5; }
+.statement-foot .link { justify-self: end; }
+
+@media (max-width: 60rem) {
+  .doors, .statement-foot { grid-template-columns: minmax(0, 1fr); }
+  .door { min-height: 560px; }
+  .door-body { padding: var(--space-xl) var(--space-lg); }
+  .statement-foot .link { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+/* ---------- Home hover effects ---------- */
+
+/* Doors: the card lifts, the photo zooms, a green edge appears */
+.door { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
+.door:hover { transform: translateY(-6px); outline: 2px solid var(--color-accent); outline-offset: -2px; box-shadow: 0 24px 48px -24px oklch(0% 0 0 / 0.8); }
+.door:hover > img { transform: scale(1.07); }
+.door-list li { transition: transform var(--dur-short) var(--ease-out); }
+.door:hover .door-list li { transform: translateX(4px); }
+.door:hover .door-list li:nth-child(2) { transition-delay: 40ms; }
+.door:hover .door-list li:nth-child(3) { transition-delay: 80ms; }
+
+/* Ticker items light up white under the pointer (the ticker already pauses) */
+.ticker li { transition: color var(--dur-short) var(--ease-out); }
+.ticker li:hover { color: var(--color-ink); text-shadow: 0 2px 0 var(--color-accent-ink); }
+
+/* Statement: each word lights up green, the outlined word fills in */
+.statement h2 span { width: fit-content; transition: color var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out), -webkit-text-stroke-color var(--dur-short) var(--ease-out); }
+.statement h2 span:hover { color: var(--color-accent); transform: translateX(12px); }
+.statement h2 .outline:hover { color: var(--color-accent); -webkit-text-stroke-color: var(--color-accent); }
+
+/* The current car: the photo brightens as it zooms */
+.latest-photo:hover img { filter: brightness(1.12) saturate(1.1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .door:hover, .door:hover > img, .door:hover .door-list li, .statement h2 span:hover { transform: none; }
+}

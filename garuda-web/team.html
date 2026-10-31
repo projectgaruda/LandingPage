@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Team | GARUDA</title>
+  <meta name="description" content="The engineers, designers, and operators behind GARUDA's super-mileage vehicles.">
+  <link rel="icon" href="favicon.ico">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/pages/team.css">
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/pages/team.js" defer></script>
+</head>
+<body>
+<main id="main">
+
+  <section class="page-hero">
+    <img class="page-hero-img" src="assets/images/core_team_with_car.jpg" alt="" width="1000" height="1000" fetchpriority="high">
+    <div class="container">
+      <h1>The people behind <em>the cars.</em></h1>
+      <p class="lead">
+        Every prototype that has carried the GARUDA name was sketched,
+        machined, wired, and driven by undergraduates from RV College of
+        Engineering. Here is the current crew.
+      </p>
+    </div>
+  </section>
+
+  <!-- Member cards are filled in from assets/data/team.json -->
+
+  <!-- Leadership: the faculty in-charge and the captain, side by side -->
+  <section class="section">
+    <div class="container">
+      <div class="head"><h2>Leading the team.</h2></div>
+      <div class="leads">
+        <div data-reveal>
+          <h3 class="group-title">Faculty in-charge</h3>
+          <div id="faculty"></div>
+        </div>
+        <div data-reveal style="--i: 1">
+          <h3 class="group-title">Captain</h3>
+          <div id="captain"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mechanical and electrical, side by side -->
+  <section class="section">
+    <div class="container">
+      <div class="head head--split">
+        <h2>The disciplines.</h2>
+        <p class="lead">Two halves of every build, working in parallel, and on a good day, in agreement.</p>
+      </div>
+      <div class="disciplines">
+        <div data-reveal>
+          <h3 class="group-title">Mechanical</h3>
+          <div class="members" id="mechanical"></div>
+        </div>
+        <div data-reveal style="--i: 1">
+          <h3 class="group-title">Electrical</h3>
+          <div class="members" id="electrical"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="head head--split">
+        <h2>Management.</h2>
+        <p class="lead">The people who make sure the cars actually get to the start line.</p>
+      </div>
+      <div class="members members--wide" id="management" data-reveal></div>
+    </div>
+  </section>
+
+
+</main>
+</body>
+</html>
