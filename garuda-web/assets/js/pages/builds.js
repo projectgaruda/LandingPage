@@ -22,6 +22,36 @@ function carouselHTML(build) {
   </figure>`;
 }
 
+const anchor = (build) => "car-" + build.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const stat = (build, label) => (build.stats || []).find((s) => s.label === label)?.val;
+
+// Year chips: jump straight to any car
+function jumpHTML(builds) {
+  return builds.map((b) => `<a href="#${anchor(b)}" class="jump-chip"><b class="num">${b.year}</b>${b.name}</a>`).join("");
+}
+
+// Spec table: the cars with confirmed specs, side by side. Missing values say so.
+function specHTML(builds) {
+  const cars = builds.filter((b) => b.stats);
+  const cell = (v) => (v ? v : `<span class="muted">Not recorded</span>`);
+  const rows = cars
+    .map((b) => `<tr>
+      <th scope="row"><a href="#${anchor(b)}">${b.name}</a></th>
+      <td data-label="Year" class="num">${b.year}</td>
+      <td data-label="Category">${cell(stat(b, "Category"))}</td>
+      <td data-label="Powertrain">${cell(stat(b, "Powertrain"))}</td>
+      <td data-label="Mass" class="num">${cell(stat(b, "Vehicle Mass"))}</td>
+      <td data-label="Mileage" class="num">${cell(stat(b, "Mileage"))}</td>
+      <td data-label="Event">${cell(b.event)}</td>
+    </tr>`)
+    .join("");
+  return `<table class="spec-table">
+    <caption class="visually-hidden">Specifications of the documented cars</caption>
+    <thead><tr><th scope="col">Car</th><th scope="col">Year</th><th scope="col">Category</th><th scope="col">Powertrain</th><th scope="col">Mass</th><th scope="col">Mileage</th><th scope="col">Event</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
 function entryHTML(build) {
   const facts = build.stats
     ? `<dl class="facts build-facts">
@@ -30,7 +60,7 @@ function entryHTML(build) {
         ${build.stats.map((s) => `<div><dt>${s.label}</dt><dd>${s.val}</dd></div>`).join("")}
       </dl>`
     : "";
-  return `<article class="build${build.stats ? "" : " build--brief"}" data-reveal>
+  return `<article class="build${build.stats ? "" : " build--brief"}" id="${anchor(build)}" data-reveal>
     <p class="build-year num" aria-hidden="true">${build.year}</p>
     <div class="build-body">
       <header class="build-head">
@@ -71,6 +101,7 @@ fetch("assets/data/builds.json")
   .then((res) => res.json())
   .then((builds) => {
     list.innerHTML = builds.map(entryHTML).join("");
+    document.querySelector(".jump").innerHTML = jumpHTML(builds);
     list.querySelectorAll(".carousel-controls").forEach((c) => setupCarousel(c.closest(".carousel")));
     // A single photo whose file is missing: drop the empty frame
     list.querySelectorAll(".carousel").forEach((fig) => {

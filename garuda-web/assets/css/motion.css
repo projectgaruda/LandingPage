@@ -1,0 +1,82 @@
+/* Hallmark · motion layer for the shared system in base.css · scroll: hero parallax and fade-out, a progress line under the nav, heads wiped in, photos unmasked, cards risen in order, hairlines drawn, figures counted up, the timeline filled
+ * rules: transform, translate, scale, opacity and clip-path only · every hidden state sits behind prefers-reduced-motion: no-preference and the .js class, so reduced motion and no script get the finished page · scrubbed effects live inside @supports (animation-timeline) */
+/* Hallmark · waive F8 · the user asked for rich scroll animation across the site; each scrubbed effect is structural (hero photo, nav progress, door photos, timeline spine), never body text, and all are off under reduced motion */
+
+/* ---------- 1. Hero: the headline wipes up on load, the lead and actions follow ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .page-hero h1 { animation: hero-head 1100ms var(--ease-out) both; }
+  .page-hero .lead, .page-hero .actions { animation: hero-rise 1000ms var(--ease-out) both; }
+  .page-hero .lead { animation-delay: 180ms; }
+  .page-hero .actions { animation-delay: 320ms; }
+  @keyframes hero-head { from { clip-path: inset(0 0 100% 0); translate: 0 0.35em; } to { clip-path: inset(-0.2em -0.2em -0.3em -0.2em); translate: 0 0; } }
+  @keyframes hero-rise { from { opacity: 0; translate: 0 24px; } }
+}
+
+/* ---------- 2. Scrubbed: hero parallax, nav progress, photo drift, timeline fill ---------- */
+
+/* The progress line rides the bottom edge of the nav; without support it stays hidden */
+.nav::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+
+/* The timeline spine: a hairline beside the record, filled green as you read down it */
+.record { position: relative; }
+.record::before, .record::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--space-xl)); width: 2px; display: none; }
+.record::before { background: var(--color-rule); }
+.record::after { background: var(--color-accent); transform-origin: top; }
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* The hero photo sinks slower than the page while the text lifts and fades */
+    .page-hero-img { animation: hero-settle 14s var(--ease-out) both, hero-drift linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0 100vh; }
+    .page-hero > .container { animation: hero-out linear both; animation-timeline: scroll(root); animation-range: 0 75vh; }
+    @keyframes hero-drift { to { translate: 0 22%; } }
+    @keyframes hero-out { to { opacity: 0; translate: 0 -56px; } }
+
+    .nav::after { animation: nav-progress linear both; animation-timeline: scroll(root); }
+    @keyframes nav-progress { to { transform: scaleX(1); } }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 40rem) {
+    /* Photos behind text drift inside their frame as they pass */
+    .door > img, .why-backdrop { scale: 1.14; animation: frame-drift linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    @keyframes frame-drift { from { translate: 0 -5%; } to { translate: 0 5%; } }
+  }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 60rem) {
+    .record { view-timeline: --record block; }
+    .record::before, .record::after { display: block; }
+    .record::after { animation: spine-fill linear both; animation-timeline: --record; animation-range: entry 35% exit 65%; }
+    @keyframes spine-fill { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  }
+}
+
+/* ---------- 3. Reveal once as things scroll in (main.js tags them) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Blocks and cards rise, in order inside a grid */
+  .js [data-reveal] { opacity: 0; translate: 0 28px; transition: opacity 900ms var(--ease-out), translate 900ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+  .js [data-reveal].is-in { opacity: 1; translate: 0 0; }
+
+  /* Section heads wipe up out of their own line */
+  .js .rv-head { clip-path: inset(0 0 100% 0); translate: 0 0.45em; transition: clip-path 1000ms var(--ease-out), translate 1000ms var(--ease-out); }
+  .js .rv-head.is-in { clip-path: inset(-0.3em -0.3em -0.35em -0.3em); translate: 0 0; }
+
+  /* Photos open from a smaller window while the picture settles */
+  .js .rv-photo { clip-path: inset(9% 7% 9% 7%); transition: clip-path 1300ms var(--ease-out); }
+  .js .rv-photo img { scale: 1.14; transition: scale 1700ms var(--ease-out), transform 900ms var(--ease-out); }
+  .js .rv-photo.is-in { clip-path: inset(0 0 0 0); }
+  .js .rv-photo.is-in img { scale: 1; }
+
+  /* Hairlines above figures, facts, reasons and tiers draw from the left */
+  .js .rv-line { position: relative; border-top-color: transparent; }
+  .js .rv-line::before { content: ""; position: absolute; left: 0; right: 0; top: calc(-1 * var(--line-w, 1px)); height: var(--line-w, 1px); background: var(--line-c, var(--color-rule-strong)); transform: scaleX(0); transform-origin: left; transition: transform 1200ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 120ms); }
+  .js .rv-line.is-in::before { transform: scaleX(1); }
+  .js .tier.rv-line { --line-w: 6px; --line-c: var(--tier); }
+}
+
+/* Printing and saving the sponsor sheet always gets the finished page */
+@media print {
+  .js [data-reveal], .js .rv-head, .js .rv-photo, .js .rv-photo img { opacity: 1 !important; translate: none !important; clip-path: none !important; scale: none !important; }
+  .js .rv-line { border-top-color: var(--line-c, var(--color-rule-strong)) !important; }
+  .js .rv-line::before, .nav::after, .record::before, .record::after { display: none !important; }
+  .page-hero h1, .page-hero .lead, .page-hero .actions, .page-hero > .container { animation: none !important; opacity: 1 !important; }
+}

@@ -1,10 +1,10 @@
-/* Sponsors: enquiry first, then figures, results, reasons, colour-coded tiers and partners */
+/* Sponsors: figures, results, reasons, colour-coded tiers, the enquiry form, questions and partners */
 
 /* Tier colours: title in the club green, then gold, silver and bronze */
-.tier--title { --tier: var(--color-accent); --tier-2: oklch(46.548% 0.30415 264.216); }
-.tier--gold { --tier: oklch(84% 0.14 88); --tier-2: oklch(66% 0.13 70); }
-.tier--silver { --tier: oklch(90% 0.01 250); --tier-2: oklch(68% 0.015 250); }
-.tier--inkind { --tier: oklch(74% 0.11 55); --tier-2: oklch(56% 0.1 45); }
+.tier--title { --tier: var(--color-accent); --tier-2: var(--color-tier-title-2); }
+.tier--gold { --tier: var(--color-tier-gold); --tier-2: var(--color-tier-gold-2); }
+.tier--silver { --tier: var(--color-tier-silver); --tier-2: var(--color-tier-silver-2); }
+.tier--inkind { --tier: var(--color-tier-inkind); --tier-2: var(--color-tier-inkind-2); }
 
 /* Tiers: four cards, each led by its colour */
 .tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); }
@@ -17,13 +17,13 @@
 .tier-list li::before { content: ""; flex-shrink: 0; width: 12px; height: 4px; margin-top: 0.65em; background: var(--tier); transform: skewX(-28deg); }
 .tier .link { text-decoration-color: var(--tier); }
 .tier .link:hover { color: var(--tier); }
+.sheet-actions { margin-top: var(--space-lg); }
 
 .partners { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--gap-columns); align-items: start; }
 .partners-confirmed { display: flex; align-items: baseline; gap: var(--space-md); margin-bottom: var(--space-lg); font: var(--display-weight) var(--text-display-s)/1 var(--font-display); font-style: italic; font-stretch: var(--display-stretch); text-transform: uppercase; }
 .partners-confirmed .muted { font: 400 var(--text-sm)/1.4 var(--font-body); }
 
-/* Enquiry, right under the header */
-.inquiry-section { padding-top: var(--section-gap-s); }
+/* Enquiry */
 .inquiry { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
 .inquiry-text { margin-block: var(--space-lg) var(--space-xl); color: var(--color-ink-2); }
 .inquiry-facts a { text-decoration-color: var(--color-muted); }
@@ -43,12 +43,20 @@
 .form .btn { justify-self: start; }
 .form-note { color: var(--color-muted); font-size: var(--text-sm); }
 
+/* Questions: heading and the workshop photo on the left, the list on the right */
+.faq-split { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: start; }
+.faq-split .head { margin-bottom: 0; }
+.faq-photo { margin-top: var(--space-xl); aspect-ratio: 1 / 1; }
+.faq-photo img { object-position: 55% 60%; }
+
 @media (max-width: 60rem) {
   .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .partners, .inquiry, .form-row { grid-template-columns: minmax(0, 1fr); }
+  .partners { row-gap: var(--space-xl); }
+  .faq-split { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+  .faq-photo { aspect-ratio: 3 / 2; }
 }
 @media (max-width: 40rem) { .tiers { grid-template-columns: minmax(0, 1fr); } }
-
 
 /* ---------- Hover effects ---------- */
 .tier { transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out); }
@@ -57,21 +65,47 @@
 .tier:hover .tier-list li::before { transform: skewX(-28deg) scaleX(1.6); }
 @media (prefers-reduced-motion: reduce) { .tier:hover { transform: none; } }
 
-
 /* Host institution: the RV logo; on hover a blue outline draws round the ring and a red one down the shield */
-.host { --rv-blue: oklch(64% 0.2 255); --rv-red: oklch(62% 0.23 27); }
-.host { display: flex; align-items: center; gap: var(--space-xl); margin-bottom: var(--space-xl); width: fit-content; color: inherit; text-decoration: none; cursor: pointer; outline-offset: 8px; }
-.host .partners-confirmed { flex-direction: column; align-items: flex-start; gap: var(--space-xs); margin-bottom: 0; }
+.host { --rv-blue: var(--color-rv-blue); --rv-red: var(--color-rv-red); display: flex; align-items: center; gap: var(--space-xl); margin-bottom: var(--space-xl); width: fit-content; color: inherit; text-decoration: none; cursor: pointer; outline-offset: 8px; }
+.host .partners-confirmed { flex-direction: column; align-items: flex-start; gap: var(--space-xs); margin-bottom: 0; transition: color var(--dur-short) var(--ease-out); }
 .host-logo { position: relative; flex-shrink: 0; width: 168px; aspect-ratio: 1; }
 .host-logo img { width: 100%; height: 100%; border-radius: 50%; transition: filter var(--dur-long) var(--ease-out); }
 .host-trace { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.host-trace circle, .host-trace path { fill: none; stroke: var(--color-accent); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-accent) 70%, transparent)); }
+.host-trace circle, .host-trace path { fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .host-trace circle { stroke: var(--rv-blue); filter: drop-shadow(0 0 6px color-mix(in oklab, var(--rv-blue) 70%, transparent)); transform: rotate(-90deg); transform-origin: 223px 225.5px; transition: stroke-dashoffset 900ms var(--ease-in-out); }
 .host-trace path { stroke: var(--rv-red); filter: drop-shadow(0 0 6px color-mix(in oklab, var(--rv-red) 70%, transparent)); transition: stroke-dashoffset 1100ms var(--ease-in-out) 500ms; }
 .host:hover .host-trace circle, .host:hover .host-trace path,
 .host:focus-visible .host-trace circle, .host:focus-visible .host-trace path { stroke-dashoffset: 0; }
 .host:hover .host-logo img, .host:focus-visible .host-logo img { filter: brightness(0.85); }
-.host .partners-confirmed span:last-child, .host .partners-confirmed { transition: color var(--dur-short) var(--ease-out); }
 .host:hover .partners-confirmed { color: var(--color-accent); }
-
 @media (max-width: 40rem) { .host { gap: var(--space-lg); } .host-logo { width: 120px; } }
+
+/* ---------- The printed sponsor sheet (Save as PDF) ---------- */
+.print-contact { display: none; }
+@media print {
+  :root { --color-paper: oklch(99.2% 0.004 145); --color-paper-2: oklch(96.5% 0.006 145); --color-ink: oklch(16% 0.01 145); --color-ink-2: oklch(31% 0.01 145); --color-muted: oklch(46% 0.01 145); --color-rule: oklch(85% 0.008 145); --color-accent: oklch(52% 0.18 142); }
+  @page { margin: 14mm; }
+  body { padding: 0; font-size: 10.5pt; }
+  .nav, .footer, .skip, #inquire, #faq, .page-hero-img, .sheet-actions, .pcard .photo, .tier .link, .host-trace, .faq-photo { display: none !important; }
+  .page-hero { min-height: 0; padding: 0 0 12pt; border-bottom: 2pt solid var(--color-accent); }
+  .page-hero::after { display: none; }
+  .page-hero h1 { font-size: 34pt; }
+  .section, .section--s, .band { padding-block: 12pt; background: none; }
+  main h2 { font-size: 20pt; }
+  main h2::before { height: 3pt; margin-bottom: 6pt; }
+  .figures b { font-size: 26pt; }
+  .results-pos { font-size: 22pt; }
+  .results p { font-size: 11pt; }
+  .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10pt; }
+  .tier { break-inside: avoid; padding: 10pt; background: none; border: 1px solid var(--color-rule); border-top: 4pt solid var(--tier); }
+  .tier h3 { background: none; color: var(--color-ink); -webkit-background-clip: border-box; background-clip: border-box; }
+  .pcards { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10pt; overflow: visible !important; }
+  .pcard { break-inside: avoid; background: none; border: 1px solid var(--color-rule); }
+  .host-logo { width: 70pt; }
+  .print-contact { display: block; margin-top: 14pt; padding-top: 10pt; border-top: 2pt solid var(--color-accent); }
+  .print-contact h2 { font-size: 16pt; }
+  .print-contact h2::before { display: none; }
+}
+
+/* The press line under the host institution */
+.partners .press { margin-top: var(--space-md); font-size: var(--text-md); color: var(--color-muted); }

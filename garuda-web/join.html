@@ -15,27 +15,63 @@
 <main id="main">
 
   <!-- Hero: intake day -->
-  <section class="page-hero">
+  <section class="page-hero page-hero--full">
     <img class="page-hero-img" src="assets/images/gallery/2. batch 2025-2026.jpg" alt="" width="1280" height="960" fetchpriority="high">
     <div class="container">
-      <h1>Build the <em>next one.</em></h1>
-      <p class="lead">
-        Applications are open year-round, with the main intake at the
-        start of each academic year. If you’re an undergraduate at RVCE
-        who wants to spend a meaningful part of college actually building
-        something, this is the page.
-      </p>
+      <h1>Join the <em>team.</em></h1>
+      <p class="lead">For RVCE undergraduates who want to spend college actually building something.</p>
       <div class="actions">
         <a href="#apply" class="btn">Apply now</a>
-        <a href="contact.html" class="link">Sponsor instead?</a>
+        <a href="https://wa.me/917624942557?text=Hi%2C%20I'd%20like%20to%20join%20Project%20Garuda." class="btn btn--quiet" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
       </div>
     </div>
   </section>
 
-  <!-- Why join: what a junior gets out of it -->
-  <section class="section">
+  <!-- At a glance: the four things an applicant needs to know -->
+  <section class="section--s">
     <div class="container">
-      <div class="head"><h2>What you get out of it.</h2></div>
+      <dl class="glance" data-reveal>
+        <div><dt>Who</dt><dd>RVCE undergraduates from any branch, in first or second year.</dd></div>
+        <div><dt>When</dt><dd>Once a year, in the odd semester at the start of the academic year.</dd></div>
+        <div><dt>How</dt><dd>Apply online or message us, then a technical assessment and an interview.</dd></div>
+        <div><dt>Reply</dt><dd>Within two to three weeks during the recruitment window.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Roles: each shown by a photo of that work -->
+  <section class="section" id="roles">
+    <div class="container">
+      <div class="head head--split">
+        <h2>Roles.</h2>
+        <p class="lead">You don’t need to be from electrical to join the electrical team btw.</p>
+      </div>
+      <ul class="pcards" data-reveal>
+        <li class="pcard">
+          <figure class="photo"><img src="assets/images/chassis.jpg" alt="A welded steel chassis on its wheels in the workshop" width="958" height="626" loading="lazy" style="object-position: 72% 55%"></figure>
+          <div class="pcard-body"><h3>Mechanical</h3><p>Chassis, suspension, aerodynamics, powertrain, manufacturing, composites.</p></div>
+        </li>
+        <li class="pcard">
+          <figure class="photo"><img src="assets/images/motor-controller.jpg" alt="A motor controller and contactor wired into the car’s electronics box" width="1200" height="1600" loading="lazy" style="object-position: 50% 55%"></figure>
+          <div class="pcard-body"><h3>Electrical</h3><p>Battery and BMS, motor and drives, embedded systems, data acquisition, harnessing.</p></div>
+        </li>
+        <li class="pcard">
+          <figure class="photo"><img src="assets/images/telemetry-screen.jpg" alt="A telemetry dashboard with lap times, tyre data and a track map" width="1280" height="720" loading="lazy" style="object-position: 30% 50%"></figure>
+          <div class="pcard-body"><h3>Software and telemetry</h3><p>Vehicle simulation, live telemetry, lap analysis, driver feedback tools.</p></div>
+        </li>
+        <li class="pcard">
+          <figure class="photo"><img src="assets/images/team-at-work.jpg" alt="Team members planning and assembling parts in the workshop" width="1600" height="1200" loading="lazy" style="object-position: 60% 50%"></figure>
+          <div class="pcard-body"><h3>Management and ops</h3><p>Sponsorship, finance, logistics, social media, event coordination.</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why join -->
+  <section class="section why-band">
+    <img class="why-backdrop" src="assets/images/driver-view.jpg" alt="" width="1200" height="1600" loading="lazy">
+    <div class="container">
+      <div class="head"><h2>Why join.</h2></div>
       <ul class="why" data-reveal>
         <li><h3>Build a real car</h3><p>From concept sketches to competition grids, every GARUDA car is designed, machined and driven by undergraduates.</p></li>
         <li><h3>Race internationally</h3><p>The team has represented India at Shell Eco-marathon Asia for over a decade.</p></li>
@@ -44,39 +80,21 @@
     </div>
   </section>
 
-  <!-- Who we recruit -->
-  <section class="section">
-    <div class="container">
-      <div class="head head--split">
-        <h2>Four disciplines, one car.</h2>
-        <p class="lead">
-          We recruit across the whole engineering stack. You don’t need to
-          be from mechanical to join the mechanical team, and we welcome
-          first-years.
-        </p>
-      </div>
-      <ul class="rows" data-reveal>
-        <li><h3>Mechanical</h3><p>Chassis, suspension, aerodynamics, powertrain, manufacturing, composites.</p></li>
-        <li><h3>Electrical</h3><p>Battery and BMS, motor and drives, embedded systems, data acquisition, harnessing.</p></li>
-        <li><h3>Software and Telemetry</h3><p>Vehicle simulation, live telemetry, lap analysis, driver feedback tools.</p></li>
-        <li><h3>Management and Ops</h3><p>Sponsorship, finance, logistics, social media, event coordination.</p></li>
-      </ul>
-    </div>
-  </section>
-
- 
 
   <!-- Application form (Google Form) -->
   <section class="section" id="apply">
     <div class="container split apply">
       <div>
         <h2>Apply.</h2>
-        <p class="apply-text">
-          Fill in the form, and we’ll read it. Replies usually go out within
-          two to three weeks during the recruitment window. If you have
-          questions before applying, email
-          <a href="mailto:garuda@rvce.edu.in" class="link">garuda@rvce.edu.in</a>.
-        </p>
+        <p class="apply-text">Two ways in: fill in the form, or skip it and talk to us directly.</p>
+        <div class="call-card" data-reveal>
+          <p class="call-label">Rather talk first?</p>
+          <p class="call-number">Talk to Madhunandhan</p>
+          <div class="call-actions">
+            <a href="https://wa.me/917624942557?text=Hi%2C%20I'd%20like%20to%20join%20Project%20Garuda." class="btn btn--dark" target="_blank" rel="noopener noreferrer">WhatsApp us</a>
+            <a href="tel:+917624942557" class="call-link">Call</a>
+          </div>
+        </div>
       </div>
       <div>
         <div class="embed">

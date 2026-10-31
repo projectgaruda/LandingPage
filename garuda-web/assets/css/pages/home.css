@@ -17,7 +17,7 @@
 .doors { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-columns); }
 .door { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: 640px; overflow: hidden; border-radius: var(--radius-card); background: var(--color-paper-2); }
 .door > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, center); transition: transform 900ms var(--ease-out); }
-.door::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, var(--color-paper) 30%, oklch(12% 0.006 145 / 0.55) 65%, oklch(12% 0.006 145 / 0.15)); }
+.door::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, var(--color-paper) 30%, color-mix(in oklab, var(--color-paper) 55%, transparent) 65%, color-mix(in oklab, var(--color-paper) 15%, transparent)); }
 .door:hover > img { transform: scale(1.04); }
 .door-body { padding: var(--space-2xl) var(--space-xl) var(--space-xl); }
 .door .label { margin-bottom: var(--space-md); color: var(--color-accent); }
@@ -55,7 +55,7 @@
 
 /* Doors: the card lifts, the photo zooms, a green edge appears */
 .door { transition: transform var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
-.door:hover { transform: translateY(-6px); outline: 2px solid var(--color-accent); outline-offset: -2px; box-shadow: 0 24px 48px -24px oklch(0% 0 0 / 0.8); }
+.door:hover { transform: translateY(-6px); outline: 2px solid var(--color-accent); outline-offset: -2px; box-shadow: 0 24px 48px -24px var(--color-shadow); }
 .door:hover > img { transform: scale(1.07); }
 .door-list li { transition: transform var(--dur-short) var(--ease-out); }
 .door:hover .door-list li { transform: translateX(4px); }
@@ -77,3 +77,8 @@
 @media (prefers-reduced-motion: reduce) {
   .door:hover, .door:hover > img, .door:hover .door-list li, .statement h2 span:hover { transform: none; }
 }
+
+/* "By students.": green at rest; on hover a green-to-blue gradient sweeps across the words */
+.statement h2 em { width: fit-content; background-image: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-statement-blue) 100%); background-size: 200% 100%; background-position: 0% 0; -webkit-background-clip: text; background-clip: text; color: transparent; transition: background-position 700ms var(--ease-out); }
+.statement h2 em:hover { background-position: 100% 0; }
+@media (prefers-reduced-motion: reduce) { .statement h2 em { transition: none; } }

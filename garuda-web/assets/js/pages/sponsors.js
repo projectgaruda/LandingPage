@@ -3,6 +3,12 @@
 
 const WHATSAPP_NUMBER = "919980143550"; // +91 99801 43550
 
+// "Save the sponsor sheet": the sheet is still being written, so say so for now.
+// When it is ready, swap the alert for window.print() (the print styles in sponsors.css are kept).
+document.querySelectorAll("[data-print-sheet]").forEach((btn) =>
+  btn.addEventListener("click", () => alert("The sponsor sheet is a work in progress. For now, use the enquiry form or email garuda@rvce.edu.in and we'll send the details."))
+);
+
 const form = document.getElementById("sponsor-form");
 const tierSelect = document.getElementById("contact-tier");
 

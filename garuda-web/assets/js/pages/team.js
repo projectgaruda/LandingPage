@@ -1,6 +1,6 @@
 /* Team: builds the roster from assets/data/team.json.
-   Members with a name get a card; a missing photo shows their initials.
-   Members without a name are listed by role, marked "name to be added". */
+   Members with a name get a card; a missing photo shows the team helmet instead.
+   Members without a name yet are left out until their name is added to team.json. */
 
 function initials(name) {
   const parts = name.trim().split(/\s+/);
@@ -8,8 +8,9 @@ function initials(name) {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
 
-// A member can set "initials" in team.json (useful for titles like "Dr")
-const monogram = (member) => `<span class="member-initials" aria-hidden="true">${member.initials || initials(member.name)}</span>`;
+// Shown when a member has no photo, or their photo file is missing
+const PLACEHOLDER = "assets/images/team/placeholder-helmet.jpg";
+const monogram = (member) => `<img src="${PLACEHOLDER}" alt="" class="member-placeholder" loading="lazy">`;
 
 function card(member, { large = false } = {}) {
   const picture = member.photo
@@ -23,8 +24,6 @@ function card(member, { large = false } = {}) {
   </article>`;
 }
 
-const unnamed = (member) =>
-  `<p class="member-unnamed">${member.role} <span class="fill">name to be added</span></p>`;
 
 function render(id, members, options) {
   const el = document.getElementById(id);
@@ -41,8 +40,6 @@ function render(id, members, options) {
       else img.outerHTML = monogram(named[i]);
     });
   });
-  const rest = members.filter((m) => !m.name);
-  if (rest.length) el.insertAdjacentHTML("afterend", rest.map(unnamed).join(""));
 }
 
 fetch("assets/data/team.json")
@@ -53,4 +50,14 @@ fetch("assets/data/team.json")
     render("mechanical", team.mechanical);
     render("electrical", team.electrical);
     render("management", team.management);
+    // Alumni: names only, grouped by batch, newest first
+    const alumni = (team.alumni || []).filter((b) => b.names && b.names.length);
+    if (alumni.length) {
+      // Each batch is a dropdown: the year and a head count, the names inside
+      document.getElementById("alumni").innerHTML = alumni.map((b) => `<details class="alumni-batch">
+        <summary class="alumni-year">${b.batch}<span class="alumni-count">${b.names.length} members found</span></summary>
+        <ul class="alumni-names">${b.names.map((n) => `<li>${n}</li>`).join("")}</ul>
+      </details>`).join("");
+      document.getElementById("alumni-section").hidden = false;
+    }
   });

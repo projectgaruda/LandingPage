@@ -3,8 +3,8 @@
 .builds { border-top: 1px solid var(--color-rule); }
 
 .build { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--gap-columns); padding-block: var(--space-2xl); border-bottom: 1px solid var(--color-rule); }
-.build-year { position: sticky; top: calc(var(--nav-height) + var(--space-lg)); align-self: start; font: var(--display-weight) var(--text-year)/0.9 var(--font-display); color: var(--color-muted); transition: color var(--dur-long) var(--ease-out);  font-style: italic; font-stretch: var(--display-stretch); }
-.build.is-current .build-year { color: var(--color-accent);  font-style: italic; font-stretch: var(--display-stretch); }
+.build-year { position: sticky; top: calc(var(--nav-height) + var(--space-lg)); align-self: start; font: var(--display-weight) var(--text-year)/0.9 var(--font-display); color: var(--color-muted); transition: color var(--dur-long) var(--ease-out); font-style: italic; font-stretch: var(--display-stretch); }
+.build.is-current .build-year { color: var(--color-accent); }
 
 .build-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-xs) var(--space-lg); margin-bottom: var(--space-lg); }
 .build-name { font-size: var(--text-section); line-height: 1.04; }
@@ -22,6 +22,7 @@
 .carousel { aspect-ratio: 16 / 10; max-width: 860px; }
 .carousel-track { display: flex; height: 100%; transition: transform var(--dur-long) var(--ease-in-out); }
 .carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+.carousel:hover .carousel-track img { transform: none; }
 .carousel-controls { position: absolute; right: var(--space-md); bottom: var(--space-md); z-index: var(--z-raised); display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-2xs); border-radius: var(--radius-card); background: var(--color-scrim); }
 .carousel-btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--radius-card); background: transparent; color: var(--color-ink); cursor: pointer; transition: background-color var(--dur-short) var(--ease-out); }
 .carousel-btn:hover { background: var(--color-paper-3); }
@@ -30,6 +31,36 @@
 
 @media (max-width: 60rem) {
   .build { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
-  .build-year { position: static;  font-style: italic; font-stretch: var(--display-stretch); }
+  .build-year { position: static; }
   .build-info { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Spec table: full width, hairlines only, figures aligned */
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table th, .spec-table td { padding: var(--space-md) var(--space-md) var(--space-md) 0; border-bottom: 1px solid var(--color-rule); text-align: left; vertical-align: top; }
+.spec-table thead th { font-weight: 600; font-stretch: var(--label-stretch); font-size: var(--text-sm); color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.spec-table tbody th { font: italic 800 var(--text-xl)/1 var(--font-display); font-stretch: var(--display-stretch); text-transform: uppercase; }
+.spec-table tbody th a { color: var(--color-ink); text-decoration: none; }
+.spec-table tbody th a:hover { color: var(--color-accent); }
+.spec-table tbody tr { transition: background-color var(--dur-short) var(--ease-out); }
+.spec-table tbody tr:hover { background: color-mix(in oklab, var(--color-accent) 6%, transparent); }
+
+/* Jump chips: one per car, year first */
+.jump { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-bottom: var(--space-xl); }
+.jump-chip { display: inline-flex; align-items: baseline; gap: var(--space-xs); min-height: 44px; padding: var(--space-sm) var(--space-md); border: 1px solid var(--color-rule); border-radius: var(--radius-card); color: var(--color-ink-2); font-size: var(--text-sm); text-decoration: none; white-space: nowrap; transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+.jump-chip b { color: var(--color-accent); font: italic 800 var(--text-md)/1 var(--font-display); font-stretch: var(--display-stretch); }
+.jump-chip:hover { border-color: var(--color-accent); color: var(--color-ink); }
+
+@media (max-width: 60rem) {
+  /* Each car becomes its own block, labels beside values */
+  .spec-table thead { display: none; }
+  .spec-table, .spec-table tbody, .spec-table tr, .spec-table th, .spec-table td { display: block; }
+  .spec-table tr { padding-block: var(--space-md); border-bottom: 1px solid var(--color-rule); }
+  .spec-table th, .spec-table td { padding: var(--space-2xs) 0; border: 0; }
+  .spec-table td { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-sm); }
+  .spec-table td::before { content: attr(data-label); color: var(--color-muted); font-size: var(--text-sm); }
+  .spec-table tbody th { margin-bottom: var(--space-xs); }
+  /* Chips scroll sideways instead of wrapping into a wall */
+  .jump { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) var(--space-xs); scroll-snap-type: x proximity; }
+  .jump-chip { scroll-snap-align: start; }
 }

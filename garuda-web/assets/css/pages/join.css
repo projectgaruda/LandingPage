@@ -9,6 +9,12 @@
 .why h3 { margin-bottom: var(--space-sm); }
 .why p { color: var(--color-ink-2); }
 
+/* Why join: a dim view from the driver seat behind the section, faded into the page at both ends */
+.why-band { position: relative; overflow: clip; isolation: isolate; }
+.why-backdrop { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; opacity: 0.45; }
+.why-band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--color-paper) 0%, color-mix(in oklab, var(--color-paper) 55%, transparent) 35%, color-mix(in oklab, var(--color-paper) 55%, transparent) 65%, var(--color-paper) 100%); }
+.why-band .why > li { background: color-mix(in oklab, var(--color-paper-2) 85%, transparent); backdrop-filter: blur(6px); }
+
 /* Steps: a real ordered list, numbered by the counter */
 .steps { counter-reset: step; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); }
 .steps > li { counter-increment: step; padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
@@ -41,3 +47,21 @@
 .steps > li { transition: border-color var(--dur-short) var(--ease-out); }
 .steps > li:hover { border-top-color: var(--color-accent); }
 @media (prefers-reduced-motion: reduce) { .why > li:hover, .steps > li:hover::before { transform: none; } }
+
+
+/* ---------- Flash: numbered facts and the call card ---------- */
+
+/* At a glance: each fact under a big outlined number that fills green on hover */
+.glance { counter-reset: glance; }
+.glance > div { counter-increment: glance; }
+.glance dt::before { content: counter(glance, decimal-leading-zero); display: block; margin-bottom: var(--space-sm); font: italic 800 var(--text-display-s)/0.9 var(--font-display); font-stretch: var(--display-stretch); color: transparent; -webkit-text-stroke: 1.5px var(--color-accent); transition: color var(--dur-short) var(--ease-out); }
+.glance > div:hover dt::before { color: var(--color-accent); }
+
+/* The call card: the number set big on the club green, one corner cut like a livery panel */
+.call-card { margin-top: var(--space-xl); padding: var(--space-xl) var(--space-lg); background: var(--color-accent); color: var(--color-accent-ink); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%); }
+.call-label { font-weight: 700; font-stretch: var(--label-stretch); font-size: var(--text-sm); letter-spacing: 0.08em; text-transform: uppercase; }
+.call-number { margin-top: var(--space-xs); color: var(--color-accent-ink); font: italic 800 clamp(2rem, 3.4vw, 3rem)/1 var(--font-display); font-stretch: var(--display-stretch); text-transform: uppercase; }
+.call-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-xl); margin-top: var(--space-lg); padding-left: var(--space-xs); }
+.call-link { color: var(--color-accent-ink); font-weight: 700; font-stretch: var(--label-stretch); font-size: var(--text-sm); letter-spacing: 0.06em; text-transform: uppercase; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.4em; }
+.call-card :focus-visible { outline-color: var(--color-accent-ink); }
+

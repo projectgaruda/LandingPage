@@ -23,6 +23,11 @@
       "photo": "assets/images/team/dhanush-n.png"
     },
     {
+      "name": "Madhunandhan",
+      "role": "Mechanical",
+      "photo": null
+    },
+    {
       "name": null,
       "role": "Chassis & Structure",
       "photo": null
@@ -60,9 +65,51 @@
       "photo": "assets/images/team/club-manager.jpg"
     },
     {
-      "name": null,
+      "name": "Social media bro",
       "role": "Social Media",
       "photo": null
+    }
+  ],
+  "alumni": [
+    {
+      "batch": "2024–25",
+      "names": [
+        "Priyadarshini H M",
+        "Trishar S",
+        "Darshan M",
+        "Chiranth D M",
+        "Faiz Ahmed",
+        "Prakruti K",
+        "Megana S",
+        "Ishaan Varun"
+      ]
+    },
+    {
+      "batch": "2023–24",
+      "names": [
+        "Kedar",
+        "Nayan Raj",
+        "G Leela Ganesh",
+        "Karthik",
+        "Rahul C S",
+        "Damini Arya C S",
+        "Sanjay",
+        "Sudhanva T Manur"
+      ]
+    },
+    {
+      "batch": "2022–23",
+      "names": [
+        "Kanishetty Venkata Hanush",
+        "Somya Mittal",
+        "Bala Adithya",
+        "Abhishek Patel",
+        "BSC Nikitha",
+        "Abhijith S",
+        "G V S Charan",
+        "Govind N R",
+        "Kashinath Patil"
+      ]
     }
   ]
 }

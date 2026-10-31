@@ -1,21 +1,13 @@
 [
   {
-    "name": "BLACK COFFIN",
+    "name": "Black Coffin",
     "year": "2008",
-    "tag": "First Prototype",
-    "images": [
-      "assets/images/gallery/1.jpg",
-      "assets/images/black_coffin_event_photo.jpg",
-      "assets/images/gallery/Young-achivers-1 (2).png",
-      "assets/images/Since then Project Garuda has built 7 prototypes,4 urban concept cars and has a total of 11 cars in its name..jpg",
-      "assets/images/History_image.jpg"
-    ],
-    "category": "Prototype, Gasoline (97cc IC)",
-    "event": "Shell Eco-marathon UK 2009, ‘Most Persevering Team’ Award",
+    "tag": "First prototype",
+    "event": "Shell Eco-marathon UK 2009, Rockingham: ‘Perseverance in the Face of Adversity’ award",
     "stats": [
       {
         "label": "Powertrain",
-        "val": "97cc IC, 2 HP"
+        "val": "97 cc Honda GK100 petrol, 2 hp"
       },
       {
         "label": "Vehicle Mass",
@@ -23,33 +15,64 @@
       },
       {
         "label": "Mileage",
-        "val": "180 km/L"
+        "val": "180 km/L (2008 road test)"
       },
       {
         "label": "Category",
         "val": "Prototype"
       }
     ],
-    "desc": "India’s first student-built super-mileage prototype: a 55 kg shell wrapped around a 97cc, 2 HP generator engine. Clocked 180 km/L and brought home the ‘Most Persevering Team’ award at the team’s international debut at Shell Eco-marathon UK 2009."
+    "desc": "The first GARUDA car: a 55 kg, three-wheeled single-seater with a reclining driver and a 97 cc Honda GK100 engine. It ran 180 km/L in a 2008 road test on Bengaluru’s NICE corridor, then took the ‘Perseverance in the Face of Adversity’ award at Shell Eco-marathon UK 2009.",
+    "images": [
+      "assets/images/gallery/1.jpg",
+      "assets/images/black_coffin_event_photo.jpg",
+      "assets/images/gallery/Young-achivers-1 (2).png",
+      "assets/images/Since then Project Garuda has built 7 prototypes,4 urban concept cars and has a total of 11 cars in its name..jpg",
+      "assets/images/History_image.jpg"
+    ],
+    "category": "Prototype, Gasoline (97cc IC)"
   },
   {
-    "name": "GARUDA 2009",
+    "name": "Garuda 2009",
     "year": "2009",
+    "event": "Shell Eco-marathon UK 2009",
+    "stats": [
+      {
+        "label": "Mileage",
+        "val": "250 km/L"
+      },
+      {
+        "label": "Category",
+        "val": "Prototype, petrol"
+      }
+    ],
     "images": [
       "assets/images/2009_car_without_driver.jpg"
     ]
   },
   {
-    "name": "GARUDA 2010",
+    "name": "Garuda 2010",
     "year": "2010",
+    "event": "Shell Eco-marathon UK 2010",
+    "stats": [
+      {
+        "label": "Mileage",
+        "val": "330 km/L"
+      },
+      {
+        "label": "Category",
+        "val": "Prototype, petrol"
+      }
+    ],
     "images": [
       "assets/images/2010_car.jpg",
       "assets/images/sem_2010_sepang_international_circuit_malaysia.jpg"
     ]
   },
   {
-    "name": "GARUDA X1",
+    "name": "Garuda X1",
     "year": "2011",
+    "desc": "Used on a chassis dynamometer to measure wheel torque and power, feeding the design of the cars that followed.",
     "images": [
       "assets/images/2011_Car.jpg",
       "assets/images/2011_garuda_car.jpg",
@@ -57,15 +80,30 @@
     ]
   },
   {
-    "name": "GARUDA 2013",
+    "name": "Garuda 2013",
     "year": "2013",
+    "event": "Selected for Shell Eco-marathon Asia 2013",
+    "desc": "An improved petrol prototype. It passed Shell’s virtual assessment and GARUDA was one of six Indian teams selected, but Shell cancelled the 2013 Asia event.",
     "images": [
       "assets/images/gallery/5.jpg"
     ]
   },
   {
-    "name": "PHOENIX",
+    "name": "Phoenix",
     "year": "2015",
+    "tag": "7th of 40",
+    "event": "Shell Eco-marathon Asia 2015, Manila",
+    "stats": [
+      {
+        "label": "Category",
+        "val": "UrbanConcept, petrol"
+      },
+      {
+        "label": "Result",
+        "val": "7th of 40"
+      }
+    ],
+    "desc": "The team’s first UrbanConcept car. In Manila it placed 7th of 40 and was the only Indian team to clear the endurance test, earning a special recommendation from the organisers.",
     "images": [
       "assets/images/gallery/6.jpg",
       "assets/images/pheniox_2015.jpg",
@@ -74,8 +112,23 @@
     ]
   },
   {
-    "name": "AGNI",
+    "name": "Agni",
     "year": "2016",
+    "event": "Shell Eco-marathon Asia 2016, Manila",
+    "stats": [
+      {
+        "label": "Vehicle Mass",
+        "val": "147 kg"
+      },
+      {
+        "label": "Mileage",
+        "val": "66 km/L"
+      },
+      {
+        "label": "Category",
+        "val": "UrbanConcept, petrol"
+      }
+    ],
     "images": [
       "assets/images/gallery/7.jpg",
       "assets/images/agni_2016.jpg",
@@ -83,49 +136,40 @@
     ]
   },
   {
-    "name": "VAJRA",
+    "name": "Vajra",
     "year": "2018",
-    "tag": "Electric Era Begins",
-    "images": [
-      "assets/images/gallery/8.jpg",
-      "assets/images/vajra_2018.jpg",
-      "assets/images/vajra_2018_team.jpg",
-      "assets/images/vajra_collage.jpg"
-    ],
-    "category": "UrbanConcept, Battery Electric",
-    "event": "Shell Eco-marathon Asia 2018",
+    "tag": "Electric era begins",
+    "event": "Built for Shell Eco-marathon Asia 2018",
     "stats": [
       {
         "label": "Powertrain",
-        "val": "Battery Electric"
+        "val": "1 kW BLDC motor, 1 kWh 48 V Li-ion"
       },
       {
         "label": "Vehicle Mass",
-        "val": "120 kg"
+        "val": "About 130 kg"
       },
       {
         "label": "Chassis",
-        "val": "Al + Carbon Fibre"
+        "val": "Aluminium 6063, carbon-fibre body"
       },
       {
         "label": "Category",
         "val": "UrbanConcept"
       }
     ],
-    "desc": "The pivot from internal combustion to battery electric. 120 kg overall, with an aluminium base and a carbon-fibre superstructure. A bi-free wheel differential saves energy while cruising. Project Garuda became the only Indian team to enter the Battery Electric UrbanConcept category at Shell Eco-marathon 2017, and Vajra carried that forward."
+    "desc": "The team’s battery-electric UrbanConcept: a 1 kW three-phase BLDC motor and a 1 kWh, 48 V lithium-ion pack driven by an in-house motor controller, on an aluminium 6063 chassis under a carbon-fibre shell. A bi-freewheel differential saves energy while cruising.",
+    "images": [
+      "assets/images/gallery/8.jpg",
+      "assets/images/vajra_2018.jpg",
+      "assets/images/vajra_2018_team.jpg",
+      "assets/images/vajra_collage.jpg"
+    ],
+    "category": "UrbanConcept, Battery Electric"
   },
   {
-    "name": "MJOLNIR",
+    "name": "Mjolnir",
     "year": "2019",
-    "tag": "400+ km/L eq.",
-    "images": [
-      "assets/images/gallery/9.jpg",
-      "assets/images/side_view_2019.jpg",
-      "assets/images/2019_Shell_ecoMarathon_team_with_car.jpg",
-      "assets/images/core_team_with_car.jpg",
-      "assets/images/car_on_track.jpg"
-    ],
-    "category": "UrbanConcept, Battery Electric",
     "event": "Shell Eco-marathon Asia 2019, Sepang International Circuit",
     "stats": [
       {
@@ -133,21 +177,28 @@
         "val": "Battery Electric"
       },
       {
-        "label": "Mileage",
-        "val": "400+ km/L eq."
-      },
-      {
         "label": "Category",
         "val": "UrbanConcept"
+      },
+      {
+        "label": "Field",
+        "val": "108 teams"
       }
     ],
-    "desc": "Built on Vajra’s electric foundation. Refined powertrain and aerodynamics push the team’s mileage to over 400 km/L equivalent at Shell Eco-marathon Asia."
+    "desc": "Built on Vajra’s electric foundation, with systems 60 to 70% lighter. India’s only battery-electric UrbanConcept at Shell Eco-marathon Asia 2019, it cleared every technical and safety check.",
+    "images": [
+      "assets/images/gallery/9.jpg",
+      "assets/images/side_view_2019.jpg",
+      "assets/images/2019_Shell_ecoMarathon_team_with_car.jpg",
+      "assets/images/core_team_with_car.jpg",
+      "assets/images/car_on_track.jpg"
+    ],
+    "category": "UrbanConcept, Battery Electric"
   },
-  
   {
-    "name": "GAJA",
+    "name": "Gaja",
     "year": "2025",
-    "tag": "In Development",
+    "tag": "In development",
     "images": [
       "assets/images/builds/garuda_2025.jpeg"
     ],
