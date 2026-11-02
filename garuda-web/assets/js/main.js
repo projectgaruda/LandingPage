@@ -90,7 +90,7 @@ function renderFooter() {
         <div class="footer-col">
           <h2>Contact</h2>
           <ul class="footer-contact">
-            <li><small>Email</small><a href="mailto:garuda@rvce.edu.in">garuda@rvce.edu.in</a></li>
+            <li><small>Email</small><a href="mailto:teamgaruda@rvce.edu.in">teamgaruda@rvce.edu.in</a></li>
             <li><small>WhatsApp</small><a href="https://wa.me/919980143550" target="_blank" rel="noopener noreferrer">+91 99801 43550</a></li>
             <li><small>Workshop</small><a href="https://www.google.com/maps?q=12.923242,77.497903" target="_blank" rel="noopener noreferrer">Beside Design Thinking Huddle, RVCE, Bengaluru</a></li>
           </ul>
