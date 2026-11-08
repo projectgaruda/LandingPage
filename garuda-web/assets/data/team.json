@@ -65,15 +65,16 @@
       "photo": "null",
     },
     {
+      "name": "Gopal Reddy",
+      "role": "Social Media",
+      "photo": null
+    },
+    {
       "name": "Charoo Ranjan",
       "role": "Management",
       "photo": "assets/images/team/club-manager.jpg"
-    },
-    {
-      "name": "null",
-      "role": "Social Media",
-      "photo": null
     }
+    
   ],
   "alumni": [
     {
