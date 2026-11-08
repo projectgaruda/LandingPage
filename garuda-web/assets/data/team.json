@@ -23,13 +23,13 @@
       "photo": "assets/images/team/dhanush-n.png"
     },
     {
+      "name": "Prerith A N",
+      "role": "Chassis & Structure",
+      "photo": null
+    }
+    {
       "name": "Madhu Nandhan M",
       "role": "Mechanical",
-      "photo": null
-    },
-    {
-      "name": null,
-      "role": "Chassis & Structure",
       "photo": null
     }
   ],
@@ -59,13 +59,18 @@
       "photo": "assets/images/team/chetan_funding.jpeg",
       "head": true
     },
+      {
+      "name": "Srikar V Inamdar",
+      "role": " Sponsorship",
+      "photo": "null",
+    },
     {
       "name": "Charoo Ranjan",
       "role": "Management",
       "photo": "assets/images/team/club-manager.jpg"
     },
     {
-      "name": "",
+      "name": "null",
       "role": "Social Media",
       "photo": null
     }
