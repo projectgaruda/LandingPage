@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://garuda.rvce.in/sitemap.xml

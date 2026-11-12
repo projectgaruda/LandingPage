@@ -229,9 +229,26 @@ function watch() {
 
 window.Garuda = { reveal: (root) => { choreograph(root); reveal(root); } };
 
+// Notice: the announcement card on the home page (markup lives in index.html).
+// Closing it is remembered per notice id, so a new announcement shows again.
+function setupNotice() {
+  const notice = document.getElementById("notice");
+  if (!notice) return;
+  const key = "garuda-notice-closed:" + notice.dataset.noticeId;
+  let closed = false;
+  try { closed = localStorage.getItem(key) === "1"; } catch {}
+  if (closed) { notice.remove(); return; }
+  notice.querySelector(".notice-close").addEventListener("click", () => {
+    try { localStorage.setItem(key, "1"); } catch {}
+    notice.classList.add("is-leaving");
+    setTimeout(() => notice.remove(), 300);
+  });
+}
+
 renderNav();
 renderFooter();
 setupSwitchers();
+setupNotice();
 choreograph();
 reveal();
 watch();

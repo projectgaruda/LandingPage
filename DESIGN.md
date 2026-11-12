@@ -37,7 +37,10 @@ The spacing scale, the type scale, the easings and the durations live in `tokens
 - Text links: capitals with a green underline
 
 ## Motion
-- The hero photo settles in with a slow zoom, the results ticker scrolls (pauses on hover), sections fade up once, photo cards zoom slightly on hover, and the builds year turns green as its car passes. Reduced motion turns all of it off.
+- Lives in `garuda-web/assets/css/motion.css`; `main.js` tags elements and plays each reveal once.
+- Load: the hero headline wipes up, the line and buttons follow. The venue ticker scrolls and pauses on hover.
+- Scroll: the hero photo sinks slower than the page while its text fades; a 2px green progress line rides under the nav; section headings wipe up; photos open from a smaller window; cards rise one by one in grids; tier colour bars draw in; figures count up to their real values; door and backdrop photos drift slightly in their frames; the About timeline spine fills green.
+- Never on body text, no scroll-jacking or pinned sections. Reduced motion and no script get the finished page; printing gets everything visible.
 
 ## Exports
 `tokens.css` in this project. Tailwind, DTCG or shadcn blocks can be added here on request.

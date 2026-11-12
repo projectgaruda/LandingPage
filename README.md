@@ -36,7 +36,9 @@ DESIGN.md               the design rules (read before adding a page)
 | Colours and fonts | `assets/css/tokens.css` |
 
 A team member's photo is optional. If the file is missing, the card shows their initials.
-A member with `"name": null` is listed by role, marked "name to be added".
+A member with `"name": null` stays hidden until a name is added.
+Alumni go in the `alumni` list in `team.json`: one entry per batch, `{ "batch": "2024–25", "names": ["…", "…"] }`, newest first. They show as a compact list at the bottom of the Team page.
+Anyone without a photo gets the team helmet picture (`assets/images/team/placeholder-helmet.jpg`).
 Team photos look best in portrait (about 4:5), at least 600×750 px.
 
 ## Preview locally
